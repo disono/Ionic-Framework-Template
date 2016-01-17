@@ -1,6 +1,6 @@
 <h1>Ionic Framework Project Template</h1>
 <p>
-is a starting template for Ionic Projects
+is a starting blank template for Ionic Projects
 </p>
 
 <h1>Libraries</h1>
