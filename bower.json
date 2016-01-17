@@ -1,0 +1,13 @@
+{
+  "name": "HelloIonic",
+  "private": "true",
+  "devDependencies": {
+    "ionic": "driftyco/ionic-bower#1.2.4"
+  },
+  "dependencies": {
+    "jquery": "~2.2.0",
+    "moment": "momentjs#~2.11.1",
+    "font-awesome": "fontawesome#~4.5.0",
+    "animate.css": "~3.5.1"
+  }
+}
