@@ -21,5 +21,5 @@ Copyright &copy; 2016
 
 <h1>License</h1>
 <p>
-Ionic Project Template is under MIT license - <a href="http://www.opensource.org/licenses/mit-license.php">http://www.opensource.org/licenses/mit-license.php</a>
+Ionic Framework Project Template is licensed under the Apache License (ASL) license. For more information, see the LICENSE file in this repository.
 </p>
