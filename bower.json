@@ -1,13 +1,23 @@
 {
-  "name": "HelloIonic",
-  "private": "true",
-  "devDependencies": {
-    "ionic": "driftyco/ionic-bower#1.2.4"
-  },
+  "name": "Ionic Template Beta V2",
+  "description": "WebMons Ionic Template Beta V2",
+  "main": "",
+  "authors": [
+    "Archie <disonoarchie@gmail.com>"
+  ],
+  "license": "Apache 2.0",
+  "homepage": "http://webmons.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
   "dependencies": {
-    "jquery": "~2.2.0",
-    "moment": "momentjs#~2.11.1",
-    "font-awesome": "fontawesome#~4.5.0",
-    "animate.css": "~3.5.1"
+    "animate.css": "^3.5.1",
+    "moment": "^2.13.0",
+    "jquery": "^2.2.3",
+    "font-awesome": "^4.6.2"
   }
 }
