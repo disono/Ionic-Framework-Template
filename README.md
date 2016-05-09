@@ -11,7 +11,10 @@ is a starting blank template for Ionic Projects V2 Beta
 
 <h1>Install Libraries</h1>
 <p>
-<strong>ionic plugin add</strong> cordova-plugin-camera cordova-plugin-console cordova-plugin-contacts cordova-plugin-device cordova-plugin-device-motion cordova-plugin-device-orientation cordova-plugin-dialogs cordova-plugin-file cordova-plugin-file-transfer cordova-plugin-filepath cordova-plugin-geolocation cordova-plugin-inappbrowser cordova-plugin-media cordova-plugin-media-capture cordova-plugin-network-information cordova-plugin-splashscreen cordova-plugin-statusbar  cordova-plugin-vibration cordova-plugin-whitelist cordova-plugin-x-socialsharing cordova-plugin-x-toast  phonegap-plugin-barcodescanner
+1. <strong>ionic plugin add</strong> cordova-plugin-camera cordova-plugin-console cordova-plugin-contacts cordova-plugin-device cordova-plugin-device-motion cordova-plugin-device-orientation cordova-plugin-dialogs cordova-plugin-file cordova-plugin-file-transfer cordova-plugin-filepath cordova-plugin-geolocation cordova-plugin-inappbrowser cordova-plugin-media cordova-plugin-media-capture cordova-plugin-network-information cordova-plugin-splashscreen cordova-plugin-statusbar  cordova-plugin-vibration cordova-plugin-whitelist cordova-plugin-x-socialsharing cordova-plugin-x-toast  phonegap-plugin-barcodescanner
+</p>
+<p>
+2. <strong>bower install</strong>
 </p>
 
 <h1>Credits</h1>
