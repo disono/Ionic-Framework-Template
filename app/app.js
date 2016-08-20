@@ -7,7 +7,6 @@ import {LoginPage} from './pages/login/login';
  * @url http://webmons.com
  * @license Apache 2.0
  */
-
 @App({
 	template: '<ion-nav [root]="rootPage"></ion-nav>',
 	config: {}

@@ -14,16 +14,16 @@ import {LoginPage} from './../../pages/login/login';
  Ionic pages and navigation.
  */
 @Page({
-	templateUrl: 'build/pages/home/home.html'
+    templateUrl: 'build/pages/home/home.html'
 })
 export class HomePage {
-	static get parameters() {
-		return [[NavController]];
-	}
+    static get parameters() {
+        return [[NavController]];
+    }
 
-	constructor(nav) {
-		this.nav = nav;
+    constructor(nav) {
+        this.nav = nav;
 
-		this.nav.setRoot(LoginPage);
-	}
+        this.nav.setRoot(LoginPage);
+    }
 }

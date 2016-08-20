@@ -11,13 +11,6 @@ import {WBHELPER} from './../../lib/helpers';
  * @url http://webmons.com
  * @license Apache 2.0
  */
-
-/*
- Generated class for the User provider.
-
- See https://angular.io/docs/ts/latest/guide/dependency-injection.html
- for more info on providers and Angular 2 DI.
- */
 @Injectable()
 export class User {
   static get parameters() {

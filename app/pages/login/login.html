@@ -1,17 +1,27 @@
 <!--
-  Generated template for the LoginPage page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
+ - @author Archie Disono on 2016-05-08.
+ - @url http://webmons.com
+ - @license Apache 2.0
 -->
 <ion-navbar *navbar>
     <ion-title>Login</ion-title>
 </ion-navbar>
 
 <ion-content padding class="login">
-    <button light>Light</button>
-    <button>Primary</button>
-    <button secondary>Secondary</button>
-    <button danger>Danger</button>
-    <button dark>Dark</button>
+    <form [ngFormModel]="loginForm" (submit)="doLogin($event)">
+        <ion-list>
+            <ion-item>
+                <ion-label fixed>Email</ion-label>
+                <ion-input ngControl="email" type="text" value=""></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label fixed>Password</ion-label>
+                <ion-input ngControl="password" type="password"></ion-input>
+            </ion-item>
+        </ion-list>
+
+        <button block type="submit">Login</button>
+        <button type="button" block dark (click)="goToRegister()">Register</button>
+    </form>
 </ion-content>

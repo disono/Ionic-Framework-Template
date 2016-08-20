@@ -1,7 +1,6 @@
 import {Page, NavController, Alert, Loading} from 'ionic-angular';
 import {FormBuilder, Validators} from 'angular2/common';
-import {HomePage} from '../home/home';
-import {RegisterPage} from '../register/register';
+import {LoginPage} from '../login/login';
 import {Auth} from '../../providers/auth/auth';
 
 /**
@@ -10,12 +9,12 @@ import {Auth} from '../../providers/auth/auth';
  * @license Apache 2.0
  */
 @Page({
-    templateUrl: 'build/pages/login/login.html',
+    templateUrl: 'build/pages/register/register.html',
     providers: [
         Auth
     ]
 })
-export class LoginPage {
+export class RegisterPage {
     static get parameters() {
         return [[NavController], [FormBuilder], [Auth]];
     }
@@ -26,51 +25,50 @@ export class LoginPage {
         thisApp.auth = auth;
 
         // form values
-        thisApp.loginForm = fb.group({
+        thisApp.registerForm = fb.group({
+            first_name: ["", Validators.required],
+            last_name: ["", Validators.required],
+            username: ["", Validators.required],
+            phone: ["", Validators.required],
             email: ["", Validators.required],
             password: ["", Validators.required]
         });
     }
 
-    doLogin(event) {
+    doRegister(event) {
         var thisApp = this;
-        var value = thisApp.loginForm.value;
-        var nav = thisApp.nav;
+        var value = thisApp.registerForm.value;
         event.preventDefault();
 
         // check for values
         if (!value.email || !value.password) {
-            thisApp.doAlert('Required Inputs', 'User and password is required.');
+            thisApp.doAlert('Required Inputs', 'Please fill all the required fields.');
             return;
         }
 
-        // login
+        // register
         thisApp.loadingData = Loading.create({
-            content: 'Authenticating...'
+            content: 'Creating profile...'
         });
         thisApp.nav.present(thisApp.loadingData);
 
-        thisApp.auth.login({
+        thisApp.auth.register({
             parameters: value
         }).subscribe(function (res) {
             thisApp.loadingData.dismiss();
 
             setTimeout(function () {
-                if (res.role == 'client') {
-                    nav.rootNav.setRoot(HomePage);
-                }
+                thisApp.goToLogin();
             }, 800);
         }, function (e) {
-            thisApp.doAlert('Error', 'Invalid email or password.');
-
             setTimeout(function () {
                 thisApp.loadingData.dismiss();
             }, 800);
         });
     }
 
-    goToRegister() {
-        this.nav.push(RegisterPage);
+    goToLogin() {
+        this.nav.push(LoginPage);
     }
 
     doAlert(title, message) {
