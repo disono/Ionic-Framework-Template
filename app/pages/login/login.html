@@ -3,25 +3,28 @@
  - @url http://webmons.com
  - @license Apache 2.0
 -->
-<ion-navbar *navbar>
+<ion-header>
+  <ion-navbar>
     <ion-title>Login</ion-title>
-</ion-navbar>
+  </ion-navbar>
+</ion-header>
 
 <ion-content padding class="login">
-    <form [ngFormModel]="loginForm" (submit)="doLogin($event)">
-        <ion-list>
-            <ion-item>
-                <ion-label fixed>Email</ion-label>
-                <ion-input ngControl="email" type="text" value=""></ion-input>
-            </ion-item>
+  <form [formGroup]="formInputs" (submit)="doLogin($event)">
+    <ion-list>
+      <ion-item>
+        <ion-label fixed>Email</ion-label>
+        <ion-input formControlName="email" type="text" value=""></ion-input>
+      </ion-item>
 
-            <ion-item>
-                <ion-label fixed>Password</ion-label>
-                <ion-input ngControl="password" type="password"></ion-input>
-            </ion-item>
-        </ion-list>
+      <ion-item>
+        <ion-label fixed>Password</ion-label>
+        <ion-input formControlName="password" type="password"></ion-input>
+      </ion-item>
+    </ion-list>
 
-        <button block type="submit">Login</button>
-        <button type="button" block dark (click)="goToRegister()">Register</button>
-    </form>
+    <button block type="submit">Login</button>
+    <button type="button" block dark (click)="goToRegister()">Register</button>
+    <button type="button" block clear dark (click)="goToReset()">Forgot Password</button>
+  </form>
 </ion-content>

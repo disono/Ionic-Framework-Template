@@ -3,45 +3,47 @@
  - @url http://webmons.com
  - @license Apache 2.0
 -->
-<ion-navbar *navbar>
+<ion-header>
+  <ion-navbar>
     <ion-title>Register</ion-title>
-</ion-navbar>
+  </ion-navbar>
+</ion-header>
 
 <ion-content padding class="register">
-    <form [ngFormModel]="registerForm" (submit)="doRegister($event)">
-        <ion-list>
-            <ion-item>
-                <ion-label fixed>First Name</ion-label>
-                <ion-input ngControl="first_name" type="text" value=""></ion-input>
-            </ion-item>
+  <form [formGroup]="formInputs" (submit)="doRegister($event)">
+    <ion-list>
+      <ion-item>
+        <ion-label fixed>First Name</ion-label>
+        <ion-input formControlName="first_name" type="text" value=""></ion-input>
+      </ion-item>
 
-            <ion-item>
-                <ion-label fixed>Last Name</ion-label>
-                <ion-input ngControl="last_name" type="text" value=""></ion-input>
-            </ion-item>
+      <ion-item>
+        <ion-label fixed>Last Name</ion-label>
+        <ion-input formControlName="last_name" type="text" value=""></ion-input>
+      </ion-item>
 
-            <ion-item>
-                <ion-label fixed>Username</ion-label>
-                <ion-input ngControl="username" type="text" value=""></ion-input>
-            </ion-item>
+      <ion-item>
+        <ion-label fixed>Username</ion-label>
+        <ion-input formControlName="username" type="text" value=""></ion-input>
+      </ion-item>
 
-            <ion-item>
-                <ion-label fixed>Phone</ion-label>
-                <ion-input ngControl="phone" type="text" value=""></ion-input>
-            </ion-item>
+      <ion-item>
+        <ion-label fixed>Phone</ion-label>
+        <ion-input formControlName="phone" type="text" value=""></ion-input>
+      </ion-item>
 
-            <ion-item>
-                <ion-label fixed>Email</ion-label>
-                <ion-input ngControl="email" type="text" value=""></ion-input>
-            </ion-item>
+      <ion-item>
+        <ion-label fixed>Email</ion-label>
+        <ion-input formControlName="email" type="text" value=""></ion-input>
+      </ion-item>
 
-            <ion-item>
-                <ion-label fixed>Password</ion-label>
-                <ion-input ngControl="password" type="password"></ion-input>
-            </ion-item>
-        </ion-list>
+      <ion-item>
+        <ion-label fixed>Password</ion-label>
+        <ion-input formControlName="password" type="password"></ion-input>
+      </ion-item>
+    </ion-list>
 
-        <button block type="submit">Register</button>
-        <button type="button" block dark (click)="goToLogin()">Login</button>
-    </form>
+    <button block type="submit">Register</button>
+    <button type="button" block dark (click)="goToLogin()">Login</button>
+  </form>
 </ion-content>

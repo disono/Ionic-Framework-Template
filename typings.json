@@ -1,0 +1,11 @@
+{
+  "dependencies": {},
+  "devDependencies": {},
+  "globalDependencies": {
+    "cordova/plugins/dialogs": "registry:dt/cordova/plugins/dialogs#0.0.0+20160316155526",
+    "cordova/plugins/networkinformation": "registry:dt/cordova/plugins/networkinformation#0.0.0+20160514150524",
+    "es6-shim": "registry:dt/es6-shim#0.31.2+20160602141504",
+    "jquery": "registry:dt/jquery#1.10.0+20160704162008",
+    "moment": "registry:dt/moment#2.11.1+20160829143156"
+  }
+}

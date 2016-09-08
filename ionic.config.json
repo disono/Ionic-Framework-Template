@@ -1,5 +1,6 @@
 {
-  "name": "WebMons Ionic Template",
+  "name": "appDemo",
   "app_id": "",
-  "v2": true
+  "v2": true,
+  "typescript": true
 }

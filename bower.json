@@ -1,5 +1,5 @@
 {
-  "name": "Ionic Template Beta V2",
+  "name": "ionic_template_beta_v2",
   "description": "WebMons Ionic Template Beta V2",
   "main": "",
   "authors": [
@@ -16,8 +16,6 @@
   ],
   "dependencies": {
     "animate.css": "^3.5.1",
-    "moment": "^2.13.0",
-    "jquery": "^2.2.3",
     "font-awesome": "^4.6.2"
   }
 }
