@@ -43,8 +43,6 @@ export class SettingsPage {
       phone: [user.phone, Validators.required],
       address: [user.address, Validators.required],
       email: [user.email, Validators.required],
-      image: [''],
-      id: [user.id],
       authenticated_id: [user.id]
     });
 
@@ -77,6 +75,10 @@ export class SettingsPage {
     thisApp.auth.update({
       parameters: value
     }, function (xhr) {
+      if (xhr.success) {
+        thisApp.inputs = xhr.data;
+      }
+
       loading.dismiss();
     });
   }

@@ -74,7 +74,7 @@ export class Auth {
     var url = WBCONFIG.server_url() + 'user/update/setting';
     var inputs = options.parameters;
 
-    if (!options.parameters || !inputs.id || !inputs.first_name || !inputs.last_name || !inputs.email || !inputs.phone || isNaN(inputs.phone)) {
+    if (!options.parameters || !inputs.authenticated_id || !inputs.first_name || !inputs.last_name || !inputs.email || !inputs.phone || isNaN(inputs.phone)) {
       throw new Error('Please fill all the required inputs.');
     }
 
@@ -90,7 +90,7 @@ export class Auth {
     formData.append('last_name', inputs.last_name);
     formData.append('email', inputs.email);
     formData.append('phone', inputs.phone);
-    formData.append('authenticated_id', inputs.id);
+    formData.append('authenticated_id', inputs.authenticated_id);
 
     // set up the request.
     var xhr = new XMLHttpRequest();
@@ -100,7 +100,9 @@ export class Auth {
     // set up a handler for when the request finishes.
     xhr.onload = function () {
       // success
-      callback(xhr);
+      callback(JSON.parse(this.response));
+
+      WBHELPER.setItem('user', JSON.parse(this.response).data, true);
     };
 
     // send the data.

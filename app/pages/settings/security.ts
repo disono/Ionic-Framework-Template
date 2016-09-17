@@ -27,7 +27,7 @@ export class SecurityPage {
       email: [user.email, Validators.required],
       current_password: ['', Validators.required],
       password: ['', Validators.required],
-      authenticated_id: [user.id, Validators.required]
+      authenticated_id: [user.id]
     });
   }
 
