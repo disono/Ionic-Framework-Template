@@ -34,11 +34,11 @@ export class User {
 
         return data;
       })
-      .catch(this._handleError);
+      .catch(User._handleError);
   }
 
-  _handleError(error) {
-    WBHELPER.errorMessage(error.json().errors);
+  static _handleError(error) {
+    WBHELPER.errorMessage(error.json().errors || 'Server error.');
     return Observable.throw(error.json().errors || 'Server error.');
   }
 }

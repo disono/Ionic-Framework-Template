@@ -179,8 +179,11 @@ var _WBHelper = (function () {
 
         return errorText;
       } else {
-        _WBHelper.showToast(obj);
+        if (!obj) {
+          _WBHelper.showToast('Unknown error occurred, or please check your network connection.');
+        }
 
+        _WBHelper.showToast(obj);
         return obj;
       }
     }

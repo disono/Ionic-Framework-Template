@@ -38,7 +38,7 @@ export class Auth {
 
         return response.json();
       })
-      .catch(this._handleError);
+      .catch(Auth._handleError);
   }
 
   /**
@@ -61,7 +61,7 @@ export class Auth {
 
         return response.json();
       })
-      .catch(this._handleError);
+      .catch(Auth._handleError);
   }
 
   /**
@@ -129,7 +129,7 @@ export class Auth {
 
         return response.json();
       })
-      .catch(this._handleError);
+      .catch(Auth._handleError);
   }
 
   /**
@@ -152,7 +152,7 @@ export class Auth {
 
         return response.json();
       })
-      .catch(this._handleError);
+      .catch(Auth._handleError);
   }
 
   /**
@@ -184,8 +184,8 @@ export class Auth {
    * @returns {ErrorObservable}
    * @private
    */
-  _handleError(error) {
-    WBHELPER.errorMessage(error.json().errors);
+  static _handleError(error) {
+    WBHELPER.errorMessage(error.json().errors || 'Server error.');
     return Observable.throw(error.json().errors || 'Server error.');
   }
 }

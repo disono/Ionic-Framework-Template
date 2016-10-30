@@ -1,4 +1,3 @@
-/// <reference path="../typings/index.d.ts" />
 import {Component} from "@angular/core";
 import {Platform, ionicBootstrap} from "ionic-angular";
 import {StatusBar} from "ionic-native";
