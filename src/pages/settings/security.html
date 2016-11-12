@@ -1,0 +1,38 @@
+<!--
+ - @author Archie Disono
+ - @url https://github.com/disono/Ionic-Framework-Template
+ - @license Apache 2.0
+-->
+
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>
+      Security
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form (submit)="doSave($event, inputs)">
+    <ion-item>
+      <ion-label floating>Email*</ion-label>
+      <ion-input type="email" [(ngModel)]="inputs.email" name="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Current Password*</ion-label>
+      <ion-input type="password" [(ngModel)]="inputs.current_password" name="current_password"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>New Password*</ion-label>
+      <ion-input type="password" [(ngModel)]="inputs.password" name="password"></ion-input>
+    </ion-item>
+
+    <button ion-button block type="submit">Save Changes</button>
+  </form>
+</ion-content>

@@ -1,0 +1,23 @@
+<!--
+ - @author Archie Disono on 2016-05-08.
+ - @url http://webmons.com
+ - @license Apache 2.0
+-->
+
+<ion-menu [content]="content">
+  <ion-header no-shadow>
+    <ion-toolbar>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <ion-item menuClose *ngFor="let p of pages" (click)="openPage(p)">
+        {{p.title}}
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-nav #content [root]="rootPage"></ion-nav>

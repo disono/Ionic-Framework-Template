@@ -1,0 +1,49 @@
+<!--
+ - @author Archie Disono
+ - @url https://github.com/disono/Ionic-Framework-Template
+ - @license Apache 2.0
+-->
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>Register</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form (submit)="doRegister($event, inputs)">
+    <ion-list>
+      <ion-item>
+        <ion-label floating>First Name</ion-label>
+        <ion-input type="text" [(ngModel)]="inputs.first_name" name="first_name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Last Name</ion-label>
+        <ion-input type="text" [(ngModel)]="inputs.last_name" name="last_name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Phone</ion-label>
+        <ion-input type="tel" [(ngModel)]="inputs.phone" name="phone"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input type="email" [(ngModel)]="inputs.email" name="email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Username</ion-label>
+        <ion-input type="text" [(ngModel)]="inputs.username" name="username"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Password</ion-label>
+        <ion-input type="password" [(ngModel)]="inputs.password" name="password"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <button ion-button block type="submit">Register</button>
+  </form>
+</ion-content>

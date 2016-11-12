@@ -1,0 +1,27 @@
+<!--
+ - @description Forgot password
+ - @file forgot.html
+ -
+ - @author Archie Disono
+ - @url https://github.com/disono/Ionic-Framework-Template
+ - @license Apache 2.0
+-->
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>Forgot</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form (submit)="doReset($event, inputs)">
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input type="email" [(ngModel)]="inputs.email" name="email"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <button ion-button block type="submit">Reset</button>
+  </form>
+</ion-content>

@@ -1,0 +1,60 @@
+<!--
+ - @author Archie Disono
+ - @url https://github.com/disono/Ionic-Framework-Template
+ - @license Apache 2.0
+-->
+
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>
+      General Settings
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div style="text-align: center;">
+    <img src="{{inputs.avatar}}" alt="{{inputs.first_name}}" style="width: 164px;">
+  </div>
+
+  <form (submit)="doSave($event, inputs)">
+    <input type="file" style="visibility: hidden;" id="file">
+
+    <ion-list>
+      <button ion-button block type="button" (click)="openFileDialog()">Select Image</button>
+
+      <ion-item>
+        <ion-label floating>First Name*</ion-label>
+        <ion-input type="text" [(ngModel)]="inputs.first_name" name="first_name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Last Name*</ion-label>
+        <ion-input type="text" [(ngModel)]="inputs.last_name" name="last_name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Phone*</ion-label>
+        <ion-input type="tel" [(ngModel)]="inputs.phone" name="phone"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Address*</ion-label>
+        <ion-input type="text" [(ngModel)]="inputs.address" name="address"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Email*</ion-label>
+        <ion-input type="email" [(ngModel)]="inputs.email" name="email"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <button ion-button block type="submit">Save Changes</button>
+  </form>
+
+  <button ion-button block danger type="button" (click)="logout()">Logout</button>
+</ion-content>
