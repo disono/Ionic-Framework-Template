@@ -21,7 +21,7 @@ import {ForgotPage} from "./forgot";
   templateUrl: 'login.html'
 })
 export class LoginPage {
-  private inputs: any;
+  inputs: any;
 
   constructor(public nav: NavController, public alertCtrl: AlertController, public loadingCtrl: LoadingController,
               public auth: Auth) {

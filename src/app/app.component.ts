@@ -6,10 +6,10 @@ import {LoginPage} from "../pages/authentication/login";
 import {Auth} from "../providers/auth";
 
 @Component({
-  template: '<ion-nav [root]="rootPage"></ion-nav>'
+  template: `<ion-nav [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
-  private rootPage: any;
+  rootPage: any;
 
   constructor(platform: Platform, public auth: Auth) {
     platform.ready().then(() => {

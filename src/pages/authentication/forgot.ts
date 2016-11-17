@@ -15,7 +15,7 @@ import {Auth} from "../../providers/auth";
   templateUrl: 'forgot.html'
 })
 export class ForgotPage {
-  private inputs: any;
+  inputs: any;
 
   constructor(public nav: NavController, public alertCtrl: AlertController, public loadingCtrl: LoadingController,
               public auth: Auth) {

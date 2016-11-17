@@ -15,7 +15,7 @@ import {LoginPage} from "./login";
   templateUrl: 'register.html'
 })
 export class RegisterPage {
-  private inputs: any;
+  inputs: any;
 
   constructor(public nav: NavController, public alertCtrl: AlertController, public loadingCtrl: LoadingController,
               public auth: Auth) {

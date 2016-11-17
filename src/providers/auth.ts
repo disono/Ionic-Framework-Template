@@ -197,7 +197,6 @@ export class Auth {
    *
    * @param error
    * @returns {ErrorObservable}
-   * @private
    */
   static _handleError(error) {
     if (error instanceof String || typeof error.json != 'function') {

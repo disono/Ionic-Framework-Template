@@ -16,7 +16,7 @@ import * as jQ from "jquery";
   templateUrl: 'general.html'
 })
 export class GeneralPage {
-  private inputs: any;
+  inputs: any;
 
   constructor(public nav: NavController, public alertCtrl: AlertController, public loadingCtrl: LoadingController,
               public auth: Auth, public app: App) {

@@ -14,7 +14,7 @@ import {WBHELPER} from "./../lib/helper";
 @Injectable()
 export class User {
 
-  constructor(private http: Http) {
+  constructor(public http: Http) {
     this.http = http;
   }
 
@@ -49,7 +49,6 @@ export class User {
    *
    * @param error
    * @returns {ErrorObservable}
-   * @private
    */
   static _handleError(error) {
     if (error instanceof String || typeof error.json != 'function') {

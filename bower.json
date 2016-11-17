@@ -1,0 +1,24 @@
+{
+  "name": "ionic_template_beta_v2",
+  "description": "WebMons Ionic Template Beta V2",
+  "main": "",
+  "authors": [
+    "Archie <disonoarchie@gmail.com>"
+  ],
+  "license": "Apache 2.0",
+  "homepage": "http://webmons.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "animate.css": "^3.5.1",
+    "font-awesome": "^4.6.2",
+    "crypto-js": "^3.1.6",
+    "fullcalendar": "^3.0.1",
+    "jquery": "^3.1.1"
+  }
+}

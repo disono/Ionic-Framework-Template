@@ -15,7 +15,7 @@ import {Auth} from "../../providers/auth";
   templateUrl: 'security.html'
 })
 export class SecurityPage {
-  private inputs: any;
+  inputs: any;
 
   constructor(public nav: NavController, public alertCtrl: AlertController, public loadingCtrl: LoadingController,
               public auth: Auth, public app: App) {
