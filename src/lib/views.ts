@@ -1,5 +1,5 @@
 /**
- * @description View helpers
+ * @description view helpers
  * @file view.ts
  *
  * @author Archie Disono

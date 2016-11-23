@@ -1,9 +1,11 @@
 /**
+ * @description helpers
+ * @file helper.ts
+ *
  * @author Archie Disono
  * @url https://github.com/disono/Ionic-Framework-Template
  * @license Apache 2.0
  */
-
 import * as jQ from "jquery";
 
 declare var navigator;

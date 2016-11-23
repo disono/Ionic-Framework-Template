@@ -42,6 +42,11 @@ export class GeneralPage {
 
       authenticated_id: user.id
     };
+
+    // file on change
+    jQ(document).off().on('change', '#file', function () {
+      thisApp.setFiles(this);
+    });
   }
 
   /**

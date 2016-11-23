@@ -18,11 +18,12 @@ import {ForgotPage} from "../pages/authentication/forgot";
   declarations: [
     MyApp,
 
-    DrawerPage,
-    HomePage,
     LoginPage,
     RegisterPage,
     ForgotPage,
+
+    DrawerPage,
+    HomePage,
     SettingsTabPage,
     GeneralPage,
     SecurityPage,
@@ -36,11 +37,12 @@ import {ForgotPage} from "../pages/authentication/forgot";
   entryComponents: [
     MyApp,
 
-    DrawerPage,
-    HomePage,
     LoginPage,
     RegisterPage,
     ForgotPage,
+
+    DrawerPage,
+    HomePage,
     SettingsTabPage,
     GeneralPage,
     SecurityPage,

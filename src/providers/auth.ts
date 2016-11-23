@@ -3,8 +3,8 @@ import {Http, Headers, RequestOptions} from "@angular/http";
 import "rxjs/add/operator/map";
 import "rxjs/Rx";
 import {Observable} from "rxjs/Observable";
-import {WBCONFIG} from "./../lib/config";
-import {WBHELPER} from "./../lib/helper";
+import {WBCONFIG} from "../lib/config";
+import {WBHELPER} from "../lib/helper";
 
 /*
  Generated class for the Auth provider.

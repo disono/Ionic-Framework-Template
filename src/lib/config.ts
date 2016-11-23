@@ -1,4 +1,7 @@
 /**
+ * @description Configurations
+ * @file config.ts
+ *
  * @author Archie Disono
  * @url https://github.com/disono/Ionic-Framework-Template
  * @license Apache 2.0

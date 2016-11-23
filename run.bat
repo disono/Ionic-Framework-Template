@@ -1,0 +1,1 @@
+START ionic run android
