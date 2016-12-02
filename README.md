@@ -13,7 +13,12 @@ is a starting blank template for Ionic Projects V2 Beta
 
 2. ionic plugin add cordova-plugin-camera cordova-plugin-console cordova-plugin-contacts cordova-plugin-device cordova-plugin-device-motion cordova-plugin-device-orientation cordova-plugin-dialogs cordova-plugin-file cordova-plugin-file-transfer cordova-plugin-filepath cordova-plugin-geolocation cordova-plugin-inappbrowser cordova-plugin-media cordova-plugin-media-capture cordova-plugin-network-information cordova-plugin-splashscreen cordova-plugin-statusbar  cordova-plugin-vibration cordova-plugin-whitelist cordova-plugin-x-socialsharing cordova-plugin-x-toast  phonegap-plugin-barcodescanner
 
-3. bower install
+3. Update the FCM config
+- You will need 2 generated files in the Firebase configuration process (see docs: https://firebase.google.com/docs/).
+- Android compilation details, put your generated file 'google-services.json' in the project root folder.
+- Details: [https://github.com/fechanique/cordova-plugin-fcm](https://github.com/fechanique/cordova-plugin-fcm)
+
+4. bower install
 ```
 
 # Credits

@@ -46,7 +46,7 @@ export class LoginPage {
    */
   doLogin($event, inputs) {
     $event.preventDefault();
-    var thisApp = this;
+    let thisApp = this;
 
     // check for values
     if (!inputs.email || !inputs.password) {

@@ -8,14 +8,14 @@
  */
 import * as jQ from "jquery";
 
-declare var navigator;
-declare var Connection;
-declare var window;
+declare let navigator;
+declare let Connection;
+declare let window;
 
-var _WBHelper = (function () {
+let _WBHelper = (function () {
   return {
     defaults: function (params_defaults, options) {
-      for (var prop in params_defaults) {
+      for (let prop in params_defaults) {
         // Note: if options would contain some undefined or unnecessary values, you should check for undefined instead.
         options[prop] = (typeof options[prop] !== 'undefined') ? options[prop] : params_defaults[prop];
       }
@@ -32,9 +32,9 @@ var _WBHelper = (function () {
      * @returns {Array}
      */
     stringToByte: function (val) {
-      var bytes = [];
+      let bytes = [];
 
-      for (var i = 0; i < val.length; ++i) {
+      for (let i = 0; i < val.length; ++i) {
         bytes.push(val.charCodeAt(i));
       }
 
@@ -73,7 +73,7 @@ var _WBHelper = (function () {
      * @param isJson
      */
     getItem: function (key, isJson) {
-      var value = window.localStorage.getItem(key);
+      let value = window.localStorage.getItem(key);
 
       if (isJson === true && value != null) {
         value = JSON.parse(value);
@@ -184,7 +184,7 @@ var _WBHelper = (function () {
      * @param obj
      */
     errorMessage: function (obj) {
-      var errorText = '';
+      let errorText = '';
 
       if (typeof obj === 'object') {
         jQ.each(obj, function (k, v) {

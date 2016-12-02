@@ -7,7 +7,7 @@
  * @license Apache 2.0
  */
 
-var _WBConfig = (function () {
+let _WBConfig = (function () {
   return {
     dev: true,
 
@@ -15,7 +15,9 @@ var _WBConfig = (function () {
 
     server_url: function () {
       return (_WBConfig.dev) ? 'http://yout-domain/api/v1/' : 'http://';
-    }
+    },
+
+    enableFCM: false
   };
 }());
 

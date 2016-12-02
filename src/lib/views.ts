@@ -7,7 +7,7 @@
  * @license Apache 2.0
  */
 
-var _WBView = (function () {
+let _WBView = (function () {
   return {
 
     /**
@@ -49,7 +49,7 @@ var _WBView = (function () {
      * @param message
      */
     loading: function (loadingCtrl, message) {
-      var loader = loadingCtrl.create({
+      let loader = loadingCtrl.create({
         content: message
       });
 

@@ -3,8 +3,8 @@ import {Http, URLSearchParams} from "@angular/http";
 import "rxjs/add/operator/map";
 import "rxjs/Rx";
 import {Observable} from "rxjs/Observable";
-import {WBCONFIG} from "./../lib/config";
-import {WBHELPER} from "./../lib/helper";
+import {WBCONFIG} from "../lib/config";
+import {WBHELPER} from "../lib/helper";
 
 /**
  * @author Archie Disono on 2016-05-08.
@@ -25,8 +25,8 @@ export class User {
    * @returns {Promise<ErrorObservable>|Promise<T>}
    */
   show(id) {
-    var url = WBCONFIG.server_url() + 'user/' + id;
-    var parameters = new URLSearchParams();
+    let url = WBCONFIG.server_url() + 'user/' + id;
+    let parameters = new URLSearchParams();
 
     return this.http.get(url, {
       search: parameters
@@ -36,7 +36,7 @@ export class User {
           User._handleError('Bad response status: ' + response.status);
         }
 
-        var data = response.json();
+        let data = response.json();
         WBHELPER.setItem('user', data.data, true);
 
         return data;

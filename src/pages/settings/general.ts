@@ -27,10 +27,11 @@ export class GeneralPage {
    * Initialize
    */
   init() {
-    var user = this.auth.user();
+    let user = this.auth.user();
+    let thisApp = this;
 
     // inputs
-    this.inputs = {
+    thisApp.inputs = {
       first_name: user.first_name,
       last_name: user.last_name,
       phone: user.phone,
@@ -57,7 +58,7 @@ export class GeneralPage {
    */
   doSave($event, inputs) {
     $event.preventDefault();
-    var thisApp = this;
+    let thisApp = this;
 
     // check for values
     if (!inputs.first_name || !inputs.last_name || !inputs.phone || !inputs.email) {

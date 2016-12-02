@@ -26,7 +26,7 @@ export class SecurityPage {
    * Initialize
    */
   init() {
-    var user = this.auth.user();
+    let user = this.auth.user();
 
     // inputs
     this.inputs = {
@@ -46,7 +46,7 @@ export class SecurityPage {
    */
   doSave($event, inputs) {
     $event.preventDefault();
-    var thisApp = this;
+    let thisApp = this;
 
     // check for values
     if (!inputs.current_password || !inputs.password || !inputs.email) {

@@ -26,7 +26,7 @@ export class Auth {
    * @returns {Observable<R>}
    */
   login(options) {
-    var url = WBCONFIG.server_url() + 'auth/login';
+    let url = WBCONFIG.server_url() + 'auth/login';
     let body = JSON.stringify(options.parameters);
     let headers = new Headers({'Content-Type': 'application/json'});
     let res_options = new RequestOptions({headers: headers});
@@ -49,7 +49,7 @@ export class Auth {
    * @returns {Observable<R>}
    */
   forgot(options) {
-    var url = WBCONFIG.server_url() + 'password/recover';
+    let url = WBCONFIG.server_url() + 'password/recover';
     let body = JSON.stringify(options.parameters);
     let headers = new Headers({'Content-Type': 'application/json'});
     let res_options = new RequestOptions({headers: headers});
@@ -72,7 +72,7 @@ export class Auth {
    * @returns {Observable<R>}
    */
   register(options) {
-    var url = WBCONFIG.server_url() + 'auth/register';
+    let url = WBCONFIG.server_url() + 'auth/register';
     let body = JSON.stringify(options.parameters);
     let headers = new Headers({'Content-Type': 'application/json'});
     let res_options = new RequestOptions({headers: headers});
@@ -95,8 +95,8 @@ export class Auth {
    * @param callback
    */
   update(options, callback) {
-    var url = WBCONFIG.server_url() + 'user/update/setting';
-    var inputs = options.parameters;
+    let url = WBCONFIG.server_url() + 'user/update/setting';
+    let inputs = options.parameters;
 
     if (!options.parameters || !inputs.authenticated_id || !inputs.first_name || !inputs.last_name
       || !inputs.email || !inputs.phone || isNaN(inputs.phone)) {
@@ -104,11 +104,11 @@ export class Auth {
     }
 
     // create a new FormData object.
-    var formData = new FormData();
+    let formData = new FormData();
 
     // files
     if (inputs.image) {
-      var file = inputs.image.files[0];
+      let file = inputs.image.files[0];
       formData.append('image', file);
     }
 
@@ -121,7 +121,7 @@ export class Auth {
     formData.append('authenticated_id', inputs.authenticated_id);
 
     // set up the request.
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     // open the connection.
     xhr.open('POST', url, true);
 
@@ -131,7 +131,7 @@ export class Auth {
         // success
         callback(JSON.parse(this.response));
 
-        var res = JSON.parse(this.response);
+        let res = JSON.parse(this.response);
         if (res.success) {
           WBHELPER.setItem('user', res.data, true);
         } else {
@@ -151,7 +151,7 @@ export class Auth {
    * @returns {Observable<R>}
    */
   security(options) {
-    var url = WBCONFIG.server_url() + 'user/update/security';
+    let url = WBCONFIG.server_url() + 'user/update/security';
     let body = JSON.stringify(options.parameters);
     let headers = new Headers({'Content-Type': 'application/json'});
     let res_options = new RequestOptions({headers: headers});
@@ -173,7 +173,7 @@ export class Auth {
    * @returns {boolean}
    */
   check() {
-    return (WBHELPER.getItem('user', false)) ? true : false;
+    return !!(WBHELPER.getItem('user', false));
   }
 
   /**
@@ -190,6 +190,27 @@ export class Auth {
    */
   logout() {
     WBHELPER.clearItem();
+  }
+
+  /**
+   * Store FCM token
+   *
+   * @param id
+   * @param token
+   * @returns {any}
+   */
+  fcm_token(id, token) {
+    let url = WBCONFIG.server_url() + 'user/fcm-token/' + id + '/' + token;
+
+    return this.http.get(url)
+      .map(function (response) {
+        if (response.status < 200 || response.status >= 300) {
+          throw new Error('Bad response status: ' + response.status);
+        }
+
+        return response.json().data;
+      })
+      .catch(Auth._handleError);
   }
 
   /**

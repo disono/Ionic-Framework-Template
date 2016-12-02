@@ -39,7 +39,7 @@ export class ForgotPage {
    */
   doReset($event, inputs) {
     $event.preventDefault();
-    var thisApp = this;
+    let thisApp = this;
 
     // check for values
     if (!inputs.email) {
