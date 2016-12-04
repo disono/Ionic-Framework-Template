@@ -39,9 +39,7 @@ export class GeneralPage {
       email: user.email,
 
       image: null,
-      avatar: user.avatar,
-
-      authenticated_id: user.id
+      avatar: user.avatar
     };
 
     // file on change
@@ -75,6 +73,7 @@ export class GeneralPage {
     }, function (xhr) {
       if (xhr.success) {
         thisApp.inputs = xhr.data;
+        thisApp.inputs.image = null;
       }
 
       loading.dismiss();
@@ -95,7 +94,7 @@ export class GeneralPage {
    */
   setFiles(input) {
     if (input.files && input.files[0]) {
-      this.inputs.image = input;
+      this.inputs.image = input.files[0];
     }
   }
 

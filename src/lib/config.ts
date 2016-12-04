@@ -14,7 +14,7 @@ let _WBConfig = (function () {
     api_key_google: null,
 
     server_url: function () {
-      return (_WBConfig.dev) ? 'http://yout-domain/api/v1/' : 'http://';
+      return (_WBConfig.dev) ? 'http://your-dev-domain/api/v1/' : 'http://your-prod-domain/api/v1/';
     },
 
     enableFCM: false

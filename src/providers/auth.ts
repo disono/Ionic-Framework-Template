@@ -5,6 +5,7 @@ import "rxjs/Rx";
 import {Observable} from "rxjs/Observable";
 import {WBCONFIG} from "../lib/config";
 import {WBHELPER} from "../lib/helper";
+import {WBSecurity} from "../lib/security";
 
 /*
  Generated class for the Auth provider.
@@ -98,18 +99,17 @@ export class Auth {
     let url = WBCONFIG.server_url() + 'user/update/setting';
     let inputs = options.parameters;
 
-    if (!options.parameters || !inputs.authenticated_id || !inputs.first_name || !inputs.last_name
+    if (!options.parameters || !inputs.first_name || !inputs.last_name
       || !inputs.email || !inputs.phone || isNaN(inputs.phone)) {
       Auth._handleError('Please fill all the required inputs.');
     }
 
-    // create a new FormData object.
+    let user = this.user();
     let formData = new FormData();
 
-    // files
+    // image
     if (inputs.image) {
-      let file = inputs.image.files[0];
-      formData.append('image', file);
+      formData.append('image', inputs.image);
     }
 
     // inputs
@@ -118,7 +118,6 @@ export class Auth {
     formData.append('email', inputs.email);
     formData.append('phone', inputs.phone);
     formData.append('address', inputs.address);
-    formData.append('authenticated_id', inputs.authenticated_id);
 
     // set up the request.
     let xhr = new XMLHttpRequest();
@@ -133,12 +132,21 @@ export class Auth {
 
         let res = JSON.parse(this.response);
         if (res.success) {
+          // get the secret key and token key
+          res.data.secret_key = user.secret_key;
+          res.data.token_key = user.token_key;
+
           WBHELPER.setItem('user', res.data, true);
         } else {
           Auth._handleError(res.errors);
         }
       }
     };
+
+    // add headers
+    xhr.setRequestHeader("Authorization", "Bearer " + WBSecurity.jwt(user.secret_key, user.id));
+    xhr.setRequestHeader("token_key", user.token_key);
+    xhr.setRequestHeader("authenticated_id", user.id);
 
     // send the data.
     xhr.send(formData);
@@ -153,7 +161,14 @@ export class Auth {
   security(options) {
     let url = WBCONFIG.server_url() + 'user/update/security';
     let body = JSON.stringify(options.parameters);
-    let headers = new Headers({'Content-Type': 'application/json'});
+    let user = this.user();
+
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + WBSecurity.jwt(user.secret_key, user.id),
+      'token_key': user.token_key,
+      'authenticated_id': user.id
+    });
     let res_options = new RequestOptions({headers: headers});
 
     return this.http.post(url, body, res_options)
@@ -162,7 +177,14 @@ export class Auth {
           Auth._handleError('Bad response status: ' + response.status);
         }
 
-        return response.json();
+        let res = response.json().data;
+
+        // get the secret key and token key
+        res.secret_key = user.secret_key;
+        res.token_key = user.token_key;
+        WBHELPER.setItem('user', res, true);
+
+        return res;
       })
       .catch(Auth._handleError);
   }

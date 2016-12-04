@@ -61,7 +61,7 @@ export class RegisterPage {
     }).subscribe(function (res) {
       loading.dismiss();
 
-      WBView.alert(thisApp.alertCtrl, 'Registeration successfull', 'Please check your email to verify your registration.');
+      WBView.alert(thisApp.alertCtrl, 'Registration successful', 'Please check your email to verify your registration.');
       thisApp.nav.setRoot(LoginPage);
     }, function (e) {
       loading.dismiss();

@@ -1,7 +1,6 @@
 import {Component} from "@angular/core";
 import {NavController, AlertController, LoadingController, App} from "ionic-angular";
 import {WBView} from "../../lib/views";
-import {WBHELPER} from "../../lib/helper";
 import {Auth} from "../../providers/auth";
 
 /**
@@ -32,9 +31,7 @@ export class SecurityPage {
     this.inputs = {
       email: user.email,
       current_password: '',
-      password: '',
-
-      authenticated_id: user.id
+      password: ''
     }
   }
 
@@ -62,10 +59,6 @@ export class SecurityPage {
       parameters: inputs
     }).subscribe(function (res) {
       loading.dismiss();
-
-      // save
-      res = res.data;
-      WBHELPER.setItem('user', res, true);
     }, function (e) {
       loading.dismiss();
     });

@@ -1,10 +1,12 @@
 import {Injectable} from "@angular/core";
-import {Http, URLSearchParams} from "@angular/http";
+import {Http, Headers, RequestOptions} from "@angular/http";
 import "rxjs/add/operator/map";
 import "rxjs/Rx";
 import {Observable} from "rxjs/Observable";
 import {WBCONFIG} from "../lib/config";
 import {WBHELPER} from "../lib/helper";
+import {WBSecurity} from "../lib/security";
+import {Auth} from "./auth";
 
 /**
  * @author Archie Disono on 2016-05-08.
@@ -14,7 +16,7 @@ import {WBHELPER} from "../lib/helper";
 @Injectable()
 export class User {
 
-  constructor(public http: Http) {
+  constructor(public http: Http, public auth: Auth) {
     this.http = http;
   }
 
@@ -26,20 +28,25 @@ export class User {
    */
   show(id) {
     let url = WBCONFIG.server_url() + 'user/' + id;
-    let parameters = new URLSearchParams();
+    let user = this.auth.user();
 
-    return this.http.get(url, {
-      search: parameters
-    })
+    // headers
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + WBSecurity.jwt(user.secret_key, user.id),
+      'token_key': user.token_key,
+      'authenticated_id': user.id
+    });
+
+    let res_options = new RequestOptions({headers: headers});
+
+    return this.http.get(url, res_options)
       .map(function (response) {
         if (response.status < 200 || response.status >= 300) {
           User._handleError('Bad response status: ' + response.status);
         }
 
-        let data = response.json();
-        WBHELPER.setItem('user', data.data, true);
-
-        return data;
+        return response.json();
       })
       .catch(User._handleError);
   }

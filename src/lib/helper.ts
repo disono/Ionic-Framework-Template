@@ -7,6 +7,7 @@
  * @license Apache 2.0
  */
 import * as jQ from "jquery";
+import {WBCONFIG} from "./config";
 
 declare let navigator;
 declare let Connection;
@@ -119,6 +120,11 @@ let _WBHelper = (function () {
      * @param message
      */
     showToast: function (message) {
+      if (WBCONFIG.dev) {
+        console.error(message);
+        return;
+      }
+
       window.plugins.toast.showWithOptions({
           message: message,
           duration: "short",
