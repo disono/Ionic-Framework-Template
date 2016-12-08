@@ -10,7 +10,6 @@ import {Auth} from "../../providers/auth";
  */
 
 @Component({
-  selector: 'page-security',
   templateUrl: 'security.html'
 })
 export class SecurityPage {
@@ -31,7 +30,8 @@ export class SecurityPage {
     this.inputs = {
       email: user.email,
       current_password: '',
-      password: ''
+      password: '',
+      password_confirmation: ''
     }
   }
 
@@ -55,9 +55,7 @@ export class SecurityPage {
     let loading = WBView.loading(thisApp.loadingCtrl, 'Updating security...');
 
     // update security
-    thisApp.auth.security({
-      parameters: inputs
-    }).subscribe(function (res) {
+    thisApp.auth.security(inputs).subscribe(function (res) {
       loading.dismiss();
     }, function (e) {
       loading.dismiss();

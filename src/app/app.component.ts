@@ -4,7 +4,7 @@ import {StatusBar, Splashscreen} from "ionic-native";
 import {DrawerPage} from "../pages/drawer/drawer";
 import {LoginPage} from "../pages/authentication/login";
 import {Auth} from "../providers/auth";
-import {WBCONFIG} from "../lib/config";
+import {WBConfig} from "../lib/config";
 
 declare let FCMPlugin;
 
@@ -28,7 +28,7 @@ export class MyApp {
         thisApp.rootPage = DrawerPage;
 
         // store the FCM token
-        if (WBCONFIG.enableFCM) {
+        if (WBConfig.enableFCM) {
           FCMPlugin.getToken(
             function (token) {
               // send the token to server

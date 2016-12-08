@@ -7,11 +7,12 @@
  * @license Apache 2.0
  */
 import * as jQ from "jquery";
-import {WBCONFIG} from "./config";
+import {WBConfig} from "./config";
 
 declare let navigator;
 declare let Connection;
 declare let window;
+declare let ionic;
 
 let _WBHelper = (function () {
   return {
@@ -105,6 +106,10 @@ let _WBHelper = (function () {
      * @returns {boolean}
      */
     hasConnection: function () {
+      if (WBConfig.is_browser) {
+        return true;
+      }
+
       if (navigator.connection.type == Connection.NONE) {
         _WBHelper.showToast('No network connection.');
 
@@ -120,7 +125,7 @@ let _WBHelper = (function () {
      * @param message
      */
     showToast: function (message) {
-      if (WBCONFIG.dev) {
+      if (WBConfig.is_browser) {
         console.error(message);
         return;
       }
@@ -144,6 +149,10 @@ let _WBHelper = (function () {
      * @params object {desc, title, callBackFunction, btnOk}
      */
     alert: function (options) {
+      if (WBConfig.is_browser) {
+        console.debug('Alert: ' + options.title + ', ' + options.desc);
+      }
+
       options = _WBHelper.defaults({
         btnOk: 'Ok',
         title: '',
@@ -213,4 +222,4 @@ let _WBHelper = (function () {
   };
 }());
 
-export let WBHELPER = _WBHelper;
+export let WBHelper = _WBHelper;

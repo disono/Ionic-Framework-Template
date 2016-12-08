@@ -11,7 +11,6 @@ import {Auth} from "../../providers/auth";
  */
 
 @Component({
-  selector: 'forgot',
   templateUrl: 'forgot.html'
 })
 export class ForgotPage {
@@ -51,9 +50,7 @@ export class ForgotPage {
     let loading = WBView.loading(thisApp.loadingCtrl, 'Send request...');
 
     // send to server
-    thisApp.auth.forgot({
-      parameters: inputs
-    }).subscribe(function (res) {
+    thisApp.auth.forgot(inputs).subscribe(function (res) {
       loading.dismiss();
       thisApp.nav.setRoot(LoginPage);
     }, function (e) {

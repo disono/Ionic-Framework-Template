@@ -2,7 +2,6 @@ import {Component} from "@angular/core";
 import {NavController, AlertController, LoadingController} from "ionic-angular";
 import {WBView} from "../../lib/views";
 import {Auth} from "../../providers/auth";
-import {WBHELPER} from "../../lib/helper";
 import {DrawerPage} from "../drawer/drawer";
 import {RegisterPage} from "./register";
 import {ForgotPage} from "./forgot";
@@ -17,7 +16,6 @@ import {ForgotPage} from "./forgot";
  */
 
 @Component({
-  selector: 'login',
   templateUrl: 'login.html'
 })
 export class LoginPage {
@@ -58,26 +56,26 @@ export class LoginPage {
     let loading = WBView.loading(thisApp.loadingCtrl, 'Authenticating');
 
     // login
-    thisApp.auth.login({
-      parameters: inputs
-    }).subscribe(function (res) {
+    thisApp.auth.login(inputs).subscribe(function (res) {
       loading.dismiss();
 
-      // save
-      res = res.data;
-      WBHELPER.setItem('user', res, true);
+      // data
+      let data = res.data;
 
       // show the main menu
-      if (res.role == 'client') {
+      if (data.role == 'client') {
         thisApp.init();
 
         // set the main page
         thisApp.nav.setRoot(DrawerPage);
+      } else {
+        WBView.alert(thisApp.alertCtrl, 'Not Allowed', 'This Email/Username and password is not allowed to login.');
+        thisApp.auth.logout();
       }
     }, function (e) {
       loading.dismiss();
 
-      WBView.alert(thisApp.alertCtrl, 'Required Inputs', 'User and password is required.');
+      WBView.alert(thisApp.alertCtrl, 'Required Inputs', 'Email/Username and password is required.');
     });
   }
 

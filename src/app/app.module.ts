@@ -13,6 +13,7 @@ import {User} from "../providers/user";
 import {LoginPage} from "../pages/authentication/login";
 import {RegisterPage} from "../pages/authentication/register";
 import {ForgotPage} from "../pages/authentication/forgot";
+import {AppProvider} from "../providers/app-provider";
 
 @NgModule({
   declarations: [
@@ -50,8 +51,9 @@ import {ForgotPage} from "../pages/authentication/forgot";
     ContactPage
   ],
   providers: [
+    AppProvider,
     Auth,
-    User
+    User,
   ]
 })
 export class AppModule {

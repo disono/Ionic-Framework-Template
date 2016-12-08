@@ -12,11 +12,11 @@ import * as jQ from "jquery";
  */
 
 @Component({
-  selector: 'page-general',
   templateUrl: 'general.html'
 })
 export class GeneralPage {
   inputs: any;
+  files: any;
 
   constructor(public nav: NavController, public alertCtrl: AlertController, public loadingCtrl: LoadingController,
               public auth: Auth, public app: App) {
@@ -38,9 +38,11 @@ export class GeneralPage {
       address: user.address,
       email: user.email,
 
-      image: null,
       avatar: user.avatar
     };
+
+    // files / avatar
+    thisApp.files = null;
 
     // file on change
     jQ(document).off().on('change', '#file', function () {
@@ -69,13 +71,15 @@ export class GeneralPage {
 
     // update the profile
     thisApp.auth.update({
-      parameters: inputs
-    }, function (xhr) {
-      if (xhr.success) {
-        thisApp.inputs = xhr.data;
-        thisApp.inputs.image = null;
-      }
+      inputs: inputs,
+      files: thisApp.files
+    }, function (res) {
+      thisApp.inputs = res.data;
+      thisApp.files = null;
 
+      loading.dismiss();
+    }, function (errors) {
+      // errors
       loading.dismiss();
     });
   }
@@ -94,7 +98,7 @@ export class GeneralPage {
    */
   setFiles(input) {
     if (input.files && input.files[0]) {
-      this.inputs.image = input.files[0];
+      this.files = {image: input.files[0]};
     }
   }
 

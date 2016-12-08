@@ -23,14 +23,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-plugin-device": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-device"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "cordova-plugin-device-motion": {
         "source": {
             "type": "registry",
@@ -187,6 +179,14 @@
         "source": {
             "type": "registry",
             "id": "cordova-plugin-fcm"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-device": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-device"
         },
         "is_top_level": true,
         "variables": {}

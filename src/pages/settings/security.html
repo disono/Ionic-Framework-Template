@@ -33,6 +33,11 @@
       <ion-input type="password" [(ngModel)]="inputs.password" name="password"></ion-input>
     </ion-item>
 
+    <ion-item>
+      <ion-label floating>Confirm New Password*</ion-label>
+      <ion-input type="password" [(ngModel)]="inputs.password_confirmation" name="password_confirmation"></ion-input>
+    </ion-item>
+
     <button ion-button block type="submit">Save Changes</button>
   </form>
 </ion-content>

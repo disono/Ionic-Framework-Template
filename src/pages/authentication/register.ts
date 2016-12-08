@@ -11,7 +11,6 @@ import {LoginPage} from "./login";
  */
 
 @Component({
-  selector: 'register',
   templateUrl: 'register.html'
 })
 export class RegisterPage {
@@ -56,9 +55,7 @@ export class RegisterPage {
     let loading = WBView.loading(thisApp.loadingCtrl, 'Creating profile...');
 
     // register
-    thisApp.auth.register({
-      parameters: inputs
-    }).subscribe(function (res) {
+    thisApp.auth.register(inputs).subscribe(function (res) {
       loading.dismiss();
 
       WBView.alert(thisApp.alertCtrl, 'Registration successful', 'Please check your email to verify your registration.');

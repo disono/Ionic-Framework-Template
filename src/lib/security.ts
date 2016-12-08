@@ -9,8 +9,14 @@ declare global {
 
 let _WBSecurity = (function () {
   return {
-    jwt: function(secret, id) {
+    jwt: function (secret, id) {
       let token = null;
+      let current = new Date();
+
+      if (!secret) {
+        console.error('JWT Token is null: ' + secret);
+        return null;
+      }
 
       try {
         let header = {
@@ -20,14 +26,14 @@ let _WBSecurity = (function () {
         let wordArrayHeader = CryptoJS.enc.Utf8.parse(JSON.stringify(header));
         let base64Header = CryptoJS.enc.Base64.stringify(wordArrayHeader);
 
-        let dataIat = new Date();
-        let dateNbf = dataIat;
-        let dataExp = dataIat;
+        let dataIat = current;
+        let dateNbf = current;
+        let dataExp = current;
 
         let sub = id;
-        let iat = parseInt((dataIat.getTime() / 1000).toFixed(0));
-        let nbf = parseInt((dateNbf.minusHours(1).getTime() / 1000).toFixed(0));
-        let exp = parseInt((dataExp.addHours(2).getTime() / 1000).toFixed(0));
+        let iat = Math.floor(dataIat.getTime() / 1000);
+        let nbf = Math.floor(dateNbf.minusHours(1).getTime() / 1000);
+        let exp = Math.floor(dataExp.addHours(2).getTime() / 1000);
         let jti = CryptoJS.MD5("jti." + sub + "." + iat);
 
         let payload = {

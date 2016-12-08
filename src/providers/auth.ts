@@ -1,11 +1,6 @@
 import {Injectable} from "@angular/core";
-import {Http, Headers, RequestOptions} from "@angular/http";
-import "rxjs/add/operator/map";
-import "rxjs/Rx";
-import {Observable} from "rxjs/Observable";
-import {WBCONFIG} from "../lib/config";
-import {WBHELPER} from "../lib/helper";
-import {WBSecurity} from "../lib/security";
+import {WBHelper} from "../lib/helper";
+import {AppProvider} from "./app-provider";
 
 /*
  Generated class for the Auth provider.
@@ -16,177 +11,93 @@ import {WBSecurity} from "../lib/security";
 @Injectable()
 export class Auth {
 
-  constructor(public http: Http) {
+  constructor(public appProvider: AppProvider) {
 
   }
 
   /**
    * Login
    *
-   * @param options
-   * @returns {Observable<R>}
+   * @param parameters
+   * @returns {any}
    */
-  login(options) {
-    let url = WBCONFIG.server_url() + 'auth/login';
-    let body = JSON.stringify(options.parameters);
-    let headers = new Headers({'Content-Type': 'application/json'});
-    let res_options = new RequestOptions({headers: headers});
+  login(parameters) {
+    return this.appProvider.post('auth/login', parameters, function (res) {
+      console.debug('Auth-login: ' + res);
 
-    return this.http.post(url, body, res_options)
-      .map(function (response) {
-        if (response.status < 200 || response.status >= 300) {
-          Auth._handleError('Bad response status: ' + response.status);
-        }
-
-        return response.json();
-      })
-      .catch(Auth._handleError);
+      // save
+      WBHelper.setItem('user', res.data, true);
+    });
   }
 
   /**
    * Forgot password
    *
-   * @param options
-   * @returns {Observable<R>}
+   * @param parameters
+   * @returns {any}
    */
-  forgot(options) {
-    let url = WBCONFIG.server_url() + 'password/recover';
-    let body = JSON.stringify(options.parameters);
-    let headers = new Headers({'Content-Type': 'application/json'});
-    let res_options = new RequestOptions({headers: headers});
-
-    return this.http.post(url, body, res_options)
-      .map(function (response) {
-        if (response.status < 200 || response.status >= 300) {
-          Auth._handleError('Bad response status: ' + response.status);
-        }
-
-        return response.json();
-      })
-      .catch(Auth._handleError);
+  forgot(parameters) {
+    return this.appProvider.post('password/recover', parameters, function (res) {
+      console.debug('Auth-forgot: ' + res);
+    });
   }
 
   /**
    * Register
    *
-   * @param options
-   * @returns {Observable<R>}
+   * @param parameters
+   * @returns {any}
    */
-  register(options) {
-    let url = WBCONFIG.server_url() + 'auth/register';
-    let body = JSON.stringify(options.parameters);
-    let headers = new Headers({'Content-Type': 'application/json'});
-    let res_options = new RequestOptions({headers: headers});
-
-    return this.http.post(url, body, res_options)
-      .map(function (response) {
-        if (response.status < 200 || response.status >= 300) {
-          Auth._handleError('Bad response status: ' + response.status);
-        }
-
-        return response.json();
-      })
-      .catch(Auth._handleError);
+  register(parameters) {
+    return this.appProvider.post('auth/register', parameters, function (res) {
+      console.debug('Auth-register: ' + res);
+    });
   }
 
   /**
    * Update user settings or profile
    *
-   * @param options
-   * @param callback
+   * @param parameters
+   * @param successCallback
+   * @param errorCallback
    */
-  update(options, callback) {
-    let url = WBCONFIG.server_url() + 'user/update/setting';
-    let inputs = options.parameters;
+  update(parameters, successCallback, errorCallback) {
+    let thisApp = this;
 
-    if (!options.parameters || !inputs.first_name || !inputs.last_name
-      || !inputs.email || !inputs.phone || isNaN(inputs.phone)) {
-      Auth._handleError('Please fill all the required inputs.');
-    }
+    this.appProvider.upload('user/update/setting', parameters, function (res) {
+      // success
+      successCallback(res);
 
-    let user = this.user();
-    let formData = new FormData();
+      // get the secret key and token key
+      let user = thisApp.user();
+      res.data.secret_key = user.secret_key;
+      res.data.token_key = user.token_key;
 
-    // image
-    if (inputs.image) {
-      formData.append('image', inputs.image);
-    }
-
-    // inputs
-    formData.append('first_name', inputs.first_name);
-    formData.append('last_name', inputs.last_name);
-    formData.append('email', inputs.email);
-    formData.append('phone', inputs.phone);
-    formData.append('address', inputs.address);
-
-    // set up the request.
-    let xhr = new XMLHttpRequest();
-    // open the connection.
-    xhr.open('POST', url, true);
-
-    // set up a handler for when the request finishes.
-    xhr.onload = function () {
-      if (this.response) {
-        // success
-        callback(JSON.parse(this.response));
-
-        let res = JSON.parse(this.response);
-        if (res.success) {
-          // get the secret key and token key
-          res.data.secret_key = user.secret_key;
-          res.data.token_key = user.token_key;
-
-          WBHELPER.setItem('user', res.data, true);
-        } else {
-          Auth._handleError(res.errors);
-        }
-      }
-    };
-
-    // add headers
-    xhr.setRequestHeader("Authorization", "Bearer " + WBSecurity.jwt(user.secret_key, user.id));
-    xhr.setRequestHeader("token_key", user.token_key);
-    xhr.setRequestHeader("authenticated_id", user.id);
-
-    // send the data.
-    xhr.send(formData);
+      WBHelper.setItem('user', res.data, true);
+    }, function (res) {
+      // errors
+      errorCallback(res);
+    });
   }
 
   /**
    * Update security
    *
-   * @param options
-   * @returns {Observable<R>}
+   * @param parameters
+   * @returns {any}
    */
-  security(options) {
-    let url = WBCONFIG.server_url() + 'user/update/security';
-    let body = JSON.stringify(options.parameters);
-    let user = this.user();
+  security(parameters) {
+    let thisApp = this;
+    return this.appProvider.post('user/update/security', parameters, function (res) {
+      console.debug('Auth-security: ' + res);
 
-    let headers = new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': "Bearer " + WBSecurity.jwt(user.secret_key, user.id),
-      'token_key': user.token_key,
-      'authenticated_id': user.id
+      let me = thisApp.user();
+      res = res.data;
+      res.secret_key = me.secret_key;
+      res.token_key = me.token_key;
+
+      WBHelper.setItem('user', res, true);
     });
-    let res_options = new RequestOptions({headers: headers});
-
-    return this.http.post(url, body, res_options)
-      .map(function (response) {
-        if (response.status < 200 || response.status >= 300) {
-          Auth._handleError('Bad response status: ' + response.status);
-        }
-
-        let res = response.json().data;
-
-        // get the secret key and token key
-        res.secret_key = user.secret_key;
-        res.token_key = user.token_key;
-        WBHELPER.setItem('user', res, true);
-
-        return res;
-      })
-      .catch(Auth._handleError);
   }
 
   /**
@@ -195,7 +106,7 @@ export class Auth {
    * @returns {boolean}
    */
   check() {
-    return !!(WBHELPER.getItem('user', false));
+    return !!(WBHelper.getItem('user', false));
   }
 
   /**
@@ -204,14 +115,14 @@ export class Auth {
    * @returns {any}
    */
   user() {
-    return WBHELPER.getItem('user', true);
+    return WBHelper.getItem('user', true);
   }
 
   /**
    * Logout
    */
   logout() {
-    WBHELPER.clearItem();
+    WBHelper.clearItem();
   }
 
   /**
@@ -222,34 +133,9 @@ export class Auth {
    * @returns {any}
    */
   fcm_token(id, token) {
-    let url = WBCONFIG.server_url() + 'user/fcm-token/' + id + '/' + token;
-
-    return this.http.get(url)
-      .map(function (response) {
-        if (response.status < 200 || response.status >= 300) {
-          throw new Error('Bad response status: ' + response.status);
-        }
-
-        return response.json().data;
-      })
-      .catch(Auth._handleError);
-  }
-
-  /**
-   * Handle errors
-   *
-   * @param error
-   * @returns {ErrorObservable}
-   */
-  static _handleError(error) {
-    if (error instanceof String || typeof error.json != 'function') {
-      WBHELPER.errorMessage(error);
-
-      return;
-    }
-
-    WBHELPER.errorMessage(error.json().errors);
-    return Observable.throw(error.json().errors);
+    return this.appProvider.get('user/fcm-token/' + id + '/' + token, null, function (res) {
+      console.debug('Auth-fcm_token: ' + res);
+    });
   }
 
 }
