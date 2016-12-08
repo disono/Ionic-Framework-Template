@@ -10,6 +10,7 @@
 let _WBConfig = (function () {
   return {
     dev: true,
+    is_browser: true,
 
     api_key_google: null,
 
@@ -21,4 +22,4 @@ let _WBConfig = (function () {
   };
 }());
 
-export let WBCONFIG = _WBConfig;
+export let WBConfig = _WBConfig;
