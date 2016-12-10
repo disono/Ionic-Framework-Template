@@ -1,3 +1,12 @@
+/**
+ * @description Security helpers
+ * @file security.ts
+ *
+ * @author Archie Disono
+ * @url https://github.com/disono/Ionic-Framework-Template
+ * @license Apache 2.0
+ */
+
 declare let CryptoJS;
 
 declare global {

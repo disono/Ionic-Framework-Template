@@ -13,6 +13,9 @@ declare let navigator;
 declare let Connection;
 declare let window;
 declare let ionic;
+declare let moment;
+declare let device;
+declare let cordova;
 
 let _WBHelper = (function () {
   return {
@@ -218,6 +221,58 @@ let _WBHelper = (function () {
         _WBHelper.showToast(obj);
         return obj;
       }
+    },
+
+    /**
+     * Notify
+     * @url https://github.com/katzer/cordova-plugin-local-notifications
+     *
+     * @param title
+     * @param description
+     */
+    notify: function (title, description) {
+      if (device.platform == 'browser') {
+        console.warn('Notify: ' + title + ', ' + description);
+        return;
+      }
+
+      cordova.plugins.notification.local.schedule({
+        id: new Date().getTime(),
+        title: title,
+        text: description
+      });
+    },
+
+    /**
+     * Date
+     *
+     * @param value
+     */
+    humaDate: function (value) {
+      return moment(new Date(value)).format('MMMM DD YYYY');
+    },
+
+    /**
+     * Get the current location
+     *
+     * @param successCallback
+     * @param errorCallback
+     *
+     * returns
+     * lat: position.coords.latitude
+     * lng: position.coords.longitude
+     */
+    currentPosition: function (successCallback, errorCallback) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        successCallback(position);
+      }, function (error) {
+        console.error('GPS Error: ' + error.message + ', code: ' + error.code);
+
+        errorCallback(error);
+      }, {
+        timeout: 30000,
+        enableHighAccuracy: true
+      });
     }
   };
 }());

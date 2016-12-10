@@ -6,7 +6,10 @@ is a starting blank template for Ionic Projects V2 Beta
 * **MomentJS:** [http://momentjs.com](http://momentjs.com)
 * **FontAwesome:** [http://fortawesome.github.io/Font-Awesome](http://fortawesome.github.io/Font-Awesome)
 * **AnimateCSS:** [http://daneden.github.io/animate.css](http://daneden.github.io/animate.css)
+
+# Cordova Plugins
 * **Google Firebase Cloud Messaging Cordova Push Plugin**[https://github.com/fechanique/cordova-plugin-fcm](https://github.com/fechanique/cordova-plugin-fcm)
+* **Cordova Local-Notification Plugin:** [https://github.com/katzer/cordova-plugin-local-notifications](https://github.com/katzer/cordova-plugin-local-notifications)
 
 ### Install Libraries
 ```sh

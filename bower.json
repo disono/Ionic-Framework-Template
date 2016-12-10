@@ -16,9 +16,12 @@
   ],
   "dependencies": {
     "animate.css": "^3.5.1",
-    "font-awesome": "^4.6.2",
+    "font-awesome": "^4.7.0",
     "crypto-js": "^3.1.8",
-    "fullcalendar": "^3.0.1",
-    "jquery": "^3.1.1"
+    "fullcalendar": "^3.1.0",
+    "jquery": "^3.1.1",
+    "socket.io-client": "^1.7.1",
+    "eventEmitter": "^5.1.0",
+    "moment": "momentjs#^2.17.1"
   }
 }
