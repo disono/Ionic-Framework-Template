@@ -15,18 +15,23 @@ let _WBConfig = (function () {
     // platform type default is browser mode
     is_browser: true,
 
+    // api for google maps
     api_key_google: null,
 
+    // server url
     server_url: function () {
       return (_WBConfig.dev) ? 'http://your-dev-domain/api/v1/' : 'http://your-prod-domain/api/v1/';
     },
 
+    // socket IO
     socket_uri: function () {
       return (_WBConfig.dev) ? 'http://your-dev-domain/' : 'http://your-prod-domain:3000/';
     },
 
+    // Fire-base Cloud Messaging
     enableFCM: false,
 
+    // GPS
     lat: 0,
     lng: 0,
     GPSWatchID: null,

@@ -99,7 +99,7 @@ export class AppProvider {
 
     return thisApp.http.get(url, res_options)
       .map(function (response) {
-        var res = thisApp.requestStatus(response);
+        let res = thisApp.requestStatus(response);
 
         successCallback(res);
         return res;
@@ -123,7 +123,7 @@ export class AppProvider {
 
     return thisApp.http.post(url, body, headers)
       .map(function (response) {
-        var res = thisApp.requestStatus(response);
+        let res = thisApp.requestStatus(response);
 
         successCallback(res);
         return res;
@@ -149,7 +149,7 @@ export class AppProvider {
     let xhr = new XMLHttpRequest();
 
     // form inputs
-    var formData = new FormData();
+    let formData = new FormData();
 
     // open the connection.
     xhr.open('POST', url, true);
@@ -159,7 +159,7 @@ export class AppProvider {
       jQ.each(parameters.files, function (i, val) {
         if (Array.isArray(val)) {
           // multiple files upload
-          for (var num = 0; num < val.length; num++) {
+          for (let num = 0; num < val.length; num++) {
             formData.append(i + '[]', val[num]);
           }
         } else {
@@ -180,7 +180,7 @@ export class AppProvider {
     // set up a handler for when the request finishes.
     xhr.onload = function () {
       if (this.response) {
-        var res = JSON.parse(this.response);
+        let res = JSON.parse(this.response);
 
         if (res.success) {
           successCallback(res);

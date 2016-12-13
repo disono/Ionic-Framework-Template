@@ -15,6 +15,7 @@ export class User {
 
   /**
    * User
+   * Save the data to authenticated user
    *
    * @param id
    * @returns {any}

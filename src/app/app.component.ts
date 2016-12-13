@@ -1,10 +1,11 @@
 import {Component} from "@angular/core";
-import {Platform} from "ionic-angular";
+import {Platform, LoadingController, AlertController} from "ionic-angular";
 import {StatusBar, Splashscreen} from "ionic-native";
 import {DrawerPage} from "../pages/drawer/drawer";
 import {LoginPage} from "../pages/authentication/login";
 import {Auth} from "../providers/auth";
 import {WBConfig} from "../lib/config";
+import {WBView} from "../lib/views";
 
 declare let FCMPlugin;
 
@@ -14,7 +15,8 @@ declare let FCMPlugin;
 export class MyApp {
   rootPage: any;
 
-  constructor(platform: Platform, public auth: Auth) {
+  constructor(platform: Platform, public auth: Auth,
+              public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -25,7 +27,16 @@ export class MyApp {
 
       // check if user is authenticated
       if (thisApp.auth.check()) {
+        // drawer menus
         thisApp.rootPage = DrawerPage;
+
+        // save the new authenticated user (Sync data)
+        let loading = WBView.loading(thisApp.loadingCtrl, 'Syncing...');
+        thisApp.auth.sync().subscribe(function (res) {
+          loading.dismiss();
+        }, function (error) {
+          loading.dismiss();
+        });
 
         // store the FCM token
         if (WBConfig.enableFCM) {
@@ -35,7 +46,7 @@ export class MyApp {
               thisApp.auth.fcm_token(thisApp.auth.user().id, token);
             },
             function (err) {
-              alert('error retrieving token: ' + err);
+              WBView.alert(thisApp.alertCtrl, 'FCM Error', 'Error retrieving token: ' + err);
             }
           );
         }

@@ -43,18 +43,35 @@
       </ion-item>
 
       <ion-item>
-        <ion-label floating>Address*</ion-label>
-        <ion-input type="text" [(ngModel)]="inputs.address" name="address"></ion-input>
+        <ion-label>Gender*</ion-label>
+        <ion-select [(ngModel)]="inputs.gender" name="gender">
+          <ion-option value="Male">Male</ion-option>
+          <ion-option value="Female">Female</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Birthday</ion-label>
+        <ion-datetime displayFormat="MMMM DD YYYY" [(ngModel)]="inputs.birthday" name="birthday"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Address</ion-label>
+        <ion-textarea rows="3" [(ngModel)]="inputs.address" name="address"></ion-textarea>
       </ion-item>
 
       <ion-item>
         <ion-label floating>Email*</ion-label>
         <ion-input type="email" [(ngModel)]="inputs.email" name="email"></ion-input>
       </ion-item>
+
+      <ion-item>
+        <ion-label floating>About Me</ion-label>
+        <ion-textarea rows="3" [(ngModel)]="inputs.about" name="about"></ion-textarea>
+      </ion-item>
     </ion-list>
 
     <button ion-button block type="submit">Save Changes</button>
+    <button ion-button block color="danger" type="button" (click)="logout()">Logout</button>
   </form>
-
-  <button ion-button block danger type="button" (click)="logout()">Logout</button>
 </ion-content>

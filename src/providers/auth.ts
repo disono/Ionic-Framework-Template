@@ -101,6 +101,25 @@ export class Auth {
   }
 
   /**
+   * Sync user details
+   *
+   * @returns {any}
+   */
+  sync() {
+    let thisApp = this;
+    return this.appProvider.get('user/' + this.user().id, null, function (res) {
+      console.debug('Auth-sync: ' + res);
+
+      // save the data for authenticated user
+      let user = thisApp.user();
+      res.data.secret_key = user.secret_key;
+      res.data.token_key = user.token_key;
+
+      WBHelper.setItem('user', res.data, true);
+    });
+  }
+
+  /**
    * Check if user is authenticated
    *
    * @returns {boolean}

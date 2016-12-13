@@ -5,6 +5,8 @@ import {Auth} from "../../providers/auth";
 import {LoginPage} from "../authentication/login";
 import * as jQ from "jquery";
 
+declare let moment;
+
 /**
  * @author Archie Disono
  * @url https://github.com/disono/Ionic-Framework-Template
@@ -27,8 +29,35 @@ export class GeneralPage {
    * Initialize
    */
   init() {
-    let user = this.auth.user();
     let thisApp = this;
+    thisApp.authInputs();
+
+    // save the new authenticated user (Sync data)
+    let loading = WBView.loading(thisApp.loadingCtrl, 'Syncing...');
+    thisApp.auth.sync().subscribe(function (res) {
+      loading.dismiss();
+
+      // reinitialize inputs
+      thisApp.authInputs();
+
+      // file on change
+      jQ(document).off().on('change', '#file', function () {
+        thisApp.setFiles(this);
+      });
+    }, function (error) {
+      loading.dismiss();
+
+      WBView.alert(thisApp.alertCtrl, 'Error Syncing', error);
+    });
+  }
+
+  /**
+   * Authenticated inputs
+   */
+  authInputs() {
+    let thisApp = this;
+    // authenticated user
+    let user = this.auth.user();
 
     // inputs
     thisApp.inputs = {
@@ -38,16 +67,15 @@ export class GeneralPage {
       address: user.address,
       email: user.email,
 
+      birthday: new Date(user.birthday).toISOString(),
+      gender: ((user.gender) ? user.gender : 'Male'),
+      about: user.about,
+
       avatar: user.avatar
     };
 
     // files / avatar
     thisApp.files = null;
-
-    // file on change
-    jQ(document).off().on('change', '#file', function () {
-      thisApp.setFiles(this);
-    });
   }
 
   /**
@@ -61,9 +89,14 @@ export class GeneralPage {
     let thisApp = this;
 
     // check for values
-    if (!inputs.first_name || !inputs.last_name || !inputs.phone || !inputs.email) {
+    if (!inputs.first_name || !inputs.last_name || !inputs.phone || !inputs.email || !inputs.gender) {
       WBView.alert(thisApp.alertCtrl, 'Required Inputs', 'Please check all the required fields.');
       return;
+    }
+
+    // format birthday
+    if (inputs.birthday) {
+      inputs.birthday = moment(new Date(inputs.birthday)).format('MMMM DD YYYY');
     }
 
     // show loading
@@ -74,8 +107,9 @@ export class GeneralPage {
       inputs: inputs,
       files: thisApp.files
     }, function (res) {
-      thisApp.inputs = res.data;
-      thisApp.files = null;
+      setTimeout(function () {
+        thisApp.authInputs();
+      }, 100);
 
       loading.dismiss();
     }, function (errors) {
