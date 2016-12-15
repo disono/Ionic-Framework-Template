@@ -27,32 +27,43 @@ export class MyApp {
 
       // check if user is authenticated
       if (thisApp.auth.check()) {
-        // drawer menus
-        thisApp.rootPage = DrawerPage;
-
         // save the new authenticated user (Sync data)
         let loading = WBView.loading(thisApp.loadingCtrl, 'Syncing...');
         thisApp.auth.sync().subscribe(function (res) {
           loading.dismiss();
+
+          thisApp.run();
         }, function (error) {
           loading.dismiss();
-        });
 
-        // store the FCM token
-        if (WBConfig.enableFCM) {
-          FCMPlugin.getToken(
-            function (token) {
-              // send the token to server
-              thisApp.auth.fcm_token(thisApp.auth.user().id, token);
-            },
-            function (err) {
-              WBView.alert(thisApp.alertCtrl, 'FCM Error', 'Error retrieving token: ' + err);
-            }
-          );
-        }
+          thisApp.run();
+        });
       } else {
         this.rootPage = LoginPage;
       }
     });
+  }
+
+  /**
+   * Run the application
+   */
+  run() {
+    let thisApp = this;
+
+    // store the FCM token
+    if (WBConfig.enableFCM) {
+      FCMPlugin.getToken(
+        function (token) {
+          // send the token to server
+          thisApp.auth.fcm_token(thisApp.auth.user().id, token);
+        },
+        function (err) {
+          WBView.alert(thisApp.alertCtrl, 'FCM Error', 'Error retrieving token: ' + err);
+        }
+      );
+    }
+
+    // drawer menus
+    thisApp.rootPage = DrawerPage;
   }
 }
