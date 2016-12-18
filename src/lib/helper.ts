@@ -154,6 +154,7 @@ let _WBHelper = (function () {
     alert: function (options) {
       if (WBConfig.is_browser) {
         console.debug('Alert: ' + options.title + ', ' + options.desc);
+        return;
       }
 
       options = _WBHelper.defaults({
@@ -231,7 +232,7 @@ let _WBHelper = (function () {
      * @param description
      */
     notify: function (title, description) {
-      if (device.platform == 'browser') {
+      if (WBConfig.is_browser) {
         console.warn('Notify: ' + title + ', ' + description);
         return;
       }
