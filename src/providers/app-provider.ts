@@ -47,7 +47,10 @@ export class AppProvider {
    * @returns {Headers}
    */
   headersAuth() {
-    let me = this.me;
+    let auth = WBHelper.getItem('user', true);
+    this.me = (!!(auth)) ? auth : null;
+
+    let me = (!!(auth)) ? auth : null;
     console.debug('headersAuth: ' + JSON.stringify(me));
 
     // headers
@@ -144,6 +147,10 @@ export class AppProvider {
    */
   upload(uri, parameters, successCallback, errorCallback) {
     let thisApp = this;
+
+    let auth = WBHelper.getItem('user', true);
+    this.me = (!!(auth)) ? auth : null;
+
     let me = thisApp.me;
     let url = WBConfig.server_url() + uri;
     let xhr = new XMLHttpRequest();
