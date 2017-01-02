@@ -19,11 +19,14 @@ import * as jQ from "jquery";
 
 @Injectable()
 export class AppProvider {
-  me: any;
 
   constructor(public http: Http) {
+
+  }
+
+  me() {
     let auth = WBHelper.getItem('user', true);
-    this.me = (!!(auth)) ? auth : null;
+    return (!!(auth)) ? auth : null;
   }
 
   /**
@@ -47,10 +50,8 @@ export class AppProvider {
    * @returns {Headers}
    */
   headersAuth() {
-    let auth = WBHelper.getItem('user', true);
-    this.me = (!!(auth)) ? auth : null;
+    let me = this.me();
 
-    let me = (!!(auth)) ? auth : null;
     console.debug('headersAuth: ' + JSON.stringify(me));
 
     // headers
@@ -87,7 +88,7 @@ export class AppProvider {
   get(uri, parameters, successCallback) {
     let thisApp = this;
     let url = WBConfig.server_url() + uri;
-    let res_options = (this.me) ? this.headersAuth() : thisApp.headersGuest();
+    let res_options = (thisApp.me()) ? thisApp.headersAuth() : thisApp.headersGuest();
 
     // parameters
     let params = new URLSearchParams();
@@ -122,7 +123,7 @@ export class AppProvider {
     let thisApp = this;
     let url = WBConfig.server_url() + uri;
     let body = (parameters) ? JSON.stringify(parameters) : null;
-    let headers = (this.me) ? this.headersAuth() : thisApp.headersGuest();
+    let headers = (thisApp.me()) ? thisApp.headersAuth() : thisApp.headersGuest();
 
     return thisApp.http.post(url, body, headers)
       .map(function (response) {
@@ -148,10 +149,7 @@ export class AppProvider {
   upload(uri, parameters, successCallback, errorCallback) {
     let thisApp = this;
 
-    let auth = WBHelper.getItem('user', true);
-    this.me = (!!(auth)) ? auth : null;
-
-    let me = thisApp.me;
+    let me = thisApp.me();
     let url = WBConfig.server_url() + uri;
     let xhr = new XMLHttpRequest();
 

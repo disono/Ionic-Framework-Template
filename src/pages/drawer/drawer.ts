@@ -23,7 +23,7 @@ export class DrawerPage {
   constructor() {
     this.pages = [
       {title: 'Dashboard', component: HomePage},
-      {title: 'Settings', component: SettingsTabPage},
+      {title: 'Profile Settings', component: SettingsTabPage},
       {title: 'Contact', component: ContactPage},
       {title: 'About', component: AboutPage}
     ];

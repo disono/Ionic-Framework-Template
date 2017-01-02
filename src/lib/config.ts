@@ -17,6 +17,7 @@ let _WBConfig = (function () {
 
     // api for google maps
     api_key_google: null,
+    map_box_token: '',
 
     // server url
     server_url: function () {
