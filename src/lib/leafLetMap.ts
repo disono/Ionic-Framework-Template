@@ -147,7 +147,9 @@ let _WBLeafMap = (function () {
         if (data.icon) {
           options.icon = new L.icon({
             iconUrl: data.icon,
-            iconSize: [64, 64]
+            iconSize: [64, 64],
+            iconAnchor: [32, 64],
+            popupAnchor: [0, -64]
           });
         }
       }
