@@ -21,6 +21,7 @@ let _WBSecurity = (function () {
     jwt: function (secret, id) {
       let token = null;
       let current = new Date();
+      current.setMinutes(current.getMinutes() - 15);
 
       if (!secret) {
         console.error('JWT Token is null: ' + secret);

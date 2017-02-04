@@ -6,15 +6,14 @@
  * @url https://github.com/disono/Ionic-Framework-Template
  * @license Apache 2.0
  */
-import * as jQ from "jquery";
 import {WBConfig} from "./config";
 
+declare let jQ;
 declare let navigator;
 declare let Connection;
 declare let window;
 declare let ionic;
 declare let moment;
-declare let device;
 declare let cordova;
 
 let _WBHelper = (function () {

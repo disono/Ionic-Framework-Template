@@ -1,30 +1,31 @@
 {
-  "name": "ionic_template_beta_v2",
-  "description": "WebMons Ionic Template Beta V2",
+  "name": "ionic-template",
+  "description": "Ionic Template",
   "main": "",
   "authors": [
-    "Archie <disonoarchie@gmail.com>"
+    "Archie Disono"
   ],
   "license": "Apache 2.0",
-  "homepage": "http://webmons.com",
+  "homepage": "https://github.com/disono/Ionic-Framework-Template",
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
+    "www/bower_modules/",
     "test",
     "tests"
   ],
   "dependencies": {
-    "animate.css": "^3.5.1",
+    "animate.css": "^3.5.2",
     "font-awesome": "^4.7.0",
-    "crypto-js": "^3.1.8",
+    "crypto-js": "^3.1.9",
     "fullcalendar": "^3.1.0",
     "jquery": "^3.1.1",
-    "socket.io-client": "^1.7.1",
+    "socket.io-client": "^1.7.2",
     "eventEmitter": "^5.1.0",
-    "moment": "momentjs#^2.17.1",
-    "leaflet": "^1.0.2",
+    "moment": "^2.17.1",
+    "leaflet": "^1.0.3",
     "leaflet-search": "^2.7.0",
-    "leaflet-routing-machine": "^3.2.4"
+    "leaflet-routing-machine": "^3.2.5"
   }
 }

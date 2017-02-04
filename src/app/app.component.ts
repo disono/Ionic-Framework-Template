@@ -1,11 +1,11 @@
 import {Component} from "@angular/core";
 import {Platform, LoadingController, AlertController} from "ionic-angular";
 import {StatusBar, Splashscreen} from "ionic-native";
-import {DrawerPage} from "../pages/drawer/drawer";
-import {LoginPage} from "../pages/authentication/login";
 import {Auth} from "../providers/auth";
 import {WBConfig} from "../lib/config";
 import {WBView} from "../lib/views";
+import {LoginPage} from "../pages/authentication/login";
+import {DrawerPage} from "../pages/drawer/drawer";
 
 declare let FCMPlugin;
 
@@ -15,9 +15,16 @@ declare let FCMPlugin;
 export class MyApp {
   rootPage: any;
 
-  constructor(platform: Platform, public auth: Auth,
+  constructor(public platform: Platform, public auth: Auth,
               public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
-    platform.ready().then(() => {
+    this.initializeApp();
+  }
+
+  /**
+   * Initialize the app
+   */
+  initializeApp() {
+    this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
@@ -29,13 +36,17 @@ export class MyApp {
       if (thisApp.auth.check()) {
         // save the new authenticated user (Sync data)
         let loading = WBView.loading(thisApp.loadingCtrl, 'Syncing...');
+
+        // sync any data on server
         thisApp.auth.sync().subscribe(function (res) {
           loading.dismiss();
 
+          // run the application
           thisApp.run();
         }, function (error) {
           loading.dismiss();
 
+          // run the application
           thisApp.run();
         });
       } else {

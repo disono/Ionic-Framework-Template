@@ -12,7 +12,7 @@ import {AppProvider} from "./app-provider";
 export class Auth {
 
   constructor(public appProvider: AppProvider) {
-
+    console.log('Auth Provider Called.');
   }
 
   /**
@@ -88,6 +88,7 @@ export class Auth {
    */
   security(parameters) {
     let thisApp = this;
+
     return this.appProvider.post('user/update/security', parameters, function (res) {
       console.debug('Auth-security: ' + res);
 
@@ -107,7 +108,8 @@ export class Auth {
    */
   sync() {
     let thisApp = this;
-    return this.appProvider.get('user/' + this.user().id, null, function (res) {
+
+    return this.appProvider.get('user/' + thisApp.user().id, null, function (res) {
       console.debug('Auth-sync: ' + res);
 
       // save the data for authenticated user

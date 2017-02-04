@@ -1,19 +1,19 @@
-import {NgModule} from "@angular/core";
-import {IonicApp, IonicModule} from "ionic-angular";
+import {NgModule, ErrorHandler} from "@angular/core";
+import {IonicApp, IonicModule, IonicErrorHandler} from "ionic-angular";
 import {MyApp} from "./app.component";
-import {DrawerPage} from "../pages/drawer/drawer";
-import {HomePage} from "../pages/home/home";
-import {AboutPage} from "../pages/about/about";
-import {ContactPage} from "../pages/contact/contact";
-import {SettingsTabPage} from "../pages/settings/settings-tab";
-import {SecurityPage} from "../pages/settings/security";
-import {GeneralPage} from "../pages/settings/general";
-import {Auth} from "../providers/auth";
-import {User} from "../providers/user";
 import {LoginPage} from "../pages/authentication/login";
 import {RegisterPage} from "../pages/authentication/register";
 import {ForgotPage} from "../pages/authentication/forgot";
+import {DrawerPage} from "../pages/drawer/drawer";
+import {HomePage} from "../pages/home/home";
+import {SettingsTabPage} from "../pages/settings/settings-tab";
+import {GeneralPage} from "../pages/settings/general";
+import {SecurityPage} from "../pages/settings/security";
+import {AboutPage} from "../pages/about/about";
+import {ContactPage} from "../pages/contact/contact";
 import {AppProvider} from "../providers/app-provider";
+import {Auth} from "../providers/auth";
+import {User} from "../providers/user";
 
 @NgModule({
   declarations: [
@@ -23,11 +23,13 @@ import {AppProvider} from "../providers/app-provider";
     RegisterPage,
     ForgotPage,
 
-    DrawerPage,
-    HomePage,
     SettingsTabPage,
     GeneralPage,
     SecurityPage,
+
+    DrawerPage,
+
+    HomePage,
     AboutPage,
     ContactPage
   ],
@@ -42,11 +44,13 @@ import {AppProvider} from "../providers/app-provider";
     RegisterPage,
     ForgotPage,
 
-    DrawerPage,
-    HomePage,
     SettingsTabPage,
     GeneralPage,
     SecurityPage,
+
+    DrawerPage,
+
+    HomePage,
     AboutPage,
     ContactPage
   ],
@@ -54,6 +58,8 @@ import {AppProvider} from "../providers/app-provider";
     AppProvider,
     Auth,
     User,
+
+    {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
 export class AppModule {

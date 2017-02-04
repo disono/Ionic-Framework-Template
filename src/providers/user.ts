@@ -10,7 +10,7 @@ import {AppProvider} from "./app-provider";
 export class User {
 
   constructor(public appProvider: AppProvider) {
-
+    console.log('User Provider Called.');
   }
 
   /**

@@ -1,6 +1,6 @@
-import * as jQ from "jquery";
 import {WBConfig} from "./config";
 
+declare let jQ;
 declare let google;
 declare let L;
 

@@ -6,7 +6,6 @@
  * @url https://github.com/disono/Ionic-Framework-Template
  * @license Apache 2.0
  */
-
 import {WBConfig} from "./config";
 
 declare let io;
@@ -20,8 +19,26 @@ let _WBSocket = (function () {
     /**
      * Connect
      */
-    connect: function () {
+    connect: function (connectCallback, eventCallback, disconnectCallback) {
       this.socket = io.connect(WBConfig.socket_uri());
+
+      // on connect
+      this.socket.on('connect', function () {
+        console.log('SocketIO is Connected!');
+        connectCallback();
+      });
+
+      // event
+      this.socket.on('event', function (data) {
+        console.log('SocketIO Event Received!');
+        eventCallback();
+      });
+
+      // on disconnect
+      this.socket.on('disconnect', function () {
+        console.log('SocketIO Disconnected!');
+        disconnectCallback();
+      });
     },
 
     /**

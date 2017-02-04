@@ -3,9 +3,9 @@ import {NavController, AlertController, LoadingController, App} from "ionic-angu
 import {WBView} from "../../lib/views";
 import {Auth} from "../../providers/auth";
 import {LoginPage} from "../authentication/login";
-import * as jQ from "jquery";
 
 declare let moment;
+declare let jQ;
 
 /**
  * @author Archie Disono

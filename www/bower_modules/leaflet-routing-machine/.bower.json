@@ -1,6 +1,6 @@
 {
   "name": "leaflet-routing-machine",
-  "version": "3.2.4",
+  "version": "3.2.5",
   "homepage": "https://github.com/perliedman/leaflet-routing-machine",
   "authors": [
     "Per Liedman <per@liedman.net> (http://www.liedman.net/)"
@@ -30,14 +30,14 @@
     "package.json",
     "build.sh"
   ],
-  "_release": "3.2.4",
+  "_release": "3.2.5",
   "_resolution": {
     "type": "version",
-    "tag": "v3.2.4",
-    "commit": "ddf05368650d6d39271303e00a65b888361af9ea"
+    "tag": "v3.2.5",
+    "commit": "fdf3616771c3538f9cdab63c1cda6425a328bdd3"
   },
   "_source": "https://github.com/perliedman/leaflet-routing-machine.git",
-  "_target": "^3.2.4",
+  "_target": "^3.2.5",
   "_originalSource": "leaflet-routing-machine",
   "_direct": true
 }

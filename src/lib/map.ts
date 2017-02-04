@@ -66,7 +66,7 @@ let _WBMap = (function () {
       auto_complete.bindTo('bounds', thisApp.map);
 
       // add the listener
-      auto_complete.addListener('place_changed', function() {
+      auto_complete.addListener('place_changed', function () {
         let place = auto_complete.getPlace();
 
         if (!place.geometry) {

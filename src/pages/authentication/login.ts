@@ -75,7 +75,7 @@ export class LoginPage {
     }, function (e) {
       loading.dismiss();
 
-      WBView.alert(thisApp.alertCtrl, 'Required Inputs', 'Email/Username and password is required.');
+      WBView.alert(thisApp.alertCtrl, 'Invalid', e);
     });
   }
 

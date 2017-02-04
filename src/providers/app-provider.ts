@@ -6,25 +6,23 @@ import {WBHelper} from "../lib/helper";
 import {Observable} from "rxjs/Observable";
 import {WBSecurity} from "../lib/security";
 import {WBConfig} from "../lib/config";
-import * as jQ from "jquery";
 
-/**
- * @description Application Providers
- * @file app-provider.ts
- *
- * @author Archie Disono
- * @url https://github.com/disono/Ionic-Framework-Template
- * @license Apache 2.0
+declare let jQ;
+
+/*
+ Generated class for the AppProvider provider.
+
+ See https://angular.io/docs/ts/latest/guide/dependency-injection.html
+ for more info on providers and Angular 2 DI.
  */
-
 @Injectable()
 export class AppProvider {
 
   constructor(public http: Http) {
-
+    console.log('App Provider Called.');
   }
 
-  me() {
+  static me() {
     let auth = WBHelper.getItem('user', true);
     return (!!(auth)) ? auth : null;
   }
@@ -35,10 +33,10 @@ export class AppProvider {
    * @param response
    * @returns {any}
    */
-  requestStatus(response) {
+  static requestStatus(response) {
     if (response.status < 200 || response.status >= 300) {
       console.error('AppProvider-requestStatus' + 'Bad response status: ' + response.status);
-      this._handleError('Bad response status: ' + response.status);
+      AppProvider._handleError('Bad response status: ' + response.status);
     }
 
     return response.json();
@@ -49,8 +47,8 @@ export class AppProvider {
    *
    * @returns {Headers}
    */
-  headersAuth() {
-    let me = this.me();
+  static headersAuth() {
+    let me = AppProvider.me();
 
     console.debug('headersAuth: ' + JSON.stringify(me));
 
@@ -70,7 +68,7 @@ export class AppProvider {
    *
    * @returns {RequestOptions}
    */
-  headersGuest() {
+  static headersGuest() {
     let headers = new Headers({
       'Content-Type': 'application/json'
     });
@@ -88,7 +86,7 @@ export class AppProvider {
   get(uri, parameters, successCallback) {
     let thisApp = this;
     let url = WBConfig.server_url() + uri;
-    let res_options = (thisApp.me()) ? thisApp.headersAuth() : thisApp.headersGuest();
+    let res_options = (AppProvider.me()) ? AppProvider.headersAuth() : AppProvider.headersGuest();
 
     // parameters
     let params = new URLSearchParams();
@@ -103,12 +101,12 @@ export class AppProvider {
 
     return thisApp.http.get(url, res_options)
       .map(function (response) {
-        let res = thisApp.requestStatus(response);
+        let res = AppProvider.requestStatus(response);
 
         successCallback(res);
         return res;
       })
-      .catch(thisApp._handleError);
+      .catch(AppProvider._handleError);
   }
 
   /**
@@ -123,16 +121,16 @@ export class AppProvider {
     let thisApp = this;
     let url = WBConfig.server_url() + uri;
     let body = (parameters) ? JSON.stringify(parameters) : null;
-    let headers = (thisApp.me()) ? thisApp.headersAuth() : thisApp.headersGuest();
+    let headers = (AppProvider.me()) ? AppProvider.headersAuth() : AppProvider.headersGuest();
 
     return thisApp.http.post(url, body, headers)
       .map(function (response) {
-        let res = thisApp.requestStatus(response);
+        let res = AppProvider.requestStatus(response);
 
         successCallback(res);
         return res;
       })
-      .catch(thisApp._handleError);
+      .catch(AppProvider._handleError);
   }
 
   /**
@@ -147,9 +145,7 @@ export class AppProvider {
    * @param errorCallback
    */
   upload(uri, parameters, successCallback, errorCallback) {
-    let thisApp = this;
-
-    let me = thisApp.me();
+    let me = AppProvider.me();
     let url = WBConfig.server_url() + uri;
     let xhr = new XMLHttpRequest();
 
@@ -191,7 +187,7 @@ export class AppProvider {
           successCallback(res);
         } else {
           errorCallback(res);
-          thisApp._handleError(res.errors);
+          AppProvider._handleError(res.errors);
         }
       }
     };
@@ -211,9 +207,10 @@ export class AppProvider {
    * Handle errors
    *
    * @param error
-   * @returns {ErrorObservable}
+   * @returns {any}
+   * @private
    */
-  _handleError(error) {
+  static _handleError(error) {
     if (error instanceof String || typeof error.json != 'function') {
       console.error('AppProvider-_handleError-instanceof: ' + error);
       WBHelper.errorMessage(error);
