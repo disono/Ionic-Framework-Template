@@ -4,6 +4,9 @@ import {Nav} from "ionic-angular";
 import {AboutPage} from "../about/about";
 import {ContactPage} from "../contact/contact";
 import {SettingsTabPage} from "../settings/settings-tab";
+import {ECommerceProductListPage} from "../ecommerce/product/product.list";
+import {ECommerceCartContentPage} from "../ecommerce/cart/content";
+import {ECommerceOrderListPage} from "../ecommerce/order/order.list";
 
 /**
  * @author Archie Disono
@@ -24,6 +27,12 @@ export class DrawerPage {
     this.pages = [
       {title: 'Dashboard', component: HomePage},
       {title: 'Profile Settings', component: SettingsTabPage},
+
+      // e-commerce
+      {title: 'Products', component: ECommerceProductListPage},
+      {title: 'My Cart', component: ECommerceCartContentPage},
+      {title: 'My Orders', component: ECommerceOrderListPage},
+
       {title: 'Contact', component: ContactPage},
       {title: 'About', component: AboutPage}
     ];

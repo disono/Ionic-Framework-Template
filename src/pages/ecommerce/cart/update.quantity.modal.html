@@ -1,0 +1,30 @@
+<!--
+ - @author Archie Disono
+ - @url https://github.com/disono/Ionic-Framework-Template
+ - @license Apache 2.0
+-->
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Update Quantity
+    </ion-title>
+
+    <ion-buttons start>
+      <button ion-button clear (click)="dismiss()">
+        Cancel
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Quantity*</ion-label>
+      <ion-input type="tel" [(ngModel)]="quantity" name="quantity"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <button ion-button clear block color="danger" (click)="update()">Update Quantity</button>
+</ion-content>

@@ -1,0 +1,92 @@
+import {Component} from "@angular/core";
+import {NavController, NavParams} from "ionic-angular";
+import {ECommerceCartSuccessPage} from "./success";
+import {ECommerceOrder} from "../../../providers/ecommerce/order/order";
+
+/**
+ * @author Archie Disono
+ * @url https://github.com/disono/Ionic-Framework-Template
+ * @license Apache 2.0
+ */
+
+@Component({
+  templateUrl: 'order.details.html'
+})
+export class ECommerceOrderDetailsPage {
+  data_list: any;
+  cart_details: null;
+  init_loading: boolean;
+
+  is_refreshing: boolean;
+  is_fetching: boolean;
+
+  refresher: any;
+
+  constructor(public nav: NavController, public order: ECommerceOrder, public params: NavParams) {
+    this.init();
+
+    this.fetchData();
+    this.is_refreshing = true;
+  }
+
+  init() {
+    this.init_loading = true;
+    this.refresher = null;
+    this.is_fetching = false;
+
+    this.data_list = [];
+  }
+
+  /**
+   * Pull refresh
+   *
+   * @param refresher
+   */
+  doRefresh(refresher) {
+    this.refresher = refresher;
+
+    this.fetchData();
+    this.is_refreshing = true;
+  }
+
+  /**
+   * Fetch the data to server
+   */
+  fetchData() {
+    let thisApp = this;
+
+    // the application is still fetch data to server
+    if (thisApp.is_refreshing || thisApp.is_fetching) {
+      return;
+    }
+
+    // fetch data to server
+    thisApp.is_fetching = true;
+
+    thisApp.order.show(thisApp.params.get('id')).subscribe(function (res) {
+      let data = res.data;
+      thisApp.data_list = res.data;
+
+      // development
+      console.debug('Data: ' + JSON.stringify(data.item));
+
+      thisApp.completeFetch();
+    }, function (error) {
+      thisApp.completeFetch();
+    });
+  }
+
+  /**
+   * Fetch completed
+   */
+  completeFetch() {
+    this.init_loading = false;
+    this.is_fetching = false;
+    this.is_refreshing = false;
+
+    if (this.refresher) {
+      this.refresher.complete();
+    }
+  }
+
+}

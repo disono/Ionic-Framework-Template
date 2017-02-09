@@ -1,0 +1,59 @@
+<!--
+ - @author Archie Disono
+ - @url https://github.com/disono/Ionic-Framework-Template
+ - @license Apache 2.0
+-->
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Filter
+    </ion-title>
+
+    <ion-buttons start>
+      <button ion-button clear (click)="dismiss()">
+        Cancel
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar [(ngModel)]="filter.search" placeholder="Search product by name..."></ion-searchbar>
+
+  <div padding>
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Min Price</ion-label>
+        <ion-input type="tel" [(ngModel)]="filter.min_srp" name="min_srp"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Max Price</ion-label>
+        <ion-input type="tel" [(ngModel)]="filter.max_srp" name="max_srp"></ion-input>
+      </ion-item>
+
+      <!-- category -->
+      <ion-item>
+        <ion-label>Category</ion-label>
+        <ion-select [(ngModel)]="filter.product_category_id" name="product_category_id">
+          <ion-option value="">All</ion-option>
+          <ion-option *ngFor="let item of categories" value="{{item.id}}">{{item.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>On Sale</ion-label>
+        <ion-toggle [(ngModel)]="filter.is_sale" (ionChange)="onChangeToggle('sale', filter.is_sale)"></ion-toggle>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Latest / New Arrival</ion-label>
+        <ion-toggle [(ngModel)]="filter.is_latest"
+                    (ionChange)="onChangeToggle('latest', filter.is_latest)"></ion-toggle>
+      </ion-item>
+    </ion-list>
+
+    <button ion-button block (click)="search()">Search</button>
+  </div>
+</ion-content>

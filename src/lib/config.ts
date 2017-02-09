@@ -1,3 +1,4 @@
+import {WBHelper} from "./helper";
 /**
  * @description Configurations
  * @file config.ts
@@ -32,16 +33,22 @@ let _WBConfig = (function () {
     // Fire-base Cloud Messaging
     enableFCM: false,
 
+    // we will watch the user's position on application sync
+    watchPosition: true,
+
     // GPS
     lat: 0,
     lng: 0,
-    GPSWatchID: null,
+    watchPositionID: null,
 
     // reset the config
-    reset: function () {
+    resetGPS: function () {
+      // stop GSP watch
+      WBHelper.stopWatchPosition();
+
       _WBConfig.lat = 0;
       _WBConfig.lng = 0;
-      _WBConfig.GPSWatchID = null;
+      _WBConfig.watchPositionID = null;
     }
   };
 }());

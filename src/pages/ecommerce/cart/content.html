@@ -1,0 +1,95 @@
+<!--
+ - @author Archie Disono
+ - @url https://github.com/disono/Ionic-Framework-Template
+ - @license Apache 2.0
+-->
+
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>
+      My Cart
+    </ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="clearCart()">
+        <ion-icon ios="ios-trash" md="md-trash"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="bg-product-list">
+  <!-- refresh items -->
+  <ion-refresher *ngIf="!init_loading" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- list of items on cart -->
+  <div *ngIf="!init_loading">
+    <ion-list>
+      <ion-item *ngFor="let data_fetch of data_list">
+        <ion-avatar item-left>
+          <img src="{{data_fetch.product.cover}}" (click)="showProduct(data_fetch.id)">
+        </ion-avatar>
+
+        <h2 (click)="showProduct(data_fetch.id)">{{data_fetch.name}}</h2>
+        <p>Quantity: <span>{{data_fetch.qty}}</span> Price: <span color="danger"
+                                                                  [innerHTML]="data_fetch.formatted_price"></span></p>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col width-50>
+              <button ion-button clear block small color="danger" icon-left (click)="removeToCart(data_fetch.id)">
+                <ion-icon ios="ios-trash" md="md-trash"></ion-icon>
+                Remove
+              </button>
+            </ion-col>
+
+            <ion-col width-50>
+              <button ion-button clear block small color="primary" icon-left (click)="updateQuantity(data_fetch.id)">
+                <ion-icon ios="ios-open" md="md-open"></ion-icon>
+                Quantity
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+
+    <!-- no items -->
+    <h1 class="text-center" *ngIf="!data_list.length">No Items On Your Cart!</h1>
+  </div>
+
+  <!-- loading -->
+  <h1 class="text-center" *ngIf="init_loading">
+    <ion-spinner icon="spiral"></ion-spinner>
+    Loading...
+  </h1>
+</ion-content>
+
+<!-- checkout -->
+<ion-footer *ngIf="data_list.length">
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col width-50>
+          Estimated Total
+        </ion-col>
+
+        <ion-col width-50>
+          <strong><span [innerHTML]="cart_details.formatted_total"></span></strong>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <button ion-button block color="danger" (click)="checkout()">
+      Proceed to Checkout
+    </button>
+  </ion-toolbar>
+</ion-footer>

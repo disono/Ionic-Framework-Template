@@ -1,0 +1,62 @@
+<!--
+ - @author Archie Disono
+ - @url https://github.com/disono/Ionic-Framework-Template
+ - @license Apache 2.0
+-->
+
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>
+      Items
+    </ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="searchProducts()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="bg-product-list">
+  <ion-refresher *ngIf="!init_loading" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div *ngIf="!init_loading">
+    <ion-grid>
+      <ion-row *ngFor="let data_fetch of data_list">
+        <ion-col width-50 *ngFor="let item of data_fetch">
+          <ion-card>
+            <img [src]="item.cover" (click)="showProduct(item.id)">
+
+            <ion-card-content (click)="showProduct(item.id)">
+              <ion-card-title>
+                {{item.name}}
+              </ion-card-title>
+
+              <p color="danger" [innerHTML]="item.formatted_srp"></p>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <h1 class="text-center" *ngIf="!data_list.lenght && !init_loading">
+    No Items Found.
+  </h1>
+
+  <ion-infinite-scroll *ngIf="!init_loading" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <h1 class="text-center" *ngIf="init_loading">
+    <ion-spinner icon="spiral"></ion-spinner>
+    Loading...
+  </h1>
+</ion-content>

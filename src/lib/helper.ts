@@ -128,7 +128,7 @@ let _WBHelper = (function () {
      */
     showToast: function (message) {
       if (WBConfig.is_browser) {
-        console.error(message);
+        console.log(message);
         return;
       }
 
@@ -262,17 +262,65 @@ let _WBHelper = (function () {
      * lat: position.coords.latitude
      * lng: position.coords.longitude
      */
-    currentPosition: function (successCallback, errorCallback) {
+    getCurrentPosition: function (successCallback, errorCallback) {
       navigator.geolocation.getCurrentPosition(function (position) {
+        WBConfig.lat = position.coords.latitude;
+        WBConfig.lng = position.coords.longitude;
+        console.log(position);
+
         successCallback(position);
       }, function (error) {
-        console.error('GPS Error: ' + error.message + ', code: ' + error.code);
+        console.error('GPS Error (getCurrentPosition): ' + error.message + ', code: ' + error.code);
 
         errorCallback(error);
       }, {
         timeout: 30000,
         enableHighAccuracy: true
       });
+    },
+
+    /**
+     * Watch the current position
+     *
+     * @param successCallback
+     * @param errorCallback
+     *
+     * returns
+     * lat: position.coords.latitude
+     * lng: position.coords.longitude
+     */
+    watchPosition: function (successCallback, errorCallback) {
+      // clear the data on GPS watch
+      if (WBConfig.watchPositionID) {
+        navigator.geolocation.clearWatch(WBConfig.watchPositionID);
+        WBConfig.watchPositionID = null;
+      }
+
+      // watch the current position
+      WBConfig.watchPositionID = navigator.geolocation.watchPosition(function (position) {
+        WBConfig.lat = position.coords.latitude;
+        WBConfig.lng = position.coords.longitude;
+        console.log(position);
+
+        successCallback(position);
+      }, function (error) {
+        console.error('GPS Error (watchPosition): ' + error.message + ', code: ' + error.code);
+
+        errorCallback(error);
+      }, {
+        timeout: 30000,
+        enableHighAccuracy: true
+      });
+    },
+
+    /**
+     * Stop the GPS watch
+     */
+    stopWatchPosition: function () {
+      if (WBConfig.watchPositionID) {
+        navigator.geolocation.clearWatch(WBConfig.watchPositionID);
+        WBConfig.watchPositionID = null;
+      }
     }
   };
 }());

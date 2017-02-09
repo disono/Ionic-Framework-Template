@@ -5,6 +5,7 @@ import {Auth} from "../../providers/auth";
 import {DrawerPage} from "../drawer/drawer";
 import {RegisterPage} from "./register";
 import {ForgotPage} from "./forgot";
+import {WBSocket} from "../../lib/socket";
 
 /**
  * @description Login
@@ -65,6 +66,9 @@ export class LoginPage {
       // show the main menu
       if (data.role == 'client') {
         thisApp.init();
+
+        // emit to sync data
+        WBSocket.emitter.emitEvent('sync_application');
 
         // set the main page
         thisApp.nav.setRoot(DrawerPage);

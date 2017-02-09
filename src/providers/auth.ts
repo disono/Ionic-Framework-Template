@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {WBHelper} from "../lib/helper";
 import {AppProvider} from "./app-provider";
+import {WBConfig} from "../lib/config";
 
 /*
  Generated class for the Auth provider.
@@ -143,7 +144,11 @@ export class Auth {
    * Logout
    */
   logout() {
+    // clear all stored data
     WBHelper.clearItem();
+
+    // reset GPS
+    WBConfig.resetGPS();
   }
 
   /**

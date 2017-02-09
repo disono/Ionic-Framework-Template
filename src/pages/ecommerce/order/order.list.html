@@ -1,0 +1,47 @@
+<!--
+ - @author Archie Disono
+ - @url https://github.com/disono/Ionic-Framework-Template
+ - @license Apache 2.0
+-->
+
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>
+      My Orders
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher *ngIf="!init_loading" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div *ngIf="!init_loading">
+    <ion-list>
+      <ion-item *ngFor="let data_fetch of data_list" (click)="itemSelected(data_fetch.id)">
+        <h2 [innerHTML]="data_fetch.formatted_total"></h2>
+        <p>{{data_fetch.count_items}} items</p>
+        <p>{{data_fetch.created_at}}</p>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <!-- no orders -->
+  <h1 class="text-center" *ngIf="!data_list.length && !init_loading">
+    No Orders!
+  </h1>
+
+  <ion-infinite-scroll *ngIf="!init_loading" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <h1 class="text-center" *ngIf="init_loading">
+    <ion-spinner icon="spiral"></ion-spinner>
+    Loading...
+  </h1>
+</ion-content>

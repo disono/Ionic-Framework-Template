@@ -215,13 +215,20 @@ export class AppProvider {
       console.error('AppProvider-_handleError-instanceof: ' + error);
       WBHelper.errorMessage(error);
 
-      return;
+      return Observable.throw(error);
     }
 
-    console.error('AppProvider-_handleError-Observable.throw: ' + error);
-    WBHelper.errorMessage(error.json().errors);
+    let error_data = error.json();
+    if (!error_data.errors) {
+      console.log("AppProvider-_handleError-error_data: Unknown JSON data error.");
 
-    return Observable.throw(error.json().errors);
+      return Observable.throw("Unknown JSON data error.");
+    }
+
+    console.error('AppProvider-_handleError-Observable.throw: ' + JSON.stringify(error_data.errors));
+    WBHelper.errorMessage(error_data.errors);
+
+    return Observable.throw(JSON.stringify(error_data.errors));
   }
 
 }

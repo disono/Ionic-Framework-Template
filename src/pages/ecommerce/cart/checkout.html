@@ -1,0 +1,103 @@
+<!--
+ - @author Archie Disono
+ - @url https://github.com/disono/Ionic-Framework-Template
+ - @license Apache 2.0
+-->
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Secure Checkout
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="cart_details">
+    <ion-grid>
+      <ion-row>
+        <ion-col width-50>Total</ion-col>
+        <ion-col width-50 [innerHTML]="cart_details.formatted_total"></ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col width-50>Tax</ion-col>
+        <ion-col width-50 [innerHTML]="cart_details.formatted_tax"></ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col width-50>Shipping Fee</ion-col>
+        <ion-col width-50 [innerHTML]="cart_details.formatted_delivery_cost"></ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col width-50>Discount</ion-col>
+        <ion-col width-50 [innerHTML]="cart_details.formatted_discount"></ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col width-50>Subtotal</ion-col>
+        <ion-col width-50 [innerHTML]="cart_details.formatted_subtotal"></ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Full Name*</ion-label>
+        <ion-input type="text" [(ngModel)]="inputs.full_name" name="full_name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Phone*</ion-label>
+        <ion-input type="tel" [(ngModel)]="inputs.phone" name="phone"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>email*</ion-label>
+        <ion-input type="email" [(ngModel)]="inputs.email" name="email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Payment Types*</ion-label>
+        <ion-select [(ngModel)]="inputs.payment_type_id"
+                    (ionChange)="paymentTypeSelected($event, inputs.payment_type_id)">
+          <ion-option value="">Select Payment Type</ion-option>
+          <ion-option *ngFor="let item of payment_types" value="{{item.id}}">{{item.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item *ngIf="payment_type_details">
+        <p color="secondary">{{payment_type_details}}</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Billing Address*</ion-label>
+        <ion-textarea rows="3" [(ngModel)]="inputs.billing_address" name="billing_address"></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Shipping Address*</ion-label>
+        <ion-textarea rows="3" [(ngModel)]="inputs.shipping_address" name="shipping_address"></ion-textarea>
+      </ion-item>
+
+      <!-- applied voucher -->
+      <ion-item *ngIf="!cart_details.options.voucher_code">
+        <ion-label floating>Apply Voucher</ion-label>
+        <ion-input type="text" [(ngModel)]="voucher_code" name="voucher_code"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="!cart_details.options.voucher_code">
+        <button ion-button clear block color="danger" (click)="voucherApply()">Apply Voucher</button>
+      </ion-item>
+
+      <!-- remove voucher -->
+      <ion-item *ngIf="cart_details.options.voucher_code">
+        <p>{{cart_details.options.voucher_code}}</p>
+      </ion-item>
+      <ion-item *ngIf="cart_details.options.voucher_code">
+        <button ion-button clear block color="danger" (click)="removeVoucher()">Remove Voucher</button>
+      </ion-item>
+    </ion-list>
+
+    <button ion-button clear block color="danger" (click)="placeOrder()">Place Order</button>
+  </div>
+</ion-content>

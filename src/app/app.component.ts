@@ -6,6 +6,8 @@ import {WBConfig} from "../lib/config";
 import {WBView} from "../lib/views";
 import {LoginPage} from "../pages/authentication/login";
 import {DrawerPage} from "../pages/drawer/drawer";
+import {WBSocket} from "../lib/socket";
+import {WBHelper} from "../lib/helper";
 
 declare let FCMPlugin;
 
@@ -34,24 +36,19 @@ export class MyApp {
 
       // check if user is authenticated
       if (thisApp.auth.check()) {
-        // save the new authenticated user (Sync data)
-        let loading = WBView.loading(thisApp.loadingCtrl, 'Syncing...');
-
-        // sync any data on server
-        thisApp.auth.sync().subscribe(function (res) {
-          loading.dismiss();
-
-          // run the application
-          thisApp.run();
-        }, function (error) {
-          loading.dismiss();
-
-          // run the application
-          thisApp.run();
-        });
+        // drawer menus
+        thisApp.rootPage = DrawerPage;
       } else {
         this.rootPage = LoginPage;
       }
+
+      // run the application data
+      thisApp.run();
+
+      // event listener for syncing application
+      WBSocket.emitter.addListener('sync_application', function () {
+        thisApp.run();
+      });
     });
   }
 
@@ -59,6 +56,33 @@ export class MyApp {
    * Run the application
    */
   run() {
+    let thisApp = this;
+
+    if (!thisApp.auth.check()) {
+      return;
+    }
+
+    // save the new authenticated user (Sync data)
+    let loading = WBView.loading(thisApp.loadingCtrl, 'Syncing...');
+
+    // sync any data on server
+    thisApp.auth.sync().subscribe(function (res) {
+      loading.dismiss();
+
+      // run the application
+      thisApp.initializeData();
+    }, function (error) {
+      loading.dismiss();
+
+      // run the application
+      thisApp.initializeData();
+    });
+  }
+
+  /**
+   * Initialized required data
+   */
+  initializeData() {
     let thisApp = this;
 
     // store the FCM token
@@ -74,7 +98,13 @@ export class MyApp {
       );
     }
 
-    // drawer menus
-    thisApp.rootPage = DrawerPage;
+    // watch user's position
+    if (WBConfig.watchPosition) {
+      WBHelper.watchPosition(function (position) {
+
+      }, function (error) {
+
+      });
+    }
   }
 }
