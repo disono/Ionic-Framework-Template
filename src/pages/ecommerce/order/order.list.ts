@@ -1,6 +1,5 @@
 import {Component} from "@angular/core";
 import {NavController} from "ionic-angular";
-import {ECommerceCartSuccessPage} from "./success";
 import {ECommerceOrder} from "../../../providers/ecommerce/order/order";
 import {ECommerceOrderDetailsPage} from "./order.details";
 
