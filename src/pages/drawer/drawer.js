@@ -13,6 +13,8 @@ var contact_1 = require("../contact/contact");
 var settings_tab_1 = require("../settings/settings-tab");
 var product_list_1 = require("../ecommerce/product/product.list");
 var content_1 = require("../ecommerce/cart/content");
+var order_list_1 = require("../ecommerce/order/order.list");
+var inbox_1 = require("../message/inbox");
 /**
  * @author Archie Disono
  * @url https://github.com/disono/Ionic-Framework-Template
@@ -27,6 +29,9 @@ var DrawerPage = (function () {
       // e-commerce
       {title: 'Products', component: product_list_1.ECommerceProductListPage},
       {title: 'My Cart', component: content_1.ECommerceCartContentPage},
+      {title: 'My Orders', component: order_list_1.ECommerceOrderListPage},
+      // messenger
+      {title: 'Inbox', component: inbox_1.InboxPage},
       {title: 'Contact', component: contact_1.ContactPage},
       {title: 'About', component: about_1.AboutPage}
     ];

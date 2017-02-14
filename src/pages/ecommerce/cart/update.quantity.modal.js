@@ -6,19 +6,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
   };
 var core_1 = require("@angular/core");
+var views_1 = require("../../../lib/views");
 /**
  * @author Archie Disono
  * @url https://github.com/disono/Ionic-Framework-Template
  * @license Apache 2.0
  */
 var ECommerceCartItemQuantityModal = (function () {
-  function ECommerceCartItemQuantityModal(nav, product, auth, cart, params, viewCtrl) {
+  function ECommerceCartItemQuantityModal(nav, product, auth, cart, params, viewCtrl, loadingCtrl) {
     this.nav = nav;
     this.product = product;
     this.auth = auth;
     this.cart = cart;
     this.params = params;
     this.viewCtrl = viewCtrl;
+    this.loadingCtrl = loadingCtrl;
   }
 
   /**
@@ -27,9 +29,12 @@ var ECommerceCartItemQuantityModal = (function () {
   ECommerceCartItemQuantityModal.prototype.update = function () {
     var thisApp = this;
     if (thisApp.quantity) {
+      var loading_1 = views_1.WBView.loading(thisApp.loadingCtrl, 'Updating Item Quantity...');
       thisApp.cart.update(thisApp.params.get('id'), thisApp.quantity).subscribe(function (response) {
+        loading_1.dismiss();
         thisApp.viewCtrl.dismiss(true);
       }, function (error) {
+        loading_1.dismiss();
         thisApp.dismiss();
       });
     }

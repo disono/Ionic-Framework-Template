@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var core_1 = require("@angular/core");
 var views_1 = require("../../../lib/views");
 var helper_1 = require("../../../lib/helper");
+var content_1 = require("../cart/content");
 /**
  * @author Archie Disono
  * @url https://github.com/disono/Ionic-Framework-Template
@@ -56,11 +57,19 @@ var ECommerceProductShowPage = (function () {
     if (thisApp.auth.check()) {
       thisApp.cart.add(product_id).subscribe(function (response) {
         helper_1.WBHelper.showToast('Your item is successfully added to cart.');
+      }, function (error) {
+        console.error('Subscribe Error: ' + error);
       });
     }
     else {
       views_1.WBView.alert(thisApp.alertCtrl, 'Login', 'Please login to add this item to cart.');
     }
+  };
+  /**
+   * Cart list
+   */
+  ECommerceProductShowPage.prototype.cartList = function () {
+    this.nav.push(content_1.ECommerceCartContentPage);
   };
   ECommerceProductShowPage = __decorate([
     core_1.Component({

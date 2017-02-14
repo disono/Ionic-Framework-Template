@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {Platform, LoadingController, AlertController} from "ionic-angular";
 import {StatusBar, Splashscreen} from "ionic-native";
-import {Auth} from "../providers/auth";
+import {AuthProvider} from "../providers/auth-provider";
 import {WBConfig} from "../lib/config";
 import {WBView} from "../lib/views";
 import {LoginPage} from "../pages/authentication/login";
@@ -17,7 +17,7 @@ declare let FCMPlugin;
 export class MyApp {
   rootPage: any;
 
-  constructor(public platform: Platform, public auth: Auth,
+  constructor(public platform: Platform, public auth: AuthProvider,
               public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
     this.initializeApp();
   }
@@ -98,13 +98,58 @@ export class MyApp {
       );
     }
 
-    // watch user's position
+    // watch user's position (really)
     if (WBConfig.watchPosition) {
       WBHelper.watchPosition(function (position) {
-
+        // register session
+        thisApp.sentLocation();
       }, function (error) {
 
       });
     }
+
+    // web sockets
+    thisApp.socketReceiver();
+  }
+
+  /**
+   * Waiting for socket
+   */
+  socketReceiver() {
+    let thisApp = this;
+    let session = thisApp.auth.user();
+
+    WBSocket.connect(function () {
+      // on connected
+
+      // register session
+      thisApp.sentLocation();
+
+      // messenger
+      WBSocket.on('message_session_' + session.id, function (data) {
+        if (!WBConfig.private_message_on_view) {
+          WBHelper.notify('New Message (' + data.from_full_name + ')', data.limit_message);
+        } else {
+          WBSocket.emitter.emitEvent('msg_received', [data]);
+        }
+      });
+    }, function () {
+      // events
+    }, function () {
+      // disconnect
+      WBSocket.emit('destroy_session', {
+        token_key: session.token_key
+      });
+    });
+  }
+
+  /**
+   * Sent the current location as session registration
+   */
+  sentLocation() {
+    let session = this.auth.user();
+    session.lat = WBConfig.lat;
+    session.lng = WBConfig.lng;
+    WBSocket.emit('register_session', session);
   }
 }

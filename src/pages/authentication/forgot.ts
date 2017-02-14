@@ -2,7 +2,7 @@ import {Component} from "@angular/core";
 import {NavController, AlertController, LoadingController} from "ionic-angular";
 import {LoginPage} from "./login";
 import {WBView} from "../../lib/views";
-import {Auth} from "../../providers/auth";
+import {AuthProvider} from "../../providers/auth-provider";
 
 /**
  * @author Archie Disono
@@ -17,7 +17,7 @@ export class ForgotPage {
   inputs: any;
 
   constructor(public nav: NavController, public alertCtrl: AlertController, public loadingCtrl: LoadingController,
-              public auth: Auth) {
+              public auth: AuthProvider) {
     this.init();
   }
 

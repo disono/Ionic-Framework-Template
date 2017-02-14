@@ -10,6 +10,7 @@ is a starting blank template for Ionic Projects V2 Beta
 # Cordova Plugins
 * **Google Firebase Cloud Messaging Cordova Push Plugin**[https://github.com/fechanique/cordova-plugin-fcm](https://github.com/fechanique/cordova-plugin-fcm)
 * **Cordova Local-Notification Plugin:** [https://github.com/katzer/cordova-plugin-local-notifications](https://github.com/katzer/cordova-plugin-local-notifications)
+* **cordova-plugin-facebook4**[https://github.com/jeduan/cordova-plugin-facebook4](https://github.com/jeduan/cordova-plugin-facebook4)
 
 ### Install Libraries
 ```sh
@@ -20,9 +21,16 @@ is a starting blank template for Ionic Projects V2 Beta
 3. Update the FCM config
 - You will need 2 generated files in the Firebase configuration process (see docs: https://firebase.google.com/docs/).
 - Android compilation details, put your generated file 'google-services.json' in the project root folder.
-- Details: [https://github.com/fechanique/cordova-plugin-fcm](https://github.com/fechanique/cordova-plugin-fcm)
+- Details: https://github.com/fechanique/cordova-plugin-fcm
 
 4. bower install
+
+5. For facebook login (optional)
+- Update your sr/lib/config.ts to facebook_auth: true
+- cordova plugin add cordova-plugin-facebook4 --save --variable APP_ID="YOU_APP_ID" --variable APP_NAME="YOU_APPLICATION_NAME"
+- Create App on facebook SDK API @ https://developers.facebook.com/apps
+
+6. Update your package name at config.xml
 ```
 
 # Credits

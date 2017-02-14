@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {AppProvider} from "../../app-provider";
+import {APDProvider} from "../../apd-provider";
 
 /**
  * @author Archie Disono on 2016-05-08.
@@ -9,7 +9,7 @@ import {AppProvider} from "../../app-provider";
 @Injectable()
 export class ECommerceOrder {
 
-  constructor(public appProvider: AppProvider) {
+  constructor(public appProvider: APDProvider) {
     console.log('ECommerce Orders Called.');
   }
 

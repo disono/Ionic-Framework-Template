@@ -56,11 +56,11 @@ var GeneralPage = (function () {
       first_name: user.first_name,
       last_name: user.last_name,
       phone: user.phone,
-      address: (user.address) ? user.address : '',
+      address: user.address,
       email: user.email,
       birthday: new Date(user.birthday).toISOString(),
       gender: ((user.gender) ? user.gender : 'Male'),
-      about: (user.about) ? user.about : '',
+      about: user.about,
       avatar: user.avatar
     };
     // files / avatar

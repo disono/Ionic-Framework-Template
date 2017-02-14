@@ -23,7 +23,7 @@ var ECommerceProductCategories = (function () {
    * @returns {any}
    */
   ECommerceProductCategories.prototype.index = function () {
-    return this.appProvider.get('ecommerce/product/category', null, function (res) {
+    return this.appProvider.get('e-commerce/product/category', null, function (res) {
       console.debug('Product-categories: ' + res);
     });
   };

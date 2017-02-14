@@ -7,6 +7,7 @@ import {SettingsTabPage} from "../settings/settings-tab";
 import {ECommerceProductListPage} from "../ecommerce/product/product.list";
 import {ECommerceCartContentPage} from "../ecommerce/cart/content";
 import {ECommerceOrderListPage} from "../ecommerce/order/order.list";
+import {InboxPage} from "../message/inbox";
 
 /**
  * @author Archie Disono
@@ -32,6 +33,9 @@ export class DrawerPage {
       {title: 'Products', component: ECommerceProductListPage},
       {title: 'My Cart', component: ECommerceCartContentPage},
       {title: 'My Orders', component: ECommerceOrderListPage},
+
+      // messenger
+      {title: 'Inbox', component: InboxPage},
 
       {title: 'Contact', component: ContactPage},
       {title: 'About', component: AboutPage}

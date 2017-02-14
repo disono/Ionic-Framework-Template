@@ -3,7 +3,7 @@ import {NavController, NavParams, LoadingController, AlertController} from "ioni
 import {ECommerceProduct} from "../../../providers/ecommerce/product/product";
 import {WBView} from "../../../lib/views";
 import {WBHelper} from "../../../lib/helper";
-import {Auth} from "../../../providers/auth";
+import {AuthProvider} from "../../../providers/auth-provider";
 import {ECommerceCart} from "../../../providers/ecommerce/cart/cart";
 import {ECommerceCartContentPage} from "../cart/content";
 
@@ -20,7 +20,7 @@ export class ECommerceProductShowPage {
   title = 'Item';
   details = null;
 
-  constructor(public nav: NavController, public params: NavParams, public auth: Auth, public cart: ECommerceCart,
+  constructor(public nav: NavController, public params: NavParams, public auth: AuthProvider, public cart: ECommerceCart,
               public product: ECommerceProduct, public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
     console.log('Product ID: ' + params.get('id'));
 

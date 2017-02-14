@@ -23,7 +23,7 @@ var ECommerceProduct = (function () {
    * @returns {any}
    */
   ECommerceProduct.prototype.index = function (parameters) {
-    return this.appProvider.get('ecommerce/product', parameters, function (res) {
+    return this.appProvider.get('e-commerce/product', parameters, function (res) {
       console.debug('Product: ' + res);
     });
   };
@@ -34,7 +34,7 @@ var ECommerceProduct = (function () {
    * @returns {any}
    */
   ECommerceProduct.prototype.show = function (id) {
-    return this.appProvider.get('ecommerce/product/show/' + id, null, function (res) {
+    return this.appProvider.get('e-commerce/product/show/' + id, null, function (res) {
       console.debug('Product show: ' + res);
     });
   };

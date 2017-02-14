@@ -1,8 +1,8 @@
 import {Component} from "@angular/core";
 import {NavController, LoadingController} from "ionic-angular";
-import {Auth} from "../../../providers/auth";
+import {AuthProvider} from "../../../providers/auth-provider";
 import {ECommerceCart} from "../../../providers/ecommerce/cart/cart";
-import {ApplicationData} from "../../../providers/application-data";
+import {ApplicationProvider} from "../../../providers/application-provider";
 import {ECommerceCartSuccessPage} from "./success";
 import {WBView} from "../../../lib/views";
 
@@ -33,7 +33,7 @@ export class ECommerceCartCheckoutPage {
   voucher_code = null;
   payment_type_details = null;
 
-  constructor(public nav: NavController, public auth: Auth, public cart: ECommerceCart, public applicationData: ApplicationData,
+  constructor(public nav: NavController, public auth: AuthProvider, public cart: ECommerceCart, public applicationData: ApplicationProvider,
               public loadingCtrl: LoadingController) {
     this.fetchData();
   }

@@ -33,6 +33,8 @@ var ECommerceProductFilterModal = (function () {
     var thisApp = this;
     this.category.index().subscribe(function (response) {
       thisApp.categories = response.data;
+    }, function (error) {
+      console.error('Subscribe Error: ' + error);
     });
   };
   /**

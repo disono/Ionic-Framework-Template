@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {NavController, NavParams, ViewController, LoadingController} from "ionic-angular";
 import {ECommerceProduct} from "../../../providers/ecommerce/product/product";
-import {Auth} from "../../../providers/auth";
+import {AuthProvider} from "../../../providers/auth-provider";
 import {ECommerceCart} from "../../../providers/ecommerce/cart/cart";
 import {WBView} from "../../../lib/views";
 
@@ -17,7 +17,7 @@ import {WBView} from "../../../lib/views";
 export class ECommerceCartItemQuantityModal {
   quantity: null;
 
-  constructor(public nav: NavController, public product: ECommerceProduct, public auth: Auth, public cart: ECommerceCart,
+  constructor(public nav: NavController, public product: ECommerceProduct, public auth: AuthProvider, public cart: ECommerceCart,
               public params: NavParams, public viewCtrl: ViewController, public loadingCtrl: LoadingController) {
 
   }

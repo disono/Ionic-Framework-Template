@@ -10,7 +10,13 @@
   </ion-navbar>
 </ion-header>
 
+
 <ion-content padding>
+  <button type="button" *ngIf="wb_config.facebook_auth" ion-button block (click)="doFacebook()">
+    <ion-icon ios="logo-facebook" md="logo-facebook"></ion-icon>
+    Continue with Facebook
+  </button>
+
   <form (submit)="doRegister($event, inputs)">
     <ion-list>
       <ion-item>

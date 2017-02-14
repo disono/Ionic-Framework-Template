@@ -11,10 +11,11 @@ import {GeneralPage} from "../pages/settings/general";
 import {SecurityPage} from "../pages/settings/security";
 import {AboutPage} from "../pages/about/about";
 import {ContactPage} from "../pages/contact/contact";
-import {AppProvider} from "../providers/app-provider";
-import {ApplicationData} from "../providers/application-data";
-import {Auth} from "../providers/auth";
-import {User} from "../providers/user";
+import {APDProvider} from "../providers/apd-provider";
+import {ApplicationProvider} from "../providers/application-provider";
+import {AuthProvider} from "../providers/auth-provider";
+import {UserProvider} from "../providers/user-provider";
+import {MessageProvider} from "../providers/message-provider";
 import {ECommerceProductCategories} from "../providers/ecommerce/product/category";
 import {ECommerceCart} from "../providers/ecommerce/cart/cart";
 import {ECommerceProductCategoryPage} from "../pages/ecommerce/product/category";
@@ -29,6 +30,8 @@ import {ECommerceCartItemQuantityModal} from "../pages/ecommerce/cart/update.qua
 import {ECommerceOrder} from "../providers/ecommerce/order/order";
 import {ECommerceOrderListPage} from "../pages/ecommerce/order/order.list";
 import {ECommerceOrderDetailsPage} from "../pages/ecommerce/order/order.details";
+import {InboxPage} from "../pages/message/inbox";
+import {ReadingInboxPage} from "../pages/message/reading.inbox";
 
 @NgModule({
   declarations: [
@@ -58,7 +61,11 @@ import {ECommerceOrderDetailsPage} from "../pages/ecommerce/order/order.details"
     ECommerceCartSuccessPage,
     ECommerceCartItemQuantityModal,
     ECommerceOrderListPage,
-    ECommerceOrderDetailsPage
+    ECommerceOrderDetailsPage,
+
+    // Messenger
+    InboxPage,
+    ReadingInboxPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -91,19 +98,26 @@ import {ECommerceOrderDetailsPage} from "../pages/ecommerce/order/order.details"
     ECommerceCartSuccessPage,
     ECommerceCartItemQuantityModal,
     ECommerceOrderListPage,
-    ECommerceOrderDetailsPage
+    ECommerceOrderDetailsPage,
+
+    // Messenger
+    InboxPage,
+    ReadingInboxPage
   ],
   providers: [
-    AppProvider,
-    ApplicationData,
-    Auth,
-    User,
+    APDProvider,
+    ApplicationProvider,
+    AuthProvider,
+    UserProvider,
 
     // ECommerce Providers
     ECommerceProductCategories,
     ECommerceProduct,
     ECommerceCart,
     ECommerceOrder,
+
+    // Messenger
+    MessageProvider,
 
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

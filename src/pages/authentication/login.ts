@@ -1,11 +1,12 @@
 import {Component} from "@angular/core";
-import {NavController, AlertController, LoadingController} from "ionic-angular";
+import {NavController, AlertController, LoadingController, App} from "ionic-angular";
 import {WBView} from "../../lib/views";
-import {Auth} from "../../providers/auth";
-import {DrawerPage} from "../drawer/drawer";
+import {AuthProvider} from "../../providers/auth-provider";
 import {RegisterPage} from "./register";
 import {ForgotPage} from "./forgot";
 import {WBSocket} from "../../lib/socket";
+import {WBConfig} from "../../lib/config";
+import {DrawerPage} from "../drawer/drawer";
 
 /**
  * @description Login
@@ -21,9 +22,10 @@ import {WBSocket} from "../../lib/socket";
 })
 export class LoginPage {
   inputs: any;
+  wb_config = WBConfig;
 
-  constructor(public nav: NavController, public alertCtrl: AlertController, public loadingCtrl: LoadingController,
-              public auth: Auth) {
+  constructor(public nav: NavController, public app: App, public alertCtrl: AlertController, public loadingCtrl: LoadingController,
+              public auth: AuthProvider) {
     this.init();
   }
 
@@ -44,7 +46,7 @@ export class LoginPage {
    * @param inputs
    */
   doLogin($event, inputs) {
-    $event.preventDefault();
+    // $event.preventDefault();
     let thisApp = this;
 
     // check for values
@@ -57,30 +59,88 @@ export class LoginPage {
     let loading = WBView.loading(thisApp.loadingCtrl, 'Authenticating');
 
     // login
-    thisApp.auth.login(inputs).subscribe(function (res) {
+    thisApp.auth.login(inputs).subscribe(function (response) {
       loading.dismiss();
 
-      // data
-      let data = res.data;
-
-      // show the main menu
-      if (data.role == 'client') {
-        thisApp.init();
-
-        // emit to sync data
-        WBSocket.emitter.emitEvent('sync_application');
-
-        // set the main page
-        thisApp.nav.setRoot(DrawerPage);
-      } else {
-        WBView.alert(thisApp.alertCtrl, 'Not Allowed', 'This Email/Username and password is not allowed to login.');
-        thisApp.auth.logout();
-      }
+      // check the users role
+      thisApp._checkRole(response);
     }, function (e) {
       loading.dismiss();
 
       WBView.alert(thisApp.alertCtrl, 'Invalid', e);
     });
+  }
+
+  /**
+   * Facebook authentication
+   */
+  isAuthenticated = null;
+  intervalAuth = null;
+
+  doFacebook() {
+    let thisApp = this;
+
+    // show loading
+    let loading = WBView.loading(thisApp.loadingCtrl, 'Creating profile...');
+
+    // check is authenticated
+    thisApp._checkIsAuth(thisApp);
+
+    thisApp.auth.facebook(function (response) {
+      loading.dismiss();
+
+      // check the users role
+      thisApp.isAuthenticated = response;
+    }, function (error) {
+      loading.dismiss();
+
+      WBView.alert(thisApp.alertCtrl, 'Registration unsuccessful', error);
+    }, function () {
+      loading.dismiss();
+    });
+  }
+
+  /**
+   * Check if authenticated
+   *
+   * @param thisApp
+   * @private
+   */
+  _checkIsAuth(thisApp) {
+    thisApp.intervalAuth = setInterval(function () {
+      if (thisApp.isAuthenticated) {
+        clearInterval(thisApp.intervalAuth);
+
+        thisApp._checkRole(thisApp.isAuthenticated);
+      }
+    }, 300);
+  }
+
+  /**
+   * Check role
+   *
+   * @param response
+   * @private
+   */
+  _checkRole(response) {
+    let thisApp = this;
+
+    // data
+    let data = response.data;
+
+    // show the main menu
+    if (data.role == 'client') {
+      thisApp.init();
+
+      // emit to sync data
+      WBSocket.emitter.emitEvent('sync_application');
+
+      // set the main page
+      thisApp.nav.setRoot(DrawerPage);
+    } else {
+      WBView.alert(thisApp.alertCtrl, 'Not Allowed', 'This Email/Username and password is not allowed to login.');
+      thisApp.auth.logout();
+    }
   }
 
   /**

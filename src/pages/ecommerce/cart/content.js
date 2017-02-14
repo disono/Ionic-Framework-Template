@@ -10,19 +10,21 @@ var product_show_1 = require("../product/product.show");
 var helper_1 = require("../../../lib/helper");
 var checkout_1 = require("./checkout");
 var update_quantity_modal_1 = require("./update.quantity.modal");
+var views_1 = require("../../../lib/views");
 /**
  * @author Archie Disono
  * @url https://github.com/disono/Ionic-Framework-Template
  * @license Apache 2.0
  */
 var ECommerceCartContentPage = (function () {
-  function ECommerceCartContentPage(nav, product, auth, cart, actionSheetCtrl, modalCtrl) {
+  function ECommerceCartContentPage(nav, product, auth, cart, actionSheetCtrl, modalCtrl, loadingCtrl) {
     this.nav = nav;
     this.product = product;
     this.auth = auth;
     this.cart = cart;
     this.actionSheetCtrl = actionSheetCtrl;
     this.modalCtrl = modalCtrl;
+    this.loadingCtrl = loadingCtrl;
     this.init();
     this.fetchData();
     this.is_refreshing = true;
@@ -92,10 +94,15 @@ var ECommerceCartContentPage = (function () {
           text: 'YES delete this item on my cart.',
           role: 'destructive',
           handler: function () {
+            var loading = views_1.WBView.loading(thisApp.loadingCtrl, 'Removing item on cart...');
             thisApp.cart.destroy(product_id).subscribe(function (response) {
+              loading.dismiss();
               helper_1.WBHelper.showToast('Your item is successfully remove to cart.');
               // refresh
               thisApp.fetchData();
+            }, function (error) {
+              loading.dismiss();
+              console.error('Subscribe Error: ' + error);
             });
           }
         }, {
@@ -141,10 +148,15 @@ var ECommerceCartContentPage = (function () {
           text: 'YES clear and delete ALL items on my cart.',
           role: 'destructive',
           handler: function () {
+            var loading = views_1.WBView.loading(thisApp.loadingCtrl, 'Removing all items on cart...');
             thisApp.cart.clear().subscribe(function (response) {
+              loading.dismiss();
               helper_1.WBHelper.showToast('Your cart is successfully cleared.');
               // refresh
               thisApp.fetchData();
+            }, function (error) {
+              loading.dismiss();
+              console.error('Subscribe Error: ' + error);
             });
           }
         }, {

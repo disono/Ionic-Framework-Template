@@ -7,6 +7,7 @@
  * @license Apache 2.0
  */
 import {WBConfig} from "./config";
+import {WBHelper} from "./helper";
 
 declare let io;
 declare let EventEmitter;
@@ -81,6 +82,16 @@ let _WBSocket = (function () {
         return;
       }
 
+      // authenticated user
+      let auth = this.auth();
+
+      // sent delete destroy session using token key
+      if (auth) {
+        this.emit('destroy_session', {
+          token_key: auth.token_key
+        });
+      }
+
       this.socket.disconnect();
       this.socket = null;
     },
@@ -98,6 +109,15 @@ let _WBSocket = (function () {
 
       // to un-subscribe all listeners of an event
       this.socket.off(name);
+    },
+
+    /**
+     * Authenticated user
+     *
+     * @returns {string}
+     */
+    auth: function () {
+      return WBHelper.getItem('user', true);
     }
   };
 }());

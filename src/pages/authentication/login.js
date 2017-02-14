@@ -10,6 +10,7 @@ var views_1 = require("../../lib/views");
 var drawer_1 = require("../drawer/drawer");
 var register_1 = require("./register");
 var forgot_1 = require("./forgot");
+var socket_1 = require("../../lib/socket");
 /**
  * @description Login
  * @file login.ts
@@ -60,6 +61,8 @@ var LoginPage = (function () {
       // show the main menu
       if (data.role == 'client') {
         thisApp.init();
+        // emit to sync data
+        socket_1.WBSocket.emitter.emitEvent('sync_application');
         // set the main page
         thisApp.nav.setRoot(drawer_1.DrawerPage);
       }

@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {NavController, ActionSheetController, ModalController, LoadingController} from "ionic-angular";
 import {ECommerceProduct} from "../../../providers/ecommerce/product/product";
-import {Auth} from "../../../providers/auth";
+import {AuthProvider} from "../../../providers/auth-provider";
 import {ECommerceCart} from "../../../providers/ecommerce/cart/cart";
 import {ECommerceProductShowPage} from "../product/product.show";
 import {WBHelper} from "../../../lib/helper";
@@ -28,7 +28,7 @@ export class ECommerceCartContentPage {
 
   refresher: any;
 
-  constructor(public nav: NavController, public product: ECommerceProduct, public auth: Auth, public cart: ECommerceCart,
+  constructor(public nav: NavController, public product: ECommerceProduct, public auth: AuthProvider, public cart: ECommerceCart,
               public actionSheetCtrl: ActionSheetController, public modalCtrl: ModalController, public loadingCtrl: LoadingController) {
     this.init();
 

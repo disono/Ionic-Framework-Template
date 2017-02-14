@@ -1,0 +1,50 @@
+<!--
+ - @author Archie Disono
+ - @url https://github.com/disono/Ionic-Framework-Template
+ - @license Apache 2.0
+-->
+
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>
+      Inbox
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher *ngIf="!init_loading" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div *ngIf="!init_loading">
+    <ion-list>
+      <ion-item *ngFor="let data_fetch of data_list" (click)="readingMessage(data_fetch.from_id)">
+        <ion-avatar item-left>
+          <img src="{{data_fetch.from_avatar}}">
+        </ion-avatar>
+
+        <h2>{{data_fetch.from_full_name}}</h2>
+        <h3>{{data_fetch.formatted_created_at}}</h3>
+        <p>{{data_fetch.limit_message}}</p>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <h1 class="text-center" *ngIf="!data_list.length && !init_loading">
+    No Messages.
+  </h1>
+
+  <ion-infinite-scroll *ngIf="!init_loading" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <h1 class="text-center" *ngIf="init_loading">
+    <ion-spinner icon="spiral"></ion-spinner>
+    Loading...
+  </h1>
+</ion-content>

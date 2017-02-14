@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {NavController, AlertController, LoadingController, App} from "ionic-angular";
 import {WBView} from "../../lib/views";
-import {Auth} from "../../providers/auth";
+import {AuthProvider} from "../../providers/auth-provider";
 import {LoginPage} from "../authentication/login";
 
 declare let moment;
@@ -21,7 +21,7 @@ export class GeneralPage {
   files: any;
 
   constructor(public nav: NavController, public alertCtrl: AlertController, public loadingCtrl: LoadingController,
-              public auth: Auth, public app: App) {
+              public auth: AuthProvider, public app: App) {
     this.init();
   }
 

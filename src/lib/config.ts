@@ -20,14 +20,17 @@ let _WBConfig = (function () {
     api_key_google: null,
     map_box_token: '',
 
+    // facebook authentication (disabled)
+    facebook_auth: false,
+
     // server url
     server_url: function () {
-      return (_WBConfig.dev) ? 'http://your-dev-domain/api/v1/' : 'http://your-prod-domain/api/v1/';
+      return (_WBConfig.dev) ? 'http://your-domain/api/v1/' : 'http://your-prod-domain/api/v1/';
     },
 
     // socket IO
     socket_uri: function () {
-      return (_WBConfig.dev) ? 'http://your-dev-domain/' : 'http://your-prod-domain:3000/';
+      return (_WBConfig.dev) ? 'http://your-domain:3000/' : 'http://your-prod-domain:3000/';
     },
 
     // Fire-base Cloud Messaging
@@ -40,6 +43,9 @@ let _WBConfig = (function () {
     lat: 0,
     lng: 0,
     watchPositionID: null,
+
+    // socket defaults
+    private_message_on_view: false,
 
     // reset the config
     resetGPS: function () {

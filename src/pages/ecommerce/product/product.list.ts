@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {NavController, AlertController, ModalController} from "ionic-angular";
 import {ECommerceProduct} from "../../../providers/ecommerce/product/product";
-import {Auth} from "../../../providers/auth";
+import {AuthProvider} from "../../../providers/auth-provider";
 import {WBView} from "../../../lib/views";
 import {ECommerceCart} from "../../../providers/ecommerce/cart/cart";
 import {WBHelper} from "../../../lib/helper";
@@ -45,7 +45,7 @@ export class ECommerceProductListPage {
     page: 1
   };
 
-  constructor(public nav: NavController, public product: ECommerceProduct, public auth: Auth, public cart: ECommerceCart,
+  constructor(public nav: NavController, public product: ECommerceProduct, public auth: AuthProvider, public cart: ECommerceCart,
               public alertCtrl: AlertController, public modalCtrl: ModalController) {
     this.init();
 

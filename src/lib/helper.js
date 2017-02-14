@@ -213,6 +213,7 @@ var _WBHelper = (function () {
       navigator.geolocation.getCurrentPosition(function (position) {
         config_1.WBConfig.lat = position.coords.latitude;
         config_1.WBConfig.lng = position.coords.longitude;
+        console.log(position);
         successCallback(position);
       }, function (error) {
         console.error('GPS Error (getCurrentPosition): ' + error.message + ', code: ' + error.code);
@@ -233,9 +234,16 @@ var _WBHelper = (function () {
      * lng: position.coords.longitude
      */
     watchPosition: function (successCallback, errorCallback) {
-      navigator.geolocation.watchPosition(function (position) {
+      // clear the data on GPS watch
+      if (config_1.WBConfig.watchPositionID) {
+        navigator.geolocation.clearWatch(config_1.WBConfig.watchPositionID);
+        config_1.WBConfig.watchPositionID = null;
+      }
+      // watch the current position
+      config_1.WBConfig.watchPositionID = navigator.geolocation.watchPosition(function (position) {
         config_1.WBConfig.lat = position.coords.latitude;
         config_1.WBConfig.lng = position.coords.longitude;
+        console.log(position);
         successCallback(position);
       }, function (error) {
         console.error('GPS Error (watchPosition): ' + error.message + ', code: ' + error.code);
@@ -244,6 +252,15 @@ var _WBHelper = (function () {
         timeout: 30000,
         enableHighAccuracy: true
       });
+    },
+    /**
+     * Stop the GPS watch
+     */
+    stopWatchPosition: function () {
+      if (config_1.WBConfig.watchPositionID) {
+        navigator.geolocation.clearWatch(config_1.WBConfig.watchPositionID);
+        config_1.WBConfig.watchPositionID = null;
+      }
     }
   };
 }());

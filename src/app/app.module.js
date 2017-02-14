@@ -18,10 +18,11 @@ var general_1 = require("../pages/settings/general");
 var security_1 = require("../pages/settings/security");
 var about_1 = require("../pages/about/about");
 var contact_1 = require("../pages/contact/contact");
-var app_provider_1 = require("../providers/app-provider");
-var application_data_1 = require("../providers/application-data");
-var auth_1 = require("../providers/auth");
-var user_1 = require("../providers/user");
+var wb_provider_1 = require("../providers/wb-provider");
+var application_provider_1 = require("../providers/application-provider");
+var auth_provider_1 = require("../providers/auth-provider");
+var user_provider_1 = require("../providers/user-provider");
+var message_provider_1 = require("../providers/message-provider");
 var category_1 = require("../providers/ecommerce/product/category");
 var cart_1 = require("../providers/ecommerce/cart/cart");
 var category_2 = require("../pages/ecommerce/product/category");
@@ -33,6 +34,11 @@ var checkout_1 = require("../pages/ecommerce/cart/checkout");
 var filter_modal_1 = require("../pages/ecommerce/product/filter.modal");
 var success_1 = require("../pages/ecommerce/cart/success");
 var update_quantity_modal_1 = require("../pages/ecommerce/cart/update.quantity.modal");
+var order_1 = require("../providers/ecommerce/order/order");
+var order_list_1 = require("../pages/ecommerce/order/order.list");
+var order_details_1 = require("../pages/ecommerce/order/order.details");
+var inbox_1 = require("../pages/message/inbox");
+var reading_inbox_1 = require("../pages/message/reading.inbox");
 var AppModule = (function () {
   function AppModule() {
   }
@@ -59,7 +65,12 @@ var AppModule = (function () {
         content_1.ECommerceCartContentPage,
         checkout_1.ECommerceCartCheckoutPage,
         success_1.ECommerceCartSuccessPage,
-        update_quantity_modal_1.ECommerceCartItemQuantityModal
+        update_quantity_modal_1.ECommerceCartItemQuantityModal,
+        order_list_1.ECommerceOrderListPage,
+        order_details_1.ECommerceOrderDetailsPage,
+        // Messenger
+        inbox_1.InboxPage,
+        reading_inbox_1.ReadingInboxPage
       ],
       imports: [
         ionic_angular_1.IonicModule.forRoot(app_component_1.MyApp)
@@ -85,17 +96,25 @@ var AppModule = (function () {
         content_1.ECommerceCartContentPage,
         checkout_1.ECommerceCartCheckoutPage,
         success_1.ECommerceCartSuccessPage,
-        update_quantity_modal_1.ECommerceCartItemQuantityModal
+        update_quantity_modal_1.ECommerceCartItemQuantityModal,
+        order_list_1.ECommerceOrderListPage,
+        order_details_1.ECommerceOrderDetailsPage,
+        // Messenger
+        inbox_1.InboxPage,
+        reading_inbox_1.ReadingInboxPage
       ],
       providers: [
-        app_provider_1.AppProvider,
-        application_data_1.ApplicationData,
-        auth_1.Auth,
-        user_1.User,
+        wb_provider_1.WBProvider,
+        application_provider_1.ApplicationProvider,
+        auth_provider_1.AuthProvider,
+        user_provider_1.UserProvider,
         // ECommerce Providers
         category_1.ECommerceProductCategories,
         product_1.ECommerceProduct,
         cart_1.ECommerceCart,
+        order_1.ECommerceOrder,
+        // Messenger
+        message_provider_1.MessageProvider,
         {provide: core_1.ErrorHandler, useClass: ionic_angular_1.IonicErrorHandler}
       ]
     })

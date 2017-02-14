@@ -11,6 +11,8 @@ var config_1 = require("../lib/config");
 var views_1 = require("../lib/views");
 var login_1 = require("../pages/authentication/login");
 var drawer_1 = require("../pages/drawer/drawer");
+var socket_1 = require("../lib/socket");
+var helper_1 = require("../lib/helper");
 var MyApp = (function () {
   function MyApp(platform, auth, loadingCtrl, alertCtrl) {
     this.platform = platform;
@@ -33,28 +35,45 @@ var MyApp = (function () {
       var thisApp = _this;
       // check if user is authenticated
       if (thisApp.auth.check()) {
-        // save the new authenticated user (Sync data)
-        var loading_1 = views_1.WBView.loading(thisApp.loadingCtrl, 'Syncing...');
-        // sync any data on server
-        thisApp.auth.sync().subscribe(function (res) {
-          loading_1.dismiss();
-          // run the application
-          thisApp.run();
-        }, function (error) {
-          loading_1.dismiss();
-          // run the application
-          thisApp.run();
-        });
+        // drawer menus
+        thisApp.rootPage = drawer_1.DrawerPage;
       }
       else {
         _this.rootPage = login_1.LoginPage;
       }
+      // run the application data
+      thisApp.run();
+      // event listener for syncing application
+      socket_1.WBSocket.emitter.addListener('sync_application', function () {
+        thisApp.run();
+      });
     });
   };
   /**
    * Run the application
    */
   MyApp.prototype.run = function () {
+    var thisApp = this;
+    if (!thisApp.auth.check()) {
+      return;
+    }
+    // save the new authenticated user (Sync data)
+    var loading = views_1.WBView.loading(thisApp.loadingCtrl, 'Syncing...');
+    // sync any data on server
+    thisApp.auth.sync().subscribe(function (res) {
+      loading.dismiss();
+      // run the application
+      thisApp.initializeData();
+    }, function (error) {
+      loading.dismiss();
+      // run the application
+      thisApp.initializeData();
+    });
+  };
+  /**
+   * Initialized required data
+   */
+  MyApp.prototype.initializeData = function () {
     var thisApp = this;
     // store the FCM token
     if (config_1.WBConfig.enableFCM) {
@@ -65,8 +84,53 @@ var MyApp = (function () {
         views_1.WBView.alert(thisApp.alertCtrl, 'FCM Error', 'Error retrieving token: ' + err);
       });
     }
-    // drawer menus
-    thisApp.rootPage = drawer_1.DrawerPage;
+    // watch user's position (really)
+    if (config_1.WBConfig.watchPosition) {
+      helper_1.WBHelper.watchPosition(function (position) {
+        // register session
+        thisApp.sentLocation();
+      }, function (error) {
+      });
+    }
+    // web sockets
+    thisApp.socketReceiver();
+  };
+  /**
+   * Waiting for socket
+   */
+  MyApp.prototype.socketReceiver = function () {
+    var thisApp = this;
+    var session = thisApp.auth.user();
+    socket_1.WBSocket.connect(function () {
+      // on connected
+      // register session
+      thisApp.sentLocation();
+      // messenger
+      socket_1.WBSocket.on('message_session_' + session.id, function (data) {
+        if (!config_1.WBConfig.private_message_on_view) {
+          helper_1.WBHelper.notify('New Message (' + data.from_full_name + ')', data.limit_message);
+        }
+        else {
+          socket_1.WBSocket.emitter.emitEvent('msg_received', [data]);
+        }
+      });
+    }, function () {
+      // events
+    }, function () {
+      // disconnect
+      socket_1.WBSocket.emit('destroy_session', {
+        token_key: session.token_key
+      });
+    });
+  };
+  /**
+   * Sent the current location as session registration
+   */
+  MyApp.prototype.sentLocation = function () {
+    var session = this.auth.user();
+    session.lat = config_1.WBConfig.lat;
+    session.lng = config_1.WBConfig.lng;
+    socket_1.WBSocket.emit('register_session', session);
   };
   MyApp = __decorate([
     core_1.Component({

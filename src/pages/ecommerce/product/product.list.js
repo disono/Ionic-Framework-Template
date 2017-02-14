@@ -170,6 +170,8 @@ var ECommerceProductListPage = (function () {
     if (thisApp.auth.check()) {
       thisApp.cart.add(product_id).subscribe(function (response) {
         helper_1.WBHelper.showToast('Your item is successfully added to cart.');
+      }, function (error) {
+        console.error('Subscribe Error: ' + error);
       });
     }
     else {

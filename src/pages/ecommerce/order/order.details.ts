@@ -14,7 +14,6 @@ import {ECommerceOrder} from "../../../providers/ecommerce/order/order";
 })
 export class ECommerceOrderDetailsPage {
   data_list: any;
-  cart_details: null;
   init_loading: boolean;
 
   is_refreshing: boolean;

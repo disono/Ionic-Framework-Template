@@ -23,7 +23,7 @@ var ECommerceCart = (function () {
    * @returns {any}
    */
   ECommerceCart.prototype.content = function () {
-    return this.appProvider.get('ecommerce/cart', null, function (res) {
+    return this.appProvider.get('e-commerce/cart', null, function (res) {
       console.debug('Product content: ' + res);
     });
   };
@@ -34,7 +34,7 @@ var ECommerceCart = (function () {
    * @returns {any}
    */
   ECommerceCart.prototype.add = function (product_id) {
-    return this.appProvider.get('ecommerce/cart/add/' + product_id, null, function (res) {
+    return this.appProvider.get('e-commerce/cart/add/' + product_id, null, function (res) {
       console.debug('Product add: ' + res);
     });
   };
@@ -46,7 +46,7 @@ var ECommerceCart = (function () {
    * @returns {any}
    */
   ECommerceCart.prototype.update = function (id, quantity) {
-    return this.appProvider.get('ecommerce/cart/update/' + id + '/' + quantity, null, function (res) {
+    return this.appProvider.get('e-commerce/cart/update/' + id + '/' + quantity, null, function (res) {
       console.debug('Product update: ' + res);
     });
   };
@@ -57,7 +57,7 @@ var ECommerceCart = (function () {
    * @returns {any}
    */
   ECommerceCart.prototype.destroy = function (id) {
-    return this.appProvider.get('ecommerce/cart/destroy/' + id, null, function (res) {
+    return this.appProvider.get('e-commerce/cart/destroy/' + id, null, function (res) {
       console.debug('Product add: ' + res);
     });
   };
@@ -67,7 +67,7 @@ var ECommerceCart = (function () {
    * @returns {any}
    */
   ECommerceCart.prototype.clear = function () {
-    return this.appProvider.get('ecommerce/cart/clear', null, function (res) {
+    return this.appProvider.get('e-commerce/cart/clear', null, function (res) {
       console.debug('Product clear: ' + res);
     });
   };
@@ -78,7 +78,7 @@ var ECommerceCart = (function () {
    * @returns {any}
    */
   ECommerceCart.prototype.voucher = function (code) {
-    return this.appProvider.post('ecommerce/cart/voucher/' + code, null, function (res) {
+    return this.appProvider.post('e-commerce/cart/voucher/' + code, null, function (res) {
       console.debug('Product clear: ' + res);
     });
   };
@@ -88,7 +88,7 @@ var ECommerceCart = (function () {
    * @returns {any}
    */
   ECommerceCart.prototype.removeVoucher = function () {
-    return this.appProvider.get('ecommerce/cart/voucher/remove', null, function (res) {
+    return this.appProvider.get('e-commerce/cart/voucher/remove', null, function (res) {
       console.debug('Product clear: ' + res);
     });
   };
@@ -99,7 +99,7 @@ var ECommerceCart = (function () {
    * @returns {any}
    */
   ECommerceCart.prototype.place = function (parameters) {
-    return this.appProvider.post('ecommerce/place', parameters, function (res) {
+    return this.appProvider.post('e-commerce/place', parameters, function (res) {
       console.debug('Product place: ' + res);
     });
   };
