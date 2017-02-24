@@ -1,4 +1,5 @@
 import {WBHelper} from "./helper";
+
 /**
  * @description Configurations
  * @file config.ts
@@ -14,7 +15,7 @@ let _WBConfig = (function () {
     dev: true,
 
     // platform type default is browser mode
-    is_browser: true,
+    is_browser: false,
 
     // api for google maps
     api_key_google: null,
@@ -24,20 +25,23 @@ let _WBConfig = (function () {
     facebook_auth: false,
 
     // server url
+    dev_domain: 'http://your-dev-domain',
+    prod_domain: 'http://your-prod-domain',
     server_url: function () {
-      return (_WBConfig.dev) ? 'http://your-domain/api/v1/' : 'http://your-prod-domain/api/v1/';
+      return (_WBConfig.dev) ? _WBConfig.dev_domain + '/api/v1/' : _WBConfig.prod_domain + '/api/v1/';
     },
 
     // socket IO
+    enable_web_socket: false,
     socket_uri: function () {
-      return (_WBConfig.dev) ? 'http://your-domain:3000/' : 'http://your-prod-domain:3000/';
+      return (_WBConfig.dev) ? _WBConfig.dev_domain + ':3000/' : _WBConfig.prod_domain + ':3000/';
     },
 
     // Fire-base Cloud Messaging
     enableFCM: false,
 
     // we will watch the user's position on application sync
-    watchPosition: true,
+    watchPosition: false,
 
     // GPS
     lat: 0,

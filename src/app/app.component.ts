@@ -30,7 +30,9 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
-      Splashscreen.hide();
+      if (Splashscreen) {
+        Splashscreen.hide();
+      }
 
       let thisApp = this;
 
@@ -39,7 +41,7 @@ export class MyApp {
         // drawer menus
         thisApp.rootPage = DrawerPage;
       } else {
-        this.rootPage = LoginPage;
+        thisApp.rootPage = LoginPage;
       }
 
       // run the application data
@@ -119,6 +121,10 @@ export class MyApp {
     let thisApp = this;
     let session = thisApp.auth.user();
 
+    if (!WBConfig.enable_web_socket) {
+      return;
+    }
+
     WBSocket.connect(function () {
       // on connected
 
@@ -131,6 +137,14 @@ export class MyApp {
           WBHelper.notify('New Message (' + data.from_full_name + ')', data.limit_message);
         } else {
           WBSocket.emitter.emitEvent('msg_received', [data]);
+        }
+      });
+
+      // notifications
+      WBSocket.on('notification_' + session.id, function (data) {
+        if (data.type == 'default') {
+          // notify
+          WBHelper.notify(data.title, data.description);
         }
       });
     }, function () {

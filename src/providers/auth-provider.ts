@@ -3,6 +3,7 @@ import {WBHelper} from "../lib/helper";
 import {APDProvider} from "./apd-provider";
 import {WBConfig} from "../lib/config";
 import {WBSocket} from "../lib/socket";
+import {WBSecurity} from "../lib/security";
 
 declare let facebookConnectPlugin;
 
@@ -29,8 +30,7 @@ export class AuthProvider {
     return this.appProvider.post('auth/login', parameters, function (res) {
       console.debug('AuthProvider-login: ' + res);
 
-      // save
-      WBHelper.setItem('user', res.data, true);
+      WBSecurity.saveAuth(res.data);
     });
   }
 
@@ -63,7 +63,7 @@ export class AuthProvider {
                 email: api_response.email
               }).subscribe(function (register_response) {
                 // save
-                WBHelper.setItem('user', register_response.data, true);
+                WBSecurity.saveAuth(register_response.data);
 
                 // call success
                 successCallback(register_response);
@@ -135,12 +135,7 @@ export class AuthProvider {
       // success
       successCallback(res);
 
-      // get the secret key and token key
-      let user = thisApp.user();
-      res.data.secret_key = user.secret_key;
-      res.data.token_key = user.token_key;
-
-      WBHelper.setItem('user', res.data, true);
+      WBSecurity.saveAuth(res.data);
     }, function (res) {
       // errors
       errorCallback(res);
@@ -154,17 +149,10 @@ export class AuthProvider {
    * @returns {any}
    */
   security(parameters) {
-    let thisApp = this;
-
     return this.appProvider.post('user/update/security', parameters, function (res) {
       console.debug('AuthProvider-security: ' + res);
 
-      let me = thisApp.user();
-      res = res.data;
-      res.secret_key = me.secret_key;
-      res.token_key = me.token_key;
-
-      WBHelper.setItem('user', res, true);
+      WBSecurity.saveAuth(res.data);
     });
   }
 
@@ -179,12 +167,7 @@ export class AuthProvider {
     return this.appProvider.get('user/' + thisApp.user().id, null, function (res) {
       console.debug('AuthProvider-sync: ' + res);
 
-      // save the data for authenticated user
-      let user = thisApp.user();
-      res.data.secret_key = user.secret_key;
-      res.data.token_key = user.token_key;
-
-      WBHelper.setItem('user', res.data, true);
+      WBSecurity.saveAuth(res.data);
     });
   }
 

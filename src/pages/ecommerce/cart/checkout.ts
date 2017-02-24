@@ -1,16 +1,19 @@
 import {Component} from "@angular/core";
-import {NavController, LoadingController} from "ionic-angular";
+import {NavController, LoadingController, AlertController} from "ionic-angular";
 import {AuthProvider} from "../../../providers/auth-provider";
 import {ECommerceCart} from "../../../providers/ecommerce/cart/cart";
 import {ApplicationProvider} from "../../../providers/application-provider";
 import {ECommerceCartSuccessPage} from "./success";
 import {WBView} from "../../../lib/views";
+import {WBConfig} from "../../../lib/config";
 
 /**
  * @author Archie Disono
  * @url https://github.com/disono/Ionic-Framework-Template
  * @license Apache 2.0
  */
+
+declare let cordova;
 
 @Component({
   templateUrl: 'checkout.html'
@@ -25,7 +28,16 @@ export class ECommerceCartCheckoutPage {
     payment_type_id: '',
 
     billing_address: ((this.user.address && this.user.address != null) ? this.user.address : ''),
-    shipping_address: ((this.user.address && this.user.address != null) ? this.user.address : '')
+    shipping_address: ((this.user.address && this.user.address != null) ? this.user.address : ''),
+
+    // card mode
+    card_first_name: this.user.first_name,
+    card_last_name: this.user.last_name,
+    card_type: 'visa',
+    card_number: '',
+    card_exp_month: '',
+    card_exp_yr: '',
+    card_cvv: '',
   };
 
   cart_details = null;
@@ -33,8 +45,10 @@ export class ECommerceCartCheckoutPage {
   voucher_code = null;
   payment_type_details = null;
 
+  is_card_mode = false;
+
   constructor(public nav: NavController, public auth: AuthProvider, public cart: ECommerceCart, public applicationData: ApplicationProvider,
-              public loadingCtrl: LoadingController) {
+              public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
     this.fetchData();
   }
 
@@ -92,10 +106,18 @@ export class ECommerceCartCheckoutPage {
     for (let i = 0; i < this.payment_types.length; i++) {
       if (id == this.payment_types[i].id) {
         this.payment_type_details = this.payment_types[i].description;
+        let name = this.payment_types[i].name.toLowerCase();
+
+        // is mode of payment using card
+        if (name == 'credit card' || name == 'debit card' || name == 'credit-card' || name == 'debit-card') {
+          this.is_card_mode = true;
+        }
+
         return;
       }
     }
 
+    this.is_card_mode = false;
     this.payment_type_details = null;
   }
 
@@ -149,17 +171,76 @@ export class ECommerceCartCheckoutPage {
   placeOrder() {
     let thisApp = this;
 
+    // check if on card mode
+    // check if all details of card if applied
+    // do not continue if the fields is not field-up
+    if (thisApp.is_card_mode) {
+      if (!thisApp.inputs.card_first_name || !thisApp.inputs.card_last_name || !thisApp.inputs.card_type || !thisApp.inputs.card_number || !thisApp.inputs.card_exp_month || !thisApp.inputs.card_exp_yr || !thisApp.inputs.card_cvv) {
+        WBView.alert(thisApp.alertCtrl, 'Required Fields', 'Please fill all the required fields for you card payment');
+        return;
+      }
+    }
+
     let loading = WBView.loading(thisApp.loadingCtrl, 'Placing your order...');
     thisApp.cart.place(thisApp.inputs).subscribe(function (response) {
       loading.dismiss();
 
-      thisApp.fetchData();
-      thisApp.nav.setRoot(ECommerceCartSuccessPage);
+      // process the response
+      thisApp.processOrderResponse(thisApp, response);
     }, function (error) {
       loading.dismiss();
 
       console.error('Subscribe Error: ' + error);
     });
+  }
+
+  /**
+   * Order response
+   *
+   * @param thisApp
+   * @param response
+   */
+  processOrderResponse(thisApp, response) {
+    if (response.data.id) {
+      thisApp.paymentProcessingDone();
+    } else if (response.data.redirect) {
+      // let's use browser (InAppBrowser) to process our payment's
+      let inAppBrowserRef = cordova.InAppBrowser.open(response.data.redirect, '_blank', 'location=no,zoom=no');
+
+      // something is done loading (url)
+      inAppBrowserRef.addEventListener('loadstop', function (event) {
+        // the only default payment processor is IGS for now
+        let card_processor = 'IGS';
+        let target_url = WBConfig.dev_domain + '/e-commerce/payment-processor/redirect/' + card_processor;
+        let event_url = event.url.substring(0, event.url.indexOf('?'));
+
+        if (event_url == target_url) {
+          setTimeout(function () {
+            inAppBrowserRef.close();
+
+            thisApp.paymentProcessingDone();
+          }, 5000);
+        }
+      });
+
+      // the browser closed
+      inAppBrowserRef.addEventListener('exit', function (event) {
+        thisApp.paymentProcessingDone();
+      });
+    } else {
+      // just process the success page
+      thisApp.paymentProcessingDone();
+    }
+  }
+
+  /**
+   * Payment done
+   */
+  paymentProcessingDone() {
+    let thisApp = this;
+
+    thisApp.fetchData();
+    thisApp.nav.setRoot(ECommerceCartSuccessPage);
   }
 
 }

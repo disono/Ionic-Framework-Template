@@ -66,6 +66,49 @@
         </ion-select>
       </ion-item>
 
+      <!-- card details -->
+      <div *ngIf="is_card_mode">
+        <ion-item><h4>Your Card Details</h4></ion-item>
+
+        <ion-item>
+          <ion-label floating>First Name*</ion-label>
+          <ion-input type="text" [(ngModel)]="inputs.card_first_name" name="card_first_name"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Last Name*</ion-label>
+          <ion-input type="text" [(ngModel)]="inputs.card_last_name" name="card_last_name"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Card Types*</ion-label>
+          <ion-select [(ngModel)]="inputs.card_type">
+            <ion-option value="visa">Visa</ion-option>
+            <ion-option value="mastercard">Mastercard</ion-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Card #*</ion-label>
+          <ion-input type="tel" [(ngModel)]="inputs.card_number" name="card_number"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Exp Month*</ion-label>
+          <ion-input type="tel" [(ngModel)]="inputs.card_exp_month" name="card_exp_month"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Exp Year*</ion-label>
+          <ion-input type="tel" [(ngModel)]="inputs.card_exp_yr" name="card_exp_yr"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>CVV2*</ion-label>
+          <ion-input type="tel" [(ngModel)]="inputs.card_cvv" name="card_cvv"></ion-input>
+        </ion-item>
+      </div>
+
       <ion-item *ngIf="payment_type_details">
         <p color="secondary">{{payment_type_details}}</p>
       </ion-item>
