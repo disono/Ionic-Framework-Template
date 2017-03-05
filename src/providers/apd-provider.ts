@@ -55,7 +55,7 @@ export class APDProvider {
     // headers
     let headers = new Headers({
       'Content-Type': 'application/json',
-      'Authorization': "Bearer " + WBSecurity.jwt(me.secret_key, me.id),
+      'Authorization': "Bearer " + WBSecurity.jwtAuth(),
       'token_key': me.token_key,
       'authenticated_id': me.id
     });
@@ -194,7 +194,7 @@ export class APDProvider {
 
     if (me) {
       // add headers for JWT token
-      xhr.setRequestHeader("Authorization", "Bearer " + WBSecurity.jwt(me.secret_key, me.id));
+      xhr.setRequestHeader("Authorization", "Bearer " + WBSecurity.jwtAuth());
       xhr.setRequestHeader("token_key", me.token_key);
       xhr.setRequestHeader("authenticated_id", me.id);
     }
@@ -212,21 +212,22 @@ export class APDProvider {
    */
   static _handleError(error) {
     if (error instanceof String || typeof error.json != 'function') {
-      console.error('APDProvider-_handleError-instanceof: ' + error);
       WBHelper.errorMessage(error);
+      console.error('APDProvider-_handleError-instanceof: ' + error);
 
       return Observable.throw(error);
     }
 
     let error_data = error.json();
     if (!error_data.errors) {
+      WBHelper.errorMessage(error);
       console.log("APDProvider-_handleError-error_data: Unknown JSON data error.");
 
       return Observable.throw("Unknown JSON data error.");
     }
 
-    console.error('APDProvider-_handleError-Observable.throw: ' + JSON.stringify(error_data.errors));
     WBHelper.errorMessage(error_data.errors);
+    console.error('APDProvider-_handleError-Observable.throw: ' + JSON.stringify(error_data.errors));
 
     return Observable.throw(JSON.stringify(error_data.errors));
   }
