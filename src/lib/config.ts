@@ -25,6 +25,7 @@ let _WBConfig = (function () {
     facebook_auth: false,
 
     // server url
+    dev_domain: 'http://your-dev',
     prod_domain: 'http://your-prod-domain',
     server_url: function () {
       return (_WBConfig.dev) ? _WBConfig.dev_domain + '/api/v1/' : _WBConfig.prod_domain + '/api/v1/';
