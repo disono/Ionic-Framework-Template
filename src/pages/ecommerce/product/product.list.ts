@@ -1,12 +1,14 @@
 import {Component} from "@angular/core";
-import {NavController, AlertController, ModalController} from "ionic-angular";
+import {NavController, ModalController} from "ionic-angular";
 import {ECommerceProduct} from "../../../providers/ecommerce/product/product";
 import {AuthProvider} from "../../../providers/auth-provider";
-import {WBView} from "../../../lib/views";
 import {ECommerceCart} from "../../../providers/ecommerce/cart/cart";
 import {WBHelper} from "../../../lib/helper";
 import {ECommerceProductShowPage} from "./product.show";
 import {ECommerceProductFilterModal} from "./filter.modal";
+import {LoginPage} from "../../authentication/login";
+import {ECommerceCartContentPage} from "../cart/content";
+import {WBConfig} from "../../../lib/config";
 
 /**
  * @author Archie Disono
@@ -46,7 +48,7 @@ export class ECommerceProductListPage {
   };
 
   constructor(public nav: NavController, public product: ECommerceProduct, public auth: AuthProvider, public cart: ECommerceCart,
-              public alertCtrl: AlertController, public modalCtrl: ModalController) {
+              public modalCtrl: ModalController) {
     this.init();
 
     this.fetchData();
@@ -210,14 +212,37 @@ export class ECommerceProductListPage {
     let thisApp = this;
 
     if (thisApp.auth.check()) {
-      thisApp.cart.add(product_id).subscribe(function (response) {
-        WBHelper.showToast('Your item is successfully added to cart.');
-      }, function (error) {
-        console.error('Subscribe Error: ' + error);
-      });
+      thisApp.storeToCart(product_id);
     } else {
-      WBView.alert(thisApp.alertCtrl, 'Login', 'Please login to add this item to cart.');
+      // show the login page (modal)
+      let loginModal = thisApp.modalCtrl.create(LoginPage, {
+        return_page: 'modal',
+        nav: thisApp.nav
+      });
+
+      loginModal.onDidDismiss(data => {
+        thisApp.storeToCart(product_id);
+      });
+
+      loginModal.present();
     }
+  }
+
+  /**
+   * Store to cart the item
+   *
+   * @param product_id
+   */
+  storeToCart(product_id) {
+    let thisApp = this;
+
+    thisApp.cart.add(product_id).subscribe(function (response) {
+      WBHelper.showToast('Your item is successfully added to cart.');
+
+      thisApp.nav.setRoot(ECommerceCartContentPage);
+    }, function (error) {
+      console.error('Subscribe Error: ' + error);
+    });
   }
 
   /**

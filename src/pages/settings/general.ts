@@ -2,7 +2,8 @@ import {Component} from "@angular/core";
 import {NavController, AlertController, LoadingController, App} from "ionic-angular";
 import {WBView} from "../../lib/views";
 import {AuthProvider} from "../../providers/auth-provider";
-import {LoginPage} from "../authentication/login";
+import {DrawerPage} from "../drawer/drawer";
+import {WBSocket} from "../../lib/socket";
 
 declare let moment;
 declare let jQ;
@@ -141,7 +142,7 @@ export class GeneralPage {
    */
   logout() {
     this.auth.logout();
-    this.app.getRootNav().setRoot(LoginPage);
+    this.app.getRootNav().setRoot(DrawerPage);
   }
 
 }

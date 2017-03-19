@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {NavController, AlertController, LoadingController, App} from "ionic-angular";
+import {NavController, AlertController, LoadingController, App, NavParams, ViewController} from "ionic-angular";
 import {WBView} from "../../lib/views";
 import {AuthProvider} from "../../providers/auth-provider";
 import {RegisterPage} from "./register";
@@ -25,7 +25,7 @@ export class LoginPage {
   wb_config = WBConfig;
 
   constructor(public nav: NavController, public app: App, public alertCtrl: AlertController, public loadingCtrl: LoadingController,
-              public auth: AuthProvider) {
+              public auth: AuthProvider, public params: NavParams, public viewCtrl: ViewController) {
     this.init();
   }
 
@@ -109,9 +109,11 @@ export class LoginPage {
   _checkIsAuth(thisApp) {
     thisApp.intervalAuth = setInterval(function () {
       if (thisApp.isAuthenticated) {
+        let data = thisApp.isAuthenticated;
         clearInterval(thisApp.intervalAuth);
+        thisApp.isAuthenticated = null;
 
-        thisApp._checkRole(thisApp.isAuthenticated);
+        thisApp._checkRole(data);
       }
     }, 300);
   }
@@ -132,11 +134,8 @@ export class LoginPage {
     if (data.role == 'client') {
       thisApp.init();
 
-      // emit to sync data
-      WBSocket.emitter.emitEvent('sync_application');
-
-      // set the main page
-      thisApp.nav.setRoot(DrawerPage);
+      // set the default call page
+      LoginPage.setPageType(thisApp);
     } else {
       WBView.alert(thisApp.alertCtrl, 'Not Allowed', 'This Email/Username and password is not allowed to login.');
       thisApp.auth.logout();
@@ -144,10 +143,34 @@ export class LoginPage {
   }
 
   /**
+   * Call the default page to call on successful login
+   *
+   * @param thisApp
+   */
+  static setPageType(thisApp) {
+    // emit to sync data
+    WBSocket.emitter.emitEvent('sync_application');
+
+    // set the main page or back to previous page (modal)
+    if (thisApp.params.get('return_page') == 'modal') {
+      thisApp.viewCtrl.dismiss();
+    } else if (thisApp.params.get('return_page') == 'page') {
+      thisApp.nav.pop();
+    } else {
+      thisApp.nav.setRoot(DrawerPage);
+    }
+  }
+
+  /**
    * Register
    */
   goToRegister() {
-    this.nav.push(RegisterPage);
+    if (this.params.get('return_page') == 'modal') {
+      this.viewCtrl.dismiss();
+      this.params.get('nav').setRoot(RegisterPage);
+    } else {
+      this.nav.push(RegisterPage);
+    }
   }
 
   /**
@@ -155,6 +178,13 @@ export class LoginPage {
    */
   goToReset() {
     this.nav.push(ForgotPage);
+  }
+
+  /**
+   * Close the modal
+   */
+  closeModal() {
+    this.viewCtrl.dismiss();
   }
 
 }

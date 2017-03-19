@@ -2,7 +2,7 @@
 is a starting blank template for Ionic Projects V2 Beta
 
 # Libraries
-* **jQuery:** [https://jquery.com/">https://jquery.com](https://jquery.com/">https://jquery.com)
+* **jQuery:** [https://jquery.com](https://jquery.com)
 * **MomentJS:** [http://momentjs.com](http://momentjs.com)
 * **FontAwesome:** [http://fortawesome.github.io/Font-Awesome](http://fortawesome.github.io/Font-Awesome)
 * **AnimateCSS:** [http://daneden.github.io/animate.css](http://daneden.github.io/animate.css)
@@ -16,7 +16,7 @@ is a starting blank template for Ionic Projects V2 Beta
 ```sh
 1. npm install
 
-2. ionic plugin add cordova-plugin-camera cordova-plugin-console cordova-plugin-contacts cordova-plugin-device cordova-plugin-device-motion cordova-plugin-device-orientation cordova-plugin-dialogs cordova-plugin-file cordova-plugin-file-transfer cordova-plugin-filepath cordova-plugin-geolocation cordova-plugin-inappbrowser cordova-plugin-media cordova-plugin-media-capture cordova-plugin-network-information cordova-plugin-splashscreen cordova-plugin-statusbar  cordova-plugin-vibration cordova-plugin-whitelist cordova-plugin-x-socialsharing cordova-plugin-x-toast phonegap-plugin-barcodescanner
+2. ionic plugin add cordova-plugin-camera cordova-plugin-console cordova-plugin-contacts cordova-plugin-device cordova-plugin-device-motion cordova-plugin-device-orientation cordova-plugin-dialogs cordova-plugin-file cordova-plugin-file-transfer cordova-plugin-filepath cordova-plugin-geolocation cordova-plugin-inappbrowser cordova-plugin-media cordova-plugin-media-capture cordova-plugin-network-information cordova-plugin-splashscreen cordova-plugin-statusbar  cordova-plugin-vibration cordova-plugin-whitelist cordova-plugin-x-socialsharing cordova-plugin-x-toast phonegap-plugin-barcodescanner https://github.com/katzer/cordova-plugin-local-notifications
 
 3. Update the FCM config
 - You will need 2 generated files in the Firebase configuration process (see docs: https://firebase.google.com/docs/).
@@ -31,6 +31,17 @@ is a starting blank template for Ionic Projects V2 Beta
 - Create App on facebook SDK API @ https://developers.facebook.com/apps
 
 6. Update your package name at config.xml
+```
+
+### Crosswalk Plugin (optional)
+```sh
+cordova plugin add cordova-plugin-crosswalk-webview
+cordova build android
+
+/platforms/android/build/outputs/apk/android-x86-debug.apk
+/platforms/android/build/outputs/apk/android-armv7-debug.apk
+
+please refer to https://crosswalk-project.org/documentation/cordova.html
 ```
 
 # Credits

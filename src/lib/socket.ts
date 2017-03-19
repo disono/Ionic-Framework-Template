@@ -70,6 +70,10 @@ let _WBSocket = (function () {
       }
 
       this.socket.on(name, function (data) {
+        if (!data) {
+          return;
+        }
+
         callback(data);
       });
     },

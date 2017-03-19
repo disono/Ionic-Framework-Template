@@ -29,7 +29,7 @@ var WBDateTimeDiff = function (sqlServerTime) {
  * @returns {Date}
  */
 var WBSQLDateToJS = function (sqlDate) {
-  return new Date(Date.parse(sqlDate.replace('-', '/', 'g')));
+  return new Date(Date.parse(sqlDate.replace(/-/g, "/")));
 };
 
 // jQuery compatibility

@@ -1,7 +1,8 @@
 import {Component} from "@angular/core";
-import {NavController} from "ionic-angular";
+import {NavController, ModalController} from "ionic-angular";
 import {MessageProvider} from "../../providers/message-provider";
 import {ReadingInboxPage} from "./reading.inbox";
+import {UserListPage} from "../user/user.list";
 
 /**
  * @author Archie Disono
@@ -24,7 +25,7 @@ export class InboxPage {
   refresher: any;
   infiniteScroll: any;
 
-  constructor(public nav: NavController, public messageProvider: MessageProvider) {
+  constructor(public nav: NavController, public messageProvider: MessageProvider, public modalCtrl: ModalController) {
     this.init();
 
     this.fetchData();
@@ -132,4 +133,24 @@ export class InboxPage {
     })
   }
 
+  /**
+   * Search user page
+   */
+  searchUser() {
+    let thisApp = this;
+
+    let searchListModal = thisApp.modalCtrl.create(UserListPage, {
+      return_page: 'modal',
+      nav: thisApp.nav
+    });
+
+    searchListModal.onDidDismiss(data => {
+      if (data) {
+        // list of messages
+        thisApp.readingMessage(data.user_id);
+      }
+    });
+
+    searchListModal.present();
+  }
 }

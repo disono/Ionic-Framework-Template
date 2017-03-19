@@ -14,6 +14,18 @@ export class UserProvider {
   }
 
   /**
+   * User List
+   *
+   * @param params
+   * @returns {any}
+   */
+  index(params) {
+    return this.appProvider.get('users', params, function (res) {
+      console.debug('UserProvider-index: ' + res);
+    });
+  }
+
+  /**
    * UserProvider
    * Save the data to authenticated user
    *

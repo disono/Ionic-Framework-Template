@@ -1,0 +1,1 @@
+keytool -exportcert -alias ionic_template -keystore ./fb.demo.keystore | openssl sha1 -binary | openssl base64

@@ -4,7 +4,6 @@ import {StatusBar, Splashscreen} from "ionic-native";
 import {AuthProvider} from "../providers/auth-provider";
 import {WBConfig} from "../lib/config";
 import {WBView} from "../lib/views";
-import {LoginPage} from "../pages/authentication/login";
 import {DrawerPage} from "../pages/drawer/drawer";
 import {WBSocket} from "../lib/socket";
 import {WBHelper} from "../lib/helper";
@@ -37,12 +36,8 @@ export class MyApp {
       let thisApp = this;
 
       // check if user is authenticated
-      if (thisApp.auth.check()) {
-        // drawer menus
-        thisApp.rootPage = DrawerPage;
-      } else {
-        thisApp.rootPage = LoginPage;
-      }
+      // drawer menus
+      thisApp.rootPage = DrawerPage;
 
       // run the application data
       thisApp.run();
@@ -131,22 +126,8 @@ export class MyApp {
       // register session
       thisApp.sentLocation();
 
-      // messenger
-      WBSocket.on('message_session_' + session.id, function (data) {
-        if (!WBConfig.private_message_on_view) {
-          WBHelper.notify('New Message (' + data.from_full_name + ')', data.limit_message);
-        } else {
-          WBSocket.emitter.emitEvent('msg_received', [data]);
-        }
-      });
-
-      // notifications
-      WBSocket.on('notification_' + session.id, function (data) {
-        if (data.type == 'default') {
-          // notify
-          WBHelper.notify(data.title, data.description);
-        }
-      });
+      // web socket receiver
+      thisApp.webSocketReceiver(session);
     }, function () {
       // events
     }, function () {
@@ -154,6 +135,34 @@ export class MyApp {
       WBSocket.emit('destroy_session', {
         token_key: session.token_key
       });
+    });
+  }
+
+  /**
+   * Received data from web socket
+   *
+   * @param session
+   */
+  webSocketReceiver(session) {
+    // messenger
+    WBSocket.on('message_session_' + session.id, function (data) {
+      if (!WBConfig.private_message_on_view) {
+        WBHelper.notify('New Message (' + data.from_full_name + ')', data.limit_message);
+      } else {
+        WBSocket.emitter.emitEvent('msg_received', [data]);
+      }
+    });
+
+    // notification to
+    WBSocket.on('notification_' + session.id, function (data) {
+      // notify
+      WBHelper.notify(data.name, data.content);
+    });
+
+    // notification channel
+    WBSocket.on('notification_channel_' + session.role, function (data) {
+      // notify
+      WBHelper.notify(data.name, data.content);
     });
   }
 

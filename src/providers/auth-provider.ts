@@ -129,8 +129,6 @@ export class AuthProvider {
    * @param errorCallback
    */
   update(parameters, successCallback, errorCallback) {
-    let thisApp = this;
-
     this.appProvider.upload('user/update/setting', parameters, function (res) {
       // success
       successCallback(res);

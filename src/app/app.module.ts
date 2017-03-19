@@ -32,6 +32,7 @@ import {ECommerceOrderListPage} from "../pages/ecommerce/order/order.list";
 import {ECommerceOrderDetailsPage} from "../pages/ecommerce/order/order.details";
 import {InboxPage} from "../pages/message/inbox";
 import {ReadingInboxPage} from "../pages/message/reading.inbox";
+import {UserListPage} from "../pages/user/user.list";
 
 @NgModule({
   declarations: [
@@ -65,7 +66,10 @@ import {ReadingInboxPage} from "../pages/message/reading.inbox";
 
     // Messenger
     InboxPage,
-    ReadingInboxPage
+    ReadingInboxPage,
+
+    // User
+    UserListPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -102,7 +106,10 @@ import {ReadingInboxPage} from "../pages/message/reading.inbox";
 
     // Messenger
     InboxPage,
-    ReadingInboxPage
+    ReadingInboxPage,
+
+    // User
+    UserListPage
   ],
   providers: [
     APDProvider,

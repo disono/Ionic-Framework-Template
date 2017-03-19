@@ -12,6 +12,22 @@
   </ion-header>
 
   <ion-content>
+    <ion-card *ngIf="auth.check()" style="box-shadow: none !important;">
+      <ion-item class="profile-item">
+        <div class="profile-picture">
+          <img src="{{auth.user().avatar}}">
+        </div>
+
+        <h4 class="profile-name">{{auth.user().full_name}}</h4>
+      </ion-item>
+
+      <ion-item class="profile-item">
+        <button menuClose ion-button block outline (click)="profile()">
+          Profile Settings
+        </button>
+      </ion-item>
+    </ion-card>
+
     <ion-list>
       <ion-item menuClose *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}

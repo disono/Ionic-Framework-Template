@@ -19,9 +19,10 @@
 </ion-header>
 
 <ion-content>
-  <ion-searchbar [(ngModel)]="filter.search" placeholder="Search product by name..."></ion-searchbar>
-
   <div padding>
+    <!-- search input -->
+    <ion-searchbar [(ngModel)]="filter.search" placeholder="Search product by name..."></ion-searchbar>
+
     <ion-list>
       <ion-item>
         <ion-label floating>Min Price</ion-label>
@@ -52,8 +53,10 @@
         <ion-toggle [(ngModel)]="filter.is_latest"
                     (ionChange)="onChangeToggle('latest', filter.is_latest)"></ion-toggle>
       </ion-item>
-    </ion-list>
 
-    <button ion-button block (click)="search()">Search</button>
+      <ion-item>
+        <button ion-button block clear (click)="search()">Search</button>
+      </ion-item>
+    </ion-list>
   </div>
 </ion-content>

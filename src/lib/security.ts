@@ -22,7 +22,8 @@ let _WBSecurity = (function () {
   return {
     jwt: function (secret, id, current_time) {
       let token = null;
-      let current = current_time;
+      // minus 5 minutes
+      let current = new Date(current_time.getTime() - 5 * 60000);
 
       if (!secret) {
         console.error('JWT Token is null: ' + secret);

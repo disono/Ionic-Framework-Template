@@ -63,7 +63,7 @@ export class RegisterPage {
       loading.dismiss();
 
       WBView.alert(thisApp.alertCtrl, 'Registration successful', 'Please check your email to verify your registration.');
-      thisApp.nav.setRoot(LoginPage);
+      thisApp.nav.setRoot(DrawerPage);
     }, function (e) {
       loading.dismiss();
     });
@@ -107,9 +107,11 @@ export class RegisterPage {
   _checkIsAuth(thisApp) {
     thisApp.intervalAuth = setInterval(function () {
       if (thisApp.isAuthenticated) {
+        let data = thisApp.isAuthenticated;
         clearInterval(thisApp.intervalAuth);
+        thisApp.isAuthenticated = null;
 
-        thisApp._checkRole(thisApp.isAuthenticated);
+        thisApp._checkRole(data, thisApp);
       }
     }, 300);
   }
@@ -118,11 +120,10 @@ export class RegisterPage {
    * Check role
    *
    * @param response
+   * @param thisApp
    * @private
    */
-  _checkRole(response) {
-    let thisApp = this;
-
+  _checkRole(response, thisApp) {
     // data
     let data = response.data;
 
@@ -139,6 +140,13 @@ export class RegisterPage {
       WBView.alert(thisApp.alertCtrl, 'Not Allowed', 'This Email/Username and password is not allowed to login.');
       thisApp.auth.logout();
     }
+  }
+
+  /**
+   * Cancel registration drawer page
+   */
+  cancel() {
+    this.nav.setRoot(DrawerPage);
   }
 
 }

@@ -21,7 +21,12 @@
 <ion-content padding>
   <div *ngIf="details">
     <h1>{{title}}</h1>
-    <h5 color="danger" [innerHTML]="details.formatted_srp"></h5>
+    <p *ngIf="details.size">{{details.size}}</p>
+
+    <!-- srp and discounted srp -->
+    <h5 [innerHTML]="details.formatted_srp" color="danger"></h5>
+    <h6 *ngIf="details.srp_discounted" [innerHTML]="details.formatted_srp_discounted"
+        style="text-decoration: line-through;"></h6>
 
     <!-- images on slider -->
     <ion-slides pager *ngIf="details.images.length">
@@ -37,6 +42,12 @@
 
     <h6 *ngIf="details.features">Product Features</h6>
     <p *ngIf="details.features">{{details.features}}</p>
+
+    <h6 *ngIf="details.application">Application</h6>
+    <p *ngIf="details.application">{{details.application}}</p>
+
+    <h6 *ngIf="details.suitable_for">Suitable For</h6>
+    <p *ngIf="details.suitable_for">{{details.suitable_for}}</p>
   </div>
 
   <h1 class="text-center" *ngIf="!details">

@@ -32,14 +32,22 @@
       <ion-row *ngFor="let data_fetch of data_list">
         <ion-col width-50 *ngFor="let item of data_fetch">
           <ion-card>
+            <!-- item image -->
             <img [src]="item.cover" (click)="showProduct(item.id)">
 
-            <ion-card-content (click)="showProduct(item.id)">
-              <ion-card-title>
+            <ion-card-content>
+              <!-- item name -->
+              <ion-card-title (click)="showProduct(item.id)">
                 {{item.name}}
               </ion-card-title>
 
-              <p color="danger" [innerHTML]="item.formatted_srp"></p>
+              <!-- srp and discounted srp -->
+              <p [innerHTML]="item.formatted_srp" color="danger"></p>
+              <p *ngIf="item.srp_discounted" [innerHTML]="item.formatted_srp_discounted"
+                 style="text-decoration: line-through;"></p>
+
+              <!-- add to cart button -->
+              <button (click)="addToCart(item.id)" ion-button block clear>Add to cart</button>
             </ion-card-content>
           </ion-card>
         </ion-col>

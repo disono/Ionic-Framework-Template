@@ -10,13 +10,20 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Login</ion-title>
+
+    <ion-buttons end>
+      <!-- show this button if modal -->
+      <button *ngIf="params.get('return_page') == 'modal'" ion-button icon-only (click)="closeModal()">
+        <ion-icon ios="ios-close" md="md-close"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <button type="button" *ngIf="wb_config.facebook_auth" ion-button block (click)="doFacebook()">
-    <ion-icon ios="logo-facebook" md="logo-facebook"></ion-icon>
-    Continue with Facebook
+  <!-- facebook login button -->
+  <button type="button" *ngIf="wb_config.facebook_auth" ion-button block color="facebook-color" (click)="doFacebook()">
+    <ion-icon ios="logo-facebook" md="logo-facebook"></ion-icon> Continue with Facebook
   </button>
 
   <form (submit)="doLogin($event, inputs)">
@@ -30,9 +37,11 @@
         <ion-label floating>Password</ion-label>
         <ion-input type="password" [(ngModel)]="inputs.password" name="password"></ion-input>
       </ion-item>
-    </ion-list>
 
-    <button ion-button block type="submit">Login</button>
+      <ion-item>
+        <button ion-button block outline type="submit">Login</button>
+      </ion-item>
+    </ion-list>
 
     <button type="button" ion-button block clear dark (click)="goToRegister()">Register</button>
     <button type="button" ion-button block clear dark (click)="goToReset()">Forgot Password</button>

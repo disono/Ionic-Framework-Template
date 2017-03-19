@@ -15,24 +15,24 @@ let _WBConfig = (function () {
     dev: true,
 
     // platform type default is browser mode
-    is_browser: false,
+    is_browser: true,
 
     // api for google maps
     api_key_google: null,
     map_box_token: '',
 
     // facebook authentication (disabled)
-    facebook_auth: false,
+    facebook_auth: true,
 
     // server url
-    dev_domain: 'http://your-dev',
+    dev_domain: 'http://dev-url',
     prod_domain: 'http://your-prod-domain',
     server_url: function () {
-      return (_WBConfig.dev) ? _WBConfig.dev_domain + '/api/v1/' : _WBConfig.prod_domain + '/api/v1/';
+      return (_WBConfig.dev) ? _WBConfig.dev_domain + ':80/api/v1/' : _WBConfig.prod_domain + '/api/v1/';
     },
 
     // socket IO
-    enable_web_socket: false,
+    enable_web_socket: true,
     socket_uri: function () {
       return (_WBConfig.dev) ? _WBConfig.dev_domain + ':3000/' : _WBConfig.prod_domain + ':3000/';
     },
