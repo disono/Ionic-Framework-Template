@@ -8,7 +8,6 @@ import {ECommerceProductShowPage} from "./product.show";
 import {ECommerceProductFilterModal} from "./filter.modal";
 import {LoginPage} from "../../authentication/login";
 import {ECommerceCartContentPage} from "../cart/content";
-import {WBConfig} from "../../../lib/config";
 
 /**
  * @author Archie Disono

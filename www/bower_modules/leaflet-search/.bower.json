@@ -24,6 +24,5 @@
   },
   "_source": "https://github.com/stefanocudini/leaflet-search.git",
   "_target": "^2.7.0",
-  "_originalSource": "leaflet-search",
-  "_direct": true
+  "_originalSource": "leaflet-search"
 }

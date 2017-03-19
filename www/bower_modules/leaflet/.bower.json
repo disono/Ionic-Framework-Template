@@ -24,7 +24,6 @@
     "commit": "ed36a04aefd12cb92c78074fe63a8e460db1d464"
   },
   "_source": "https://github.com/Leaflet/Leaflet.git",
-  "_target": "^1.0.3",
-  "_originalSource": "leaflet",
-  "_direct": true
+  "_target": ">=0.7",
+  "_originalSource": "leaflet"
 }

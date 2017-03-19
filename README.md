@@ -10,7 +10,7 @@ is a starting blank template for Ionic Projects V2 Beta
 # Cordova Plugins
 * **Google Firebase Cloud Messaging Cordova Push Plugin**[https://github.com/fechanique/cordova-plugin-fcm](https://github.com/fechanique/cordova-plugin-fcm)
 * **Cordova Local-Notification Plugin:** [https://github.com/katzer/cordova-plugin-local-notifications](https://github.com/katzer/cordova-plugin-local-notifications)
-* **cordova-plugin-facebook4**[https://github.com/jeduan/cordova-plugin-facebook4](https://github.com/jeduan/cordova-plugin-facebook4)
+* **cordova-plugin-facebook4:** [https://github.com/jeduan/cordova-plugin-facebook4](https://github.com/jeduan/cordova-plugin-facebook4)
 
 ### Install Libraries
 ```sh

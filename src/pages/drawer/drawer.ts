@@ -10,7 +10,6 @@ import {InboxPage} from "../message/inbox";
 import {LoginPage} from "../authentication/login";
 import {AuthProvider} from "../../providers/auth-provider";
 import {WBSocket} from "../../lib/socket";
-import {WBConfig} from "../../lib/config";
 
 /**
  * @author Archie Disono

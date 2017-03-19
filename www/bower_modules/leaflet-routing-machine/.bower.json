@@ -38,6 +38,5 @@
   },
   "_source": "https://github.com/perliedman/leaflet-routing-machine.git",
   "_target": "^3.2.5",
-  "_originalSource": "leaflet-routing-machine",
-  "_direct": true
+  "_originalSource": "leaflet-routing-machine"
 }

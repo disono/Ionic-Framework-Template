@@ -2,7 +2,6 @@ import {Component} from "@angular/core";
 import {NavController, AlertController, LoadingController} from "ionic-angular";
 import {AuthProvider} from "../../providers/auth-provider";
 import {WBView} from "../../lib/views";
-import {LoginPage} from "./login";
 import {DrawerPage} from "../drawer/drawer";
 import {WBSocket} from "../../lib/socket";
 import {WBConfig} from "../../lib/config";

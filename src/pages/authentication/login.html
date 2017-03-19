@@ -23,7 +23,8 @@
 <ion-content padding>
   <!-- facebook login button -->
   <button type="button" *ngIf="wb_config.facebook_auth" ion-button block color="facebook-color" (click)="doFacebook()">
-    <ion-icon ios="logo-facebook" md="logo-facebook"></ion-icon> Continue with Facebook
+    <ion-icon ios="logo-facebook" md="logo-facebook"></ion-icon>
+    Continue with Facebook
   </button>
 
   <form (submit)="doLogin($event, inputs)">

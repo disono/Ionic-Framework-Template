@@ -3,7 +3,6 @@ import {NavController, AlertController, LoadingController, App} from "ionic-angu
 import {WBView} from "../../lib/views";
 import {AuthProvider} from "../../providers/auth-provider";
 import {DrawerPage} from "../drawer/drawer";
-import {WBSocket} from "../../lib/socket";
 
 declare let moment;
 declare let jQ;

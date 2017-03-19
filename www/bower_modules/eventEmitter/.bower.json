@@ -30,6 +30,5 @@
   },
   "_source": "https://github.com/Olical/EventEmitter.git",
   "_target": "^5.1.0",
-  "_originalSource": "eventEmitter",
-  "_direct": true
+  "_originalSource": "eventEmitter"
 }
