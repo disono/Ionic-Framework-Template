@@ -37,9 +37,9 @@
 
             <ion-card-content>
               <!-- item name -->
-              <ion-card-title (click)="showProduct(item.id)">
-                {{item.name}}
-              </ion-card-title>
+              <h4 (click)="showProduct(item.id)">
+                {{stringLimit(item.name)}}
+              </h4>
 
               <!-- srp and discounted srp -->
               <p [innerHTML]="item.formatted_srp" color="danger"></p>

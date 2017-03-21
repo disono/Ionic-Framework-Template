@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {NavController, AlertController, LoadingController} from "ionic-angular";
+import {NavController, AlertController, LoadingController, NavParams} from "ionic-angular";
 import {AuthProvider} from "../../providers/auth-provider";
 import {WBView} from "../../lib/views";
 import {DrawerPage} from "../drawer/drawer";
@@ -20,7 +20,9 @@ export class RegisterPage {
   wb_config = WBConfig;
 
   constructor(public nav: NavController, public alertCtrl: AlertController, public loadingCtrl: LoadingController,
-              public auth: AuthProvider) {
+              public auth: AuthProvider, public params: NavParams) {
+    WBConfig.thisApp = this;
+
     this.init();
   }
 
@@ -71,23 +73,17 @@ export class RegisterPage {
   /**
    * Facebook authentication
    */
-  isAuthenticated = null;
-  intervalAuth = null;
-
   doFacebook() {
     let thisApp = this;
 
     // show loading
     let loading = WBView.loading(thisApp.loadingCtrl, 'Creating profile...');
 
-    // check is authenticated
-    thisApp._checkIsAuth(thisApp);
-
     thisApp.auth.facebook(function (response) {
       loading.dismiss();
 
       // check the users role
-      thisApp.isAuthenticated = response;
+      WBConfig.thisApp._checkRole(response, WBConfig.thisApp);
     }, function (error) {
       loading.dismiss();
 
@@ -95,24 +91,6 @@ export class RegisterPage {
     }, function () {
       loading.dismiss();
     });
-  }
-
-  /**
-   * Check if authenticated
-   *
-   * @param thisApp
-   * @private
-   */
-  _checkIsAuth(thisApp) {
-    thisApp.intervalAuth = setInterval(function () {
-      if (thisApp.isAuthenticated) {
-        let data = thisApp.isAuthenticated;
-        clearInterval(thisApp.intervalAuth);
-        thisApp.isAuthenticated = null;
-
-        thisApp._checkRole(data, thisApp);
-      }
-    }, 300);
   }
 
   /**
@@ -134,7 +112,11 @@ export class RegisterPage {
       WBSocket.emitter.emitEvent('sync_application');
 
       // set the main page
-      thisApp.nav.setRoot(DrawerPage);
+      if (thisApp.params.get('return_page')) {
+        WBConfig.thisApp.nav.pop();
+      } else {
+        thisApp.nav.setRoot(DrawerPage);
+      }
     } else {
       WBView.alert(thisApp.alertCtrl, 'Not Allowed', 'This Email/Username and password is not allowed to login.');
       thisApp.auth.logout();

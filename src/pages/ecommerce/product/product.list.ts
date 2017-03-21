@@ -257,4 +257,13 @@ export class ECommerceProductListPage {
     });
   }
 
+  /**
+   * String limit
+   *
+   * @param str
+   * @returns {string}
+   */
+  stringLimit(str) {
+    return (str.length > 14) ? str.substring(0, 14) + '...' : str;
+  }
 }

@@ -11,6 +11,9 @@ import {WBHelper} from "./helper";
 
 let _WBConfig = (function () {
   return {
+    // this application
+    thisApp: null,
+
     // is development mode
     dev: true,
 

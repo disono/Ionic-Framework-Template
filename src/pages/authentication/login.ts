@@ -26,6 +26,8 @@ export class LoginPage {
 
   constructor(public nav: NavController, public app: App, public alertCtrl: AlertController, public loadingCtrl: LoadingController,
               public auth: AuthProvider, public params: NavParams, public viewCtrl: ViewController) {
+    WBConfig.thisApp = this;
+
     this.init();
   }
 
@@ -74,9 +76,6 @@ export class LoginPage {
   /**
    * Facebook authentication
    */
-  isAuthenticated = null;
-  intervalAuth = null;
-
   doFacebook() {
     let thisApp = this;
 
@@ -84,13 +83,11 @@ export class LoginPage {
     let loading = WBView.loading(thisApp.loadingCtrl, 'Creating profile...');
 
     // check is authenticated
-    thisApp._checkIsAuth(thisApp);
-
     thisApp.auth.facebook(function (response) {
       loading.dismiss();
 
       // check the users role
-      thisApp.isAuthenticated = response;
+      WBConfig.thisApp._checkRole(response, WBConfig.thisApp);
     }, function (error) {
       loading.dismiss();
 
@@ -98,24 +95,6 @@ export class LoginPage {
     }, function () {
       loading.dismiss();
     });
-  }
-
-  /**
-   * Check if authenticated
-   *
-   * @param thisApp
-   * @private
-   */
-  _checkIsAuth(thisApp) {
-    thisApp.intervalAuth = setInterval(function () {
-      if (thisApp.isAuthenticated) {
-        let data = thisApp.isAuthenticated;
-        clearInterval(thisApp.intervalAuth);
-        thisApp.isAuthenticated = null;
-
-        thisApp._checkRole(data);
-      }
-    }, 300);
   }
 
   /**
@@ -167,7 +146,10 @@ export class LoginPage {
   goToRegister() {
     if (this.params.get('return_page') == 'modal') {
       this.viewCtrl.dismiss();
-      this.params.get('nav').setRoot(RegisterPage);
+
+      this.params.get('nav').push(RegisterPage, {
+        return_page: 'page'
+      });
     } else {
       this.nav.push(RegisterPage);
     }

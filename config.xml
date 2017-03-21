@@ -41,7 +41,7 @@
     <plugin name="cordova-plugin-device" spec="1.1.4" />
     <plugin name="cordova-plugin-splashscreen" spec="~4.0.1" />
     <plugin name="cordova-plugin-facebook4" spec="~1.7.4">
-        <variable name="APP_ID" value="" />
+        <variable name="APP_ID" value="1913712325525496" />
         <variable name="APP_NAME" value="Webmons Client Demo" />
     </plugin>
 </widget>
