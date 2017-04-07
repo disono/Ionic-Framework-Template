@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {NavController, NavParams, LoadingController, ModalController} from "ionic-angular";
+import {LoadingController, ModalController, NavController, NavParams} from "ionic-angular";
 import {ECommerceProduct} from "../../../providers/ecommerce/product/product";
 import {WBView} from "../../../lib/views";
 import {WBHelper} from "../../../lib/helper";

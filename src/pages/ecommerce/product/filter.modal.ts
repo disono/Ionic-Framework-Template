@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {NavController, ViewController, NavParams} from "ionic-angular";
+import {NavController, NavParams, ViewController} from "ionic-angular";
 import {ECommerceProductCategories} from "../../../providers/ecommerce/product/category";
 
 /**

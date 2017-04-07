@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {NavController, AlertController, LoadingController, NavParams} from "ionic-angular";
+import {AlertController, LoadingController, NavController, NavParams} from "ionic-angular";
 import {AuthProvider} from "../../providers/auth-provider";
 import {WBView} from "../../lib/views";
 import {DrawerPage} from "../drawer/drawer";
@@ -113,7 +113,7 @@ export class RegisterPage {
 
       // set the main page
       if (thisApp.params.get('return_page')) {
-        WBConfig.thisApp.nav.pop();
+        thisApp.nav.pop();
       } else {
         thisApp.nav.setRoot(DrawerPage);
       }

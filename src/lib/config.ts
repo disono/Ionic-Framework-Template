@@ -16,12 +16,11 @@ let _WBConfig = (function () {
 
     // is development mode
     dev: true,
-
     // platform type default is browser mode
     is_browser: true,
 
     // api for google maps
-    api_key_google: null,
+    api_key_google: '',
     map_box_token: '',
 
     // facebook authentication (disabled)
@@ -35,7 +34,7 @@ let _WBConfig = (function () {
     },
 
     // socket IO
-    enable_web_socket: true,
+    enable_web_socket: false,
     socket_uri: function () {
       return (_WBConfig.dev) ? _WBConfig.dev_domain + ':3000/' : _WBConfig.prod_domain + ':3000/';
     },

@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {NavController, ModalController} from "ionic-angular";
+import {ModalController, NavController} from "ionic-angular";
 import {MessageProvider} from "../../providers/message-provider";
 import {ReadingInboxPage} from "./reading.inbox";
 import {UserListPage} from "../user/user.list";

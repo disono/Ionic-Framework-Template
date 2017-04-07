@@ -138,6 +138,8 @@ export class UserListPage {
         user_id: id
       });
     } else if (thisApp.params.get('return_page') == 'page') {
+      // do something else
+
       thisApp.nav.pop();
     } else {
       // do something else

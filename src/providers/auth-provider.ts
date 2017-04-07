@@ -7,11 +7,10 @@ import {WBSecurity} from "../lib/security";
 
 declare let facebookConnectPlugin;
 
-/*
- Generated class for the AuthProvider provider.
-
- See https://angular.io/docs/ts/latest/guide/dependency-injection.html
- for more info on providers and Angular 2 DI.
+/**
+ * @author Archie Disono
+ * @url https://github.com/disono/Ionic-Framework-Template
+ * @license Apache 2.0
  */
 @Injectable()
 export class AuthProvider {

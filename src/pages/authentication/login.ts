@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {NavController, AlertController, LoadingController, App, NavParams, ViewController} from "ionic-angular";
+import {AlertController, App, LoadingController, NavController, NavParams, ViewController} from "ionic-angular";
 import {WBView} from "../../lib/views";
 import {AuthProvider} from "../../providers/auth-provider";
 import {RegisterPage} from "./register";
@@ -65,7 +65,7 @@ export class LoginPage {
       loading.dismiss();
 
       // check the users role
-      thisApp._checkRole(response);
+      thisApp._checkRole(response, thisApp);
     }, function (e) {
       loading.dismiss();
 
@@ -101,11 +101,10 @@ export class LoginPage {
    * Check role
    *
    * @param response
+   * @param thisApp
    * @private
    */
-  _checkRole(response) {
-    let thisApp = this;
-
+  _checkRole(response, thisApp) {
     // data
     let data = response.data;
 

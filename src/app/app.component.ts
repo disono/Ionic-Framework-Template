@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
-import {Platform, LoadingController, AlertController} from "ionic-angular";
-import {StatusBar, Splashscreen} from "ionic-native";
+import {AlertController, LoadingController, Platform} from "ionic-angular";
+import {Splashscreen, StatusBar} from "ionic-native";
 import {AuthProvider} from "../providers/auth-provider";
 import {WBConfig} from "../lib/config";
 import {WBView} from "../lib/views";

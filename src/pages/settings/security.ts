@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {NavController, AlertController, LoadingController, App} from "ionic-angular";
+import {AlertController, App, LoadingController, NavController} from "ionic-angular";
 import {WBView} from "../../lib/views";
 import {AuthProvider} from "../../providers/auth-provider";
 

@@ -1,5 +1,5 @@
-import {Component, ViewChild, ChangeDetectorRef} from "@angular/core";
-import {NavController, NavParams, Content, LoadingController} from "ionic-angular";
+import {ChangeDetectorRef, Component, ViewChild} from "@angular/core";
+import {Content, LoadingController, NavController, NavParams} from "ionic-angular";
 import {MessageProvider} from "../../providers/message-provider";
 import {WBConfig} from "../../lib/config";
 import {WBSocket} from "../../lib/socket";

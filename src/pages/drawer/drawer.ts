@@ -1,5 +1,5 @@
-import {ViewChild, Component} from "@angular/core";
-import {Nav, ModalController, AlertController} from "ionic-angular";
+import {Component, ViewChild} from "@angular/core";
+import {AlertController, ModalController, Nav} from "ionic-angular";
 import {AboutPage} from "../about/about";
 import {ContactPage} from "../contact/contact";
 import {SettingsTabPage} from "../settings/settings-tab";
@@ -24,7 +24,7 @@ export class DrawerPage {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = ECommerceProductListPage;
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{ title: string, component: any }>;
 
   constructor(public auth: AuthProvider, public modalCtrl: ModalController, public alertCtrl: AlertController) {
     let thisApp = this;

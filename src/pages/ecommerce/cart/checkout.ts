@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {NavController, LoadingController, AlertController} from "ionic-angular";
+import {AlertController, LoadingController, NavController} from "ionic-angular";
 import {AuthProvider} from "../../../providers/auth-provider";
 import {ECommerceCart} from "../../../providers/ecommerce/cart/cart";
 import {ApplicationProvider} from "../../../providers/application-provider";
