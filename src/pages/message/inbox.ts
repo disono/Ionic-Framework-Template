@@ -1,8 +1,10 @@
-import {Component} from "@angular/core";
+import {Component, NgModule} from "@angular/core";
 import {ModalController, NavController} from "ionic-angular";
 import {MessageProvider} from "../../providers/message-provider";
 import {ReadingInboxPage} from "./reading.inbox";
 import {UserListPage} from "../user/user.list";
+import {WBHelper} from "../../lib/helper";
+import {IonicImageLoader} from "ionic-image-loader";
 
 /**
  * @author Archie Disono
@@ -10,6 +12,11 @@ import {UserListPage} from "../user/user.list";
  * @license Apache 2.0
  */
 
+@NgModule({
+  imports: [
+    IonicImageLoader
+  ]
+})
 @Component({
   templateUrl: 'inbox.html'
 })
@@ -92,7 +99,7 @@ export class InboxPage {
       }
 
       // development
-      console.debug('Page: ' + thisApp.page + ' Data: ' + JSON.stringify(res.data));
+      WBHelper.log('Page: ' + thisApp.page + ' Data: ' + JSON.stringify(res.data));
 
       // update the page
       if (res.data.length) {

@@ -1,8 +1,9 @@
-import {Component} from "@angular/core";
+import {Component, NgModule} from "@angular/core";
 import {AlertController, App, LoadingController, NavController} from "ionic-angular";
 import {WBView} from "../../lib/views";
 import {AuthProvider} from "../../providers/auth-provider";
 import {DrawerPage} from "../drawer/drawer";
+import {IonicImageLoader} from "ionic-image-loader";
 
 declare let moment;
 declare let jQ;
@@ -13,6 +14,11 @@ declare let jQ;
  * @license Apache 2.0
  */
 
+@NgModule({
+  imports: [
+    IonicImageLoader
+  ]
+})
 @Component({
   templateUrl: 'general.html'
 })

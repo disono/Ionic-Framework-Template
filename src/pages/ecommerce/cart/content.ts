@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, NgModule} from "@angular/core";
 import {ActionSheetController, LoadingController, ModalController, NavController} from "ionic-angular";
 import {ECommerceProduct} from "../../../providers/ecommerce/product/product";
 import {AuthProvider} from "../../../providers/auth-provider";
@@ -8,6 +8,7 @@ import {WBHelper} from "../../../lib/helper";
 import {ECommerceCartCheckoutPage} from "./checkout";
 import {ECommerceCartItemQuantityModal} from "./update.quantity.modal";
 import {WBView} from "../../../lib/views";
+import {IonicImageLoader} from "ionic-image-loader";
 
 /**
  * @author Archie Disono
@@ -15,6 +16,11 @@ import {WBView} from "../../../lib/views";
  * @license Apache 2.0
  */
 
+@NgModule({
+  imports: [
+    IonicImageLoader
+  ]
+})
 @Component({
   templateUrl: 'content.html'
 })
@@ -78,7 +84,7 @@ export class ECommerceCartContentPage {
       thisApp.data_list = data.item;
 
       // development
-      console.debug('Data: ' + JSON.stringify(data.item));
+      WBHelper.log('Data: ' + JSON.stringify(data.item));
 
       thisApp.completeFetch();
     }, function (error) {
@@ -124,14 +130,14 @@ export class ECommerceCartContentPage {
               thisApp.fetchData();
             }, function (error) {
               loading.dismiss();
-              console.error('Subscribe Error: ' + error);
+              WBHelper.error('Subscribe Error: ' + error);
             });
           }
         }, {
           text: 'Cancel',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
+            WBHelper.log('Cancel clicked');
           }
         }
       ]
@@ -145,7 +151,7 @@ export class ECommerceCartContentPage {
    */
   updateQuantity(product_id) {
     let thisApp = this;
-    console.log('Update Quantity Modal');
+    WBHelper.log('Update Quantity Modal');
 
     let modal = this.modalCtrl.create(ECommerceCartItemQuantityModal, {
       id: product_id
@@ -153,7 +159,7 @@ export class ECommerceCartContentPage {
 
     modal.onDidDismiss(data => {
       if (data) {
-        console.log(data);
+        WBHelper.log(data);
 
         thisApp.fetchData();
         this.is_refreshing = true;
@@ -186,14 +192,14 @@ export class ECommerceCartContentPage {
               thisApp.fetchData();
             }, function (error) {
               loading.dismiss();
-              console.error('Subscribe Error: ' + error);
+              WBHelper.error('Subscribe Error: ' + error);
             });
           }
         }, {
           text: 'Cancel',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
+            WBHelper.log('Cancel clicked');
           }
         }
       ]
@@ -206,7 +212,7 @@ export class ECommerceCartContentPage {
    * @param id
    */
   showProduct(id) {
-    console.log('Product: ' + id);
+    WBHelper.log('Product: ' + id);
 
     this.nav.push(ECommerceProductShowPage, {
       id: id

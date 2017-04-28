@@ -1,3 +1,6 @@
+// jQuery compatibility
+var jQ = jQuery.noConflict();
+
 // add hours
 Date.prototype.addHours = function (h) {
   this.setTime(this.getTime() + (h * 60 * 60 * 1000));
@@ -32,5 +35,71 @@ var WBSQLDateToJS = function (sqlDate) {
   return new Date(Date.parse(sqlDate.replace(/-/g, "/")));
 };
 
-// jQuery compatibility
-var jQ = jQuery.noConflict();
+/**
+ * Upload
+ *
+ * @param url
+ * @param me
+ * @param jwt
+ * @param app_provider
+ * @param parameters
+ * @param successCallback
+ * @param errorCallback
+ * @constructor
+ */
+var WBUpload = function (url, me, jwt, app_provider, parameters, successCallback, errorCallback) {
+  var xhr = new XMLHttpRequest();
+  var formData = new FormData();
+
+  // open the connection.
+  xhr.open('POST', url, true);
+
+  // files to upload
+  if (parameters.files) {
+    jQ.each(parameters.files, function (i, val) {
+      if (Array.isArray(val)) {
+        // multiple files upload
+        for (var num = 0; num < val.length; num++) {
+          formData.append(i + '[]', val[num]);
+        }
+      } else {
+        // single upload
+        formData.append(i, val);
+      }
+    });
+  }
+
+  // inputs
+  if (parameters.inputs) {
+    jQ.each(parameters.inputs, function (i, val) {
+      formData.append(i, val);
+    });
+  }
+
+  // load to server
+  // set up a handler for when the request finishes.
+  xhr.onload = function () {
+    var response = this.response;
+
+    if (response) {
+      var res = JSON.parse(response);
+
+      if (res.success) {
+        successCallback(res);
+      } else {
+        errorCallback(res);
+        app_provider._handleError(res.errors);
+      }
+    }
+  };
+
+  if (me) {
+    // add headers for JWT token
+    xhr.setRequestHeader("Authorization", "Bearer " + jwt);
+    xhr.setRequestHeader("token_key", me.token_key);
+    xhr.setRequestHeader("authenticated_id", me.id);
+  }
+
+  // send the data.
+  xhr.send(formData);
+};

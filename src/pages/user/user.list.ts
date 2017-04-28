@@ -1,7 +1,9 @@
-import {Component} from "@angular/core";
+import {Component, NgModule} from "@angular/core";
 import {NavController, NavParams, ViewController} from "ionic-angular";
 import {UserProvider} from "../../providers/user-provider";
 import {AuthProvider} from "../../providers/auth-provider";
+import {WBHelper} from "../../lib/helper";
+import {IonicImageLoader} from "ionic-image-loader";
 
 /**
  * @author Archie Disono
@@ -9,6 +11,11 @@ import {AuthProvider} from "../../providers/auth-provider";
  * @license Apache 2.0
  */
 
+@NgModule({
+  imports: [
+    IonicImageLoader
+  ]
+})
 @Component({
   templateUrl: 'user.list.html'
 })
@@ -95,7 +102,7 @@ export class UserListPage {
       }
 
       // development
-      console.debug('Page: ' + thisApp.page + ' Data: ' + JSON.stringify(res.data));
+      WBHelper.log('Page: ' + thisApp.page + ' Data: ' + JSON.stringify(res.data));
 
       // update the page
       if (res.data.length) {

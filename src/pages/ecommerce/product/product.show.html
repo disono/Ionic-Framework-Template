@@ -31,7 +31,7 @@
     <!-- images on slider -->
     <ion-slides pager *ngIf="details.images.length">
       <ion-slide *ngFor="let image of details.images" style="width: 100% !important;">
-        <img src="{{image.path}}" alt="{{image.title}}">
+        <img-loader src="{{image.path}}" useImg></img-loader>
       </ion-slide>
     </ion-slides>
 

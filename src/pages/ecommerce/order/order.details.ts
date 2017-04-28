@@ -1,6 +1,8 @@
-import {Component} from "@angular/core";
+import {Component, NgModule} from "@angular/core";
 import {NavController, NavParams} from "ionic-angular";
 import {ECommerceOrder} from "../../../providers/ecommerce/order/order";
+import {WBHelper} from "../../../lib/helper";
+import {IonicImageLoader} from "ionic-image-loader";
 
 /**
  * @author Archie Disono
@@ -8,6 +10,11 @@ import {ECommerceOrder} from "../../../providers/ecommerce/order/order";
  * @license Apache 2.0
  */
 
+@NgModule({
+  imports: [
+    IonicImageLoader
+  ]
+})
 @Component({
   templateUrl: 'order.details.html'
 })
@@ -66,7 +73,7 @@ export class ECommerceOrderDetailsPage {
       thisApp.data_list = res.data;
 
       // development
-      console.debug('Data: ' + JSON.stringify(data.item));
+      WBHelper.log('Data: ' + JSON.stringify(data.item));
 
       thisApp.completeFetch();
     }, function (error) {

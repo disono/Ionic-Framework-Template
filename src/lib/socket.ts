@@ -25,19 +25,19 @@ let _WBSocket = (function () {
 
       // on connect
       this.socket.on('connect', function () {
-        console.log('SocketIO is Connected!');
+        WBHelper.log('SocketIO is Connected!');
         connectCallback();
       });
 
       // event
       this.socket.on('event', function (data) {
-        console.log('SocketIO Event Received!');
+        WBHelper.log('SocketIO Event Received!');
         eventCallback();
       });
 
       // on disconnect
       this.socket.on('disconnect', function () {
-        console.log('SocketIO Disconnected!');
+        WBHelper.log('SocketIO Disconnected!');
         disconnectCallback();
       });
     },

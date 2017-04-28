@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, NgModule} from "@angular/core";
 import {LoadingController, ModalController, NavController, NavParams} from "ionic-angular";
 import {ECommerceProduct} from "../../../providers/ecommerce/product/product";
 import {WBView} from "../../../lib/views";
@@ -7,6 +7,7 @@ import {AuthProvider} from "../../../providers/auth-provider";
 import {ECommerceCart} from "../../../providers/ecommerce/cart/cart";
 import {ECommerceCartContentPage} from "../cart/content";
 import {LoginPage} from "../../authentication/login";
+import {IonicImageLoader} from "ionic-image-loader";
 
 /**
  * @author Archie Disono
@@ -14,6 +15,11 @@ import {LoginPage} from "../../authentication/login";
  * @license Apache 2.0
  */
 
+@NgModule({
+  imports: [
+    IonicImageLoader
+  ]
+})
 @Component({
   templateUrl: 'product.show.html'
 })
@@ -23,7 +29,7 @@ export class ECommerceProductShowPage {
 
   constructor(public nav: NavController, public params: NavParams, public auth: AuthProvider, public cart: ECommerceCart,
               public product: ECommerceProduct, public loadingCtrl: LoadingController, public modalCtrl: ModalController) {
-    console.log('Product ID: ' + params.get('id'));
+    WBHelper.log('Product ID: ' + params.get('id'));
 
     this.fetch(params.get('id'));
   }
@@ -87,7 +93,7 @@ export class ECommerceProductShowPage {
 
       thisApp.nav.setRoot(ECommerceCartContentPage);
     }, function (error) {
-      console.error('Subscribe Error: ' + error);
+      WBHelper.error('Subscribe Error: ' + error);
     });
   }
 

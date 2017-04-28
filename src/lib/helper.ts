@@ -321,6 +321,32 @@ let _WBHelper = (function () {
         navigator.geolocation.clearWatch(WBConfig.watchPositionID);
         WBConfig.watchPositionID = null;
       }
+    },
+
+    /**
+     * Log messages
+     *
+     * @param message
+     */
+    log: function (message) {
+      if (WBConfig.is_browser || !message) {
+        return;
+      }
+
+      console.log('WB Log ' + new Date() + ': ' + message);
+    },
+
+    /**
+     * Log errors
+     *
+     * @param message
+     */
+    error: function (message) {
+      if (WBConfig.is_browser || !message) {
+        return;
+      }
+
+      console.log('WB Error ' + new Date() + ': ' + message);
     }
   };
 }());

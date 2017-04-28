@@ -33,7 +33,7 @@
         <ion-col width-50 *ngFor="let item of data_fetch">
           <ion-card>
             <!-- item image -->
-            <img [src]="item.cover" (click)="showProduct(item.id)">
+            <img-loader src="{{item.cover}}" (click)="showProduct(item.id)" useImg></img-loader>
 
             <ion-card-content>
               <!-- item name -->

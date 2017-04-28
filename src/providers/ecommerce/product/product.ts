@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {APDProvider} from "../../apd-provider";
+import {WBHelper} from "../../../lib/helper";
 
 /**
  * @author Archie Disono on 2016-05-08.
@@ -10,7 +11,7 @@ import {APDProvider} from "../../apd-provider";
 export class ECommerceProduct {
 
   constructor(public appProvider: APDProvider) {
-    console.log('ECommerce Product Called.');
+    WBHelper.log('ECommerce Product Called.');
   }
 
   /**
@@ -20,7 +21,7 @@ export class ECommerceProduct {
    */
   index(parameters) {
     return this.appProvider.get('e-commerce/product', parameters, function (res) {
-      console.debug('Product: ' + res);
+      WBHelper.log('Product: ' + res);
     });
   }
 
@@ -32,7 +33,7 @@ export class ECommerceProduct {
    */
   show(id) {
     return this.appProvider.get('e-commerce/product/show/' + id, null, function (res) {
-      console.debug('Product show: ' + res);
+      WBHelper.log('Product show: ' + res);
     });
   }
 

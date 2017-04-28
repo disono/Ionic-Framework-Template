@@ -1,3 +1,4 @@
+import {WBHelper} from "./helper";
 /**
  * @description Maps
  * @file map.ts
@@ -70,7 +71,7 @@ let _WBMap = (function () {
         let place = auto_complete.getPlace();
 
         if (!place.geometry) {
-          console.error("No details available for input: '" + place.name + "'");
+          WBHelper.error("No details available for input: '" + place.name + "'");
           return;
         }
 

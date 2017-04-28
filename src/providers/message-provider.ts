@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {APDProvider} from "./apd-provider";
+import {WBHelper} from "../lib/helper";
 
 /**
  * @author Archie Disono on 2016-05-08.
@@ -10,7 +11,7 @@ import {APDProvider} from "./apd-provider";
 export class MessageProvider {
 
   constructor(public appProvider: APDProvider) {
-    console.log('Message Provider Called.');
+    WBHelper.log('Message Provider Called.');
   }
 
   /**
@@ -22,7 +23,7 @@ export class MessageProvider {
     return this.appProvider.get('message/inbox', {
       page: page
     }, function (res) {
-      console.debug('Message-inbox: ' + res);
+      WBHelper.log('Message-inbox: ' + res);
     });
   }
 
@@ -37,7 +38,7 @@ export class MessageProvider {
     return this.appProvider.get('message/reading/' + from_id, {
       page: page
     }, function (res) {
-      console.debug('Message-reading: ' + res);
+      WBHelper.log('Message-reading: ' + res);
     });
   }
 
@@ -49,7 +50,7 @@ export class MessageProvider {
    */
   group(group_id) {
     return this.appProvider.get('message/group/' + group_id, null, function (res) {
-      console.debug('Message-group: ' + res);
+      WBHelper.log('Message-group: ' + res);
     });
   }
 

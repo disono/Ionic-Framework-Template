@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {AlertController, LoadingController, Platform} from "ionic-angular";
-import {Splashscreen, StatusBar} from "ionic-native";
+import {StatusBar} from "@ionic-native/status-bar";
+import {SplashScreen} from "@ionic-native/splash-screen";
 import {AuthProvider} from "../providers/auth-provider";
 import {WBConfig} from "../lib/config";
 import {WBView} from "../lib/views";
@@ -16,8 +17,9 @@ declare let FCMPlugin;
 export class MyApp {
   rootPage: any;
 
-  constructor(public platform: Platform, public auth: AuthProvider,
-              public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
+  constructor(public platform: Platform, public authProvider: AuthProvider,
+              public loadingCtrl: LoadingController, public alertCtrl: AlertController,
+              public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
   }
 
@@ -28,10 +30,8 @@ export class MyApp {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      StatusBar.styleDefault();
-      if (Splashscreen) {
-        Splashscreen.hide();
-      }
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
 
       let thisApp = this;
 
@@ -55,7 +55,7 @@ export class MyApp {
   run() {
     let thisApp = this;
 
-    if (!thisApp.auth.check()) {
+    if (!thisApp.authProvider.check()) {
       return;
     }
 
@@ -63,23 +63,35 @@ export class MyApp {
     let loading = WBView.loading(thisApp.loadingCtrl, 'Syncing...');
 
     // sync any data on server
-    thisApp.auth.sync().subscribe(function (res) {
+    thisApp.authProvider.sync().subscribe(function (res) {
       loading.dismiss();
 
       // run the application
-      thisApp.initializeData();
+      thisApp.initializeData(function () {
+        thisApp.syncDone();
+      });
     }, function (error) {
       loading.dismiss();
 
       // run the application
-      thisApp.initializeData();
+      thisApp.initializeData(function () {
+        thisApp.syncDone();
+      });
     });
+  }
+
+  /**
+   * sync done
+   */
+  syncDone() {
+    WBSocket.emitter.emitEvent('sync_done');
+    WBConfig.initial_loaded = true;
   }
 
   /**
    * Initialized required data
    */
-  initializeData() {
+  initializeData(callback) {
     let thisApp = this;
 
     // store the FCM token
@@ -87,12 +99,18 @@ export class MyApp {
       FCMPlugin.getToken(
         function (token) {
           // send the token to server
-          thisApp.auth.fcm_token(thisApp.auth.user().id, token);
+          thisApp.authProvider.fcm_token(thisApp.authProvider.user().id, token).subscribe(function (response) {
+            callback();
+          });
         },
         function (err) {
+          callback();
+
           WBView.alert(thisApp.alertCtrl, 'FCM Error', 'Error retrieving token: ' + err);
         }
       );
+    } else {
+      callback();
     }
 
     // watch user's position (really)
@@ -106,15 +124,15 @@ export class MyApp {
     }
 
     // web sockets
-    thisApp.socketReceiver();
+    thisApp.initSocket();
   }
 
   /**
    * Waiting for socket
    */
-  socketReceiver() {
+  initSocket() {
     let thisApp = this;
-    let session = thisApp.auth.user();
+    let session = thisApp.authProvider.user();
 
     if (!WBConfig.enable_web_socket) {
       return;
@@ -170,7 +188,7 @@ export class MyApp {
    * Sent the current location as session registration
    */
   sentLocation() {
-    let session = this.auth.user();
+    let session = this.authProvider.user();
     session.lat = WBConfig.lat;
     session.lng = WBConfig.lng;
     WBSocket.emit('register_session', session);

@@ -16,7 +16,7 @@ declare let facebookConnectPlugin;
 export class AuthProvider {
 
   constructor(public appProvider: APDProvider) {
-    console.log('AuthProvider Provider Called.');
+    WBHelper.log('AuthProvider Provider Called.');
   }
 
   /**
@@ -27,7 +27,7 @@ export class AuthProvider {
    */
   login(parameters) {
     return this.appProvider.post('auth/login', parameters, function (res) {
-      console.debug('AuthProvider-login: ' + res);
+      WBHelper.log('AuthProvider-login: ' + res);
 
       WBSecurity.saveAuth(res.data);
     });
@@ -104,7 +104,7 @@ export class AuthProvider {
    */
   forgot(parameters) {
     return this.appProvider.post('password/recover', parameters, function (res) {
-      console.debug('AuthProvider-forgot: ' + res);
+      WBHelper.log('AuthProvider-forgot: ' + res);
     });
   }
 
@@ -116,7 +116,7 @@ export class AuthProvider {
    */
   register(parameters) {
     return this.appProvider.post('auth/register', parameters, function (res) {
-      console.debug('AuthProvider-register: ' + res);
+      WBHelper.log('AuthProvider-register: ' + res);
     });
   }
 
@@ -147,7 +147,7 @@ export class AuthProvider {
    */
   security(parameters) {
     return this.appProvider.post('user/update/security', parameters, function (res) {
-      console.debug('AuthProvider-security: ' + res);
+      WBHelper.log('AuthProvider-security: ' + res);
 
       WBSecurity.saveAuth(res.data);
     });
@@ -162,7 +162,7 @@ export class AuthProvider {
     let thisApp = this;
 
     return this.appProvider.get('user/' + thisApp.user().id, null, function (res) {
-      console.debug('AuthProvider-sync: ' + res);
+      WBHelper.log('AuthProvider-sync: ' + res);
 
       WBSecurity.saveAuth(res.data);
     });
@@ -190,6 +190,13 @@ export class AuthProvider {
    * Logout
    */
   logout() {
+    // remove sync_done listeners & events
+    WBSocket.emitter.removeListener('sync_done');
+    WBSocket.emitter.removeEvent('sync_done');
+
+    // reset the initial load
+    WBConfig.initial_loaded = false;
+
     // destroy the socket
     WBSocket.disconnect();
 
@@ -214,7 +221,7 @@ export class AuthProvider {
    */
   fcm_token(id, token) {
     return this.appProvider.get('user/fcm-token/' + id + '/' + token, null, function (res) {
-      console.debug('AuthProvider-fcm_token: ' + res);
+      WBHelper.log('AuthProvider-fcm_token: ' + res);
     });
   }
 

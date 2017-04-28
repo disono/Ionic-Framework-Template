@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, NgModule} from "@angular/core";
 import {ModalController, NavController} from "ionic-angular";
 import {ECommerceProduct} from "../../../providers/ecommerce/product/product";
 import {AuthProvider} from "../../../providers/auth-provider";
@@ -8,6 +8,9 @@ import {ECommerceProductShowPage} from "./product.show";
 import {ECommerceProductFilterModal} from "./filter.modal";
 import {LoginPage} from "../../authentication/login";
 import {ECommerceCartContentPage} from "../cart/content";
+import {WBConfig} from "../../../lib/config";
+import {WBSocket} from "../../../lib/socket";
+import {IonicImageLoader} from "ionic-image-loader";
 
 /**
  * @author Archie Disono
@@ -15,21 +18,24 @@ import {ECommerceCartContentPage} from "../cart/content";
  * @license Apache 2.0
  */
 
+@NgModule({
+  imports: [
+    IonicImageLoader
+  ]
+})
 @Component({
   templateUrl: 'product.list.html'
 })
 export class ECommerceProductListPage {
   rowNumGrid = 0;
-  data_list: any;
-  init_loading: boolean;
+  data_list = [];
+  init_loading = true;
 
-  page: number;
+  is_refreshing = false;
+  is_fetching = false;
 
-  is_refreshing: boolean;
-  is_fetching: boolean;
-
-  refresher: any;
-  infiniteScroll: any;
+  refresher = null;
+  infiniteScroll = null;
 
   filter = {
     search: null,
@@ -46,22 +52,35 @@ export class ECommerceProductListPage {
     page: 1
   };
 
-  constructor(public nav: NavController, public product: ECommerceProduct, public auth: AuthProvider, public cart: ECommerceCart,
+  constructor(public nav: NavController, public product: ECommerceProduct, public authProvider: AuthProvider, public cart: ECommerceCart,
               public modalCtrl: ModalController) {
-    this.init();
 
-    this.fetchData();
-    this.is_refreshing = true;
+  }
+
+  ionViewDidLoad() {
+    let thisApp = this;
+
+    if (WBConfig.initial_loaded || !thisApp.authProvider.check()) {
+      thisApp.init();
+    } else {
+      WBSocket.emitter.addListener('sync_done', function () {
+        thisApp.init();
+      });
+    }
   }
 
   init() {
     this.init_loading = true;
     this.refresher = null;
-    this.is_fetching = false;
     this.infiniteScroll = null;
+    this.is_fetching = false;
 
     this.data_list = [];
-    this.page = 1;
+    this.filter.page = 1;
+
+    // fetch data
+    this.fetchData();
+    this.is_refreshing = true;
   }
 
   /**
@@ -71,7 +90,7 @@ export class ECommerceProductListPage {
    */
   doRefresh(refresher) {
     this.refresher = refresher;
-    this.page = 1;
+    this.filter.page = 1;
 
     this.fetchData();
     this.is_refreshing = true;
@@ -101,7 +120,6 @@ export class ECommerceProductListPage {
 
     // fetch data to server
     thisApp.is_fetching = true;
-    thisApp.filter.page = thisApp.page;
 
     thisApp.product.index(thisApp.filter).subscribe(function (res) {
       // reset data if refreshing
@@ -114,11 +132,11 @@ export class ECommerceProductListPage {
       thisApp.formatListDataToGrid(res.data);
 
       // development
-      console.debug('Page: ' + thisApp.page + ' Data: ' + JSON.stringify(res.data));
+      WBHelper.log('Page: ' + thisApp.filter.page + ' Data: ' + JSON.stringify(res.data));
 
       // update the page
       if (res.data.length) {
-        thisApp.page++;
+        thisApp.filter.page++;
       }
 
       thisApp.completeFetch();
@@ -182,7 +200,7 @@ export class ECommerceProductListPage {
    */
   searchProducts() {
     let thisApp = this;
-    console.log('Search Products.');
+    WBHelper.log('Search Products.');
 
     let modal = this.modalCtrl.create(ECommerceProductFilterModal, {
       filter: thisApp.filter
@@ -190,8 +208,8 @@ export class ECommerceProductListPage {
 
     modal.onDidDismiss(data => {
       if (data) {
-        console.log(data);
-        thisApp.page = 1;
+        WBHelper.log(data);
+        thisApp.filter.page = 1;
         thisApp.filter = data;
 
         thisApp.fetchData();
@@ -210,7 +228,7 @@ export class ECommerceProductListPage {
   addToCart(product_id) {
     let thisApp = this;
 
-    if (thisApp.auth.check()) {
+    if (thisApp.authProvider.check()) {
       thisApp.storeToCart(product_id);
     } else {
       // show the login page (modal)
@@ -240,7 +258,7 @@ export class ECommerceProductListPage {
 
       thisApp.nav.setRoot(ECommerceCartContentPage);
     }, function (error) {
-      console.error('Subscribe Error: ' + error);
+      WBHelper.error('Subscribe Error: ' + error);
     });
   }
 
@@ -250,7 +268,7 @@ export class ECommerceProductListPage {
    * @param id
    */
   showProduct(id) {
-    console.log('Product: ' + id);
+    WBHelper.log('Product: ' + id);
 
     this.nav.push(ECommerceProductShowPage, {
       id: id

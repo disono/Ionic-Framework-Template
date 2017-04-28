@@ -17,13 +17,13 @@
     <ion-item *ngFor="let data_fetch of data_list" text-wrap>
       <!-- avatar and name (you) -->
       <ion-avatar item-left *ngIf="data_fetch.sender_type == 'you'">
-        <img src="{{data_fetch.from_avatar}}">
+        <img-loader src="{{data_fetch.from_avatar}}" useImg></img-loader>
       </ion-avatar>
       <h2 *ngIf="data_fetch.sender_type == 'you'">{{data_fetch.from_full_name}}</h2>
 
       <!-- avatar and name (sender) -->
       <ion-avatar item-right *ngIf="data_fetch.sender_type == 'sender'">
-        <img src="{{data_fetch.from_avatar}}">
+        <img-loader src="{{data_fetch.from_avatar}}" useImg></img-loader>
       </ion-avatar>
       <h2 *ngIf="data_fetch.sender_type == 'sender'" style="text-align: right !important;">
         {{data_fetch.from_full_name}}</h2>
@@ -40,11 +40,13 @@
         {{data_fetch.message}}</p>
 
       <!-- image message -->
-      <p *ngIf="data_fetch.type == 'image' && data_fetch.sender_type == 'you'"><img src="{{data_fetch.file}}"
-                                                                                    alt="{{data_fetch.message}}"
-                                                                                    width="50%"></p>
+      <p *ngIf="data_fetch.type == 'image' && data_fetch.sender_type == 'you'">
+        <img-loader src="{{data_fetch.file}}"
+                    width="50%" useImg></img-loader>
+      </p>
       <p *ngIf="data_fetch.type == 'image' && data_fetch.sender_type == 'sender'" style="text-align: right !important;">
-        <img src="{{data_fetch.file}}" alt="{{data_fetch.message}}" width="75%"></p>
+        <img-loader src="{{data_fetch.file}}" width="75%" useImg></img-loader>
+      </p>
 
       <!-- video message -->
       <p *ngIf="data_fetch.type == 'video' && data_fetch.sender_type == 'you'">

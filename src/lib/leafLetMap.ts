@@ -1,4 +1,5 @@
 import {WBConfig} from "./config";
+import {WBHelper} from "./helper";
 
 declare let jQ;
 declare let google;
@@ -81,7 +82,7 @@ let _WBLeafMap = (function () {
             },
             icon: 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/64/Map-Marker-Marker-Inside-Chartreuse-icon.png'
           }, function (e) {
-            console.log(this.getLatLng());
+            WBHelper.log(this.getLatLng());
           }));
         });
 
@@ -106,7 +107,7 @@ let _WBLeafMap = (function () {
             });
 
             marker.on('click', function (e) {
-              console.log(this.getLatLng());
+              WBHelper.log(this.getLatLng());
             });
 
             return marker;

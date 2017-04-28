@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {APDProvider} from "./apd-provider";
+import {WBHelper} from "../lib/helper";
 
 /**
  * @author Archie Disono on 2016-05-08.
@@ -10,7 +11,7 @@ import {APDProvider} from "./apd-provider";
 export class ApplicationProvider {
 
   constructor(public appProvider: APDProvider) {
-    console.log('Application Settings Provider Provider Called.');
+    WBHelper.log('Application Settings Provider Provider Called.');
   }
 
   /**
@@ -22,7 +23,7 @@ export class ApplicationProvider {
    */
   index() {
     return this.appProvider.get('application', null, function (res) {
-      console.debug('ApplicationProvider-index: ' + res);
+      WBHelper.log('ApplicationProvider-index: ' + res);
     });
   }
 

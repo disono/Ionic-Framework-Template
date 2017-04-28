@@ -53,10 +53,8 @@
         <ion-toggle [(ngModel)]="filter.is_latest"
                     (ionChange)="onChangeToggle('latest', filter.is_latest)"></ion-toggle>
       </ion-item>
-
-      <ion-item>
-        <button ion-button block clear (click)="search()">Search</button>
-      </ion-item>
     </ion-list>
+
+    <button ion-button block clear (click)="search()">Apply Filters</button>
   </div>
 </ion-content>

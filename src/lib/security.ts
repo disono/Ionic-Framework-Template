@@ -26,7 +26,7 @@ let _WBSecurity = (function () {
       let current = new Date(current_time.getTime() - 5 * 60000);
 
       if (!secret) {
-        console.error('JWT Token is null: ' + secret);
+        WBHelper.error('JWT Token is null: ' + secret);
         return null;
       }
 
@@ -67,10 +67,10 @@ let _WBSecurity = (function () {
         let base64Sign = CryptoJS.enc.Base64.stringify(signature);
         token = base64Header + "." + base64Payload + "." + base64Sign;
       } catch (e) {
-        console.error(e);
+        WBHelper.error(e);
       }
 
-      console.log(token);
+      WBHelper.log(token);
       return token;
     },
 
@@ -82,11 +82,11 @@ let _WBSecurity = (function () {
     jwtAuth: function () {
       let auth = WBHelper.getItem('user', true);
       if (!auth) {
-        console.log('Not authenticated.');
+        WBHelper.log('Not authenticated.');
         return null;
       }
 
-      console.log('Auth Timestamp: ' + auth.jwt_server_difference);
+      WBHelper.log('Auth Timestamp: ' + auth.jwt_server_difference);
       return _WBSecurity.jwt(auth.secret_key, auth.id, _WBSecurity.getDateTimeDiff(auth.jwt_server_difference));
     },
 

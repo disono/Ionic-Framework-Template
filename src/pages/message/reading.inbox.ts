@@ -1,10 +1,12 @@
-import {ChangeDetectorRef, Component, ViewChild} from "@angular/core";
+import {ChangeDetectorRef, Component, NgModule, ViewChild} from "@angular/core";
 import {Content, LoadingController, NavController, NavParams} from "ionic-angular";
 import {MessageProvider} from "../../providers/message-provider";
 import {WBConfig} from "../../lib/config";
 import {WBSocket} from "../../lib/socket";
 import {AuthProvider} from "../../providers/auth-provider";
 import {WBView} from "../../lib/views";
+import {WBHelper} from "../../lib/helper";
+import {IonicImageLoader} from "ionic-image-loader";
 
 declare let jQ;
 
@@ -14,6 +16,11 @@ declare let jQ;
  * @license Apache 2.0
  */
 
+@NgModule({
+  imports: [
+    IonicImageLoader
+  ]
+})
 @Component({
   templateUrl: 'reading.inbox.html'
 })
@@ -36,7 +43,7 @@ export class ReadingInboxPage {
 
   constructor(public nav: NavController, public messageProvider: MessageProvider, public params: NavParams,
               public loadingCtrl: LoadingController, public auth: AuthProvider, public changeDetectorRef: ChangeDetectorRef) {
-    console.log('From ID: ' + params.get('from_id'));
+    WBHelper.log('From ID: ' + params.get('from_id'));
     this.to_id = params.get('from_id');
   }
 
@@ -62,7 +69,7 @@ export class ReadingInboxPage {
       // trigger infinite when we are at 10% from top
       if (scrolled < page * 0.30) {
         if (!thisApp.is_fetching && direction == 'top') {
-          console.log('Scrolling Up...');
+          WBHelper.log('Scrolling Up...');
 
           // load the messages
           thisApp.fetchMessages();
@@ -90,7 +97,7 @@ export class ReadingInboxPage {
   }
 
   ionViewDidLeave() {
-    console.log('Leaving Private Messaging: ' + this.to_id);
+    WBHelper.log('Leaving Private Messaging: ' + this.to_id);
 
     // private messaging
     WBConfig.private_message_on_view = false;
@@ -199,7 +206,7 @@ export class ReadingInboxPage {
   scrollToBottom() {
     let thisApp = this;
     let dimensions = this.content.getContentDimensions();
-    console.log('Scrolling to bottom, Y: ' + dimensions.contentHeight);
+    WBHelper.log('Scrolling to bottom, Y: ' + dimensions.contentHeight);
 
     thisApp.content.scrollTo(0, dimensions.contentHeight, 300);
   }

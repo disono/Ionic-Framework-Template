@@ -6,6 +6,7 @@ import {ApplicationProvider} from "../../../providers/application-provider";
 import {ECommerceCartSuccessPage} from "./success";
 import {WBView} from "../../../lib/views";
 import {WBConfig} from "../../../lib/config";
+import {WBHelper} from "../../../lib/helper";
 
 /**
  * @author Archie Disono
@@ -92,7 +93,7 @@ export class ECommerceCartCheckoutPage {
       thisApp.payment_types = data.payment_types;
       callback();
     }, function (error) {
-      console.error('Subscribe Error: ' + error);
+      WBHelper.error('Subscribe Error: ' + error);
     });
   }
 
@@ -128,7 +129,7 @@ export class ECommerceCartCheckoutPage {
     let thisApp = this;
 
     if (thisApp.voucher_code) {
-      console.log('Voucher Code: ' + thisApp.voucher_code);
+      WBHelper.log('Voucher Code: ' + thisApp.voucher_code);
       let loading = WBView.loading(thisApp.loadingCtrl, 'Applying Voucher...');
 
       thisApp.cart.voucher(thisApp.voucher_code).subscribe(function (response) {
@@ -138,7 +139,7 @@ export class ECommerceCartCheckoutPage {
       }, function (error) {
         loading.dismiss();
 
-        console.error('Subscribe Error: ' + error);
+        WBHelper.error('Subscribe Error: ' + error);
       });
     }
   }
@@ -150,7 +151,7 @@ export class ECommerceCartCheckoutPage {
     let thisApp = this;
 
     if (thisApp.voucher_code) {
-      console.log('Voucher Remove Code: ' + thisApp.voucher_code);
+      WBHelper.log('Voucher Remove Code: ' + thisApp.voucher_code);
       let loading = WBView.loading(thisApp.loadingCtrl, 'Removing Voucher...');
 
       thisApp.cart.removeVoucher().subscribe(function (response) {
@@ -160,7 +161,7 @@ export class ECommerceCartCheckoutPage {
       }, function (error) {
         loading.dismiss();
 
-        console.error('Subscribe Error: ' + error);
+        WBHelper.error('Subscribe Error: ' + error);
       });
     }
   }
@@ -190,7 +191,7 @@ export class ECommerceCartCheckoutPage {
     }, function (error) {
       loading.dismiss();
 
-      console.error('Subscribe Error: ' + error);
+      WBHelper.error('Subscribe Error: ' + error);
     });
   }
 

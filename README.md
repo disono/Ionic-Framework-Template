@@ -1,5 +1,5 @@
-# Ionic Framework Project Template V2 Beta
-is a starting blank template for Ionic Projects V2 Beta
+# Ionic Framework Project Template V3
+is a starting blank template for Ionic Projects V3
 
 # Libraries
 * **jQuery:** [https://jquery.com](https://jquery.com)
@@ -11,6 +11,9 @@ is a starting blank template for Ionic Projects V2 Beta
 * **Google Firebase Cloud Messaging Cordova Push Plugin**[https://github.com/fechanique/cordova-plugin-fcm](https://github.com/fechanique/cordova-plugin-fcm)
 * **Cordova Local-Notification Plugin:** [https://github.com/katzer/cordova-plugin-local-notifications](https://github.com/katzer/cordova-plugin-local-notifications)
 * **cordova-plugin-facebook4:** [https://github.com/jeduan/cordova-plugin-facebook4](https://github.com/jeduan/cordova-plugin-facebook4)
+
+# NPM
+* **ionic-image-loader**[https://github.com/zyra/ionic-image-loader](https://github.com/zyra/ionic-image-loader)
 
 ### Install Libraries
 ```sh
@@ -31,6 +34,13 @@ is a starting blank template for Ionic Projects V2 Beta
 - Create App on facebook SDK API @ https://developers.facebook.com/apps
 
 6. Update your package name at config.xml
+
+7. Install NPM libraries
+    npm install --save ionic-image-loader
+    npm i --save @ionic-native/file
+    npm i --save @ionic-native/transfer
+    npm i --save @ionic-native/core
+    npm i --save rxjs@5.0.0-beta.12
 ```
 
 ### Crosswalk Plugin (optional)

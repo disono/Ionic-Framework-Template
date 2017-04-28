@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {APDProvider} from "./apd-provider";
+import {WBHelper} from "../lib/helper";
 
 /**
  * @author Archie Disono on 2016-05-08.
@@ -10,7 +11,7 @@ import {APDProvider} from "./apd-provider";
 export class UserProvider {
 
   constructor(public appProvider: APDProvider) {
-    console.log('UserProvider Provider Called.');
+    WBHelper.log('UserProvider Provider Called.');
   }
 
   /**
@@ -21,7 +22,7 @@ export class UserProvider {
    */
   index(params) {
     return this.appProvider.get('users', params, function (res) {
-      console.debug('UserProvider-index: ' + res);
+      WBHelper.log('UserProvider-index: ' + res);
     });
   }
 
@@ -34,7 +35,7 @@ export class UserProvider {
    */
   show(id) {
     return this.appProvider.get('user/' + id, null, function (res) {
-      console.debug('UserProvider-show: ' + res);
+      WBHelper.log('UserProvider-show: ' + res);
     });
   }
 

@@ -33,7 +33,7 @@
     <ion-list>
       <ion-item *ngFor="let data_fetch of data_list">
         <ion-avatar item-left>
-          <img src="{{data_fetch.product.cover}}" (click)="showProduct(data_fetch.id)">
+          <img-loader src="{{data_fetch.product.cover}}" (click)="showProduct(data_fetch.id)" useImg></img-loader>
         </ion-avatar>
 
         <h2 (click)="showProduct(data_fetch.id)">{{data_fetch.name}}</h2>

@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {APDProvider} from "../../apd-provider";
+import {WBHelper} from "../../../lib/helper";
 
 /**
  * @author Archie Disono on 2016-05-08.
@@ -10,7 +11,7 @@ import {APDProvider} from "../../apd-provider";
 export class ECommerceCart {
 
   constructor(public appProvider: APDProvider) {
-    console.log('ECommerce Cart Called.');
+    WBHelper.log('ECommerce Cart Called.');
   }
 
   /**
@@ -20,7 +21,7 @@ export class ECommerceCart {
    */
   content() {
     return this.appProvider.get('e-commerce/cart', null, function (res) {
-      console.debug('Product content: ' + res);
+      WBHelper.log('Product content: ' + res);
     });
   }
 
@@ -32,7 +33,7 @@ export class ECommerceCart {
    */
   add(product_id) {
     return this.appProvider.get('e-commerce/cart/add/' + product_id, null, function (res) {
-      console.debug('Product add: ' + res);
+      WBHelper.log('Product add: ' + res);
     });
   }
 
@@ -45,7 +46,7 @@ export class ECommerceCart {
    */
   update(id, quantity) {
     return this.appProvider.get('e-commerce/cart/update/' + id + '/' + quantity, null, function (res) {
-      console.debug('Product update: ' + res);
+      WBHelper.log('Product update: ' + res);
     });
   }
 
@@ -57,7 +58,7 @@ export class ECommerceCart {
    */
   destroy(id) {
     return this.appProvider.get('e-commerce/cart/destroy/' + id, null, function (res) {
-      console.debug('Product add: ' + res);
+      WBHelper.log('Product add: ' + res);
     });
   }
 
@@ -68,7 +69,7 @@ export class ECommerceCart {
    */
   clear() {
     return this.appProvider.get('e-commerce/cart/clear', null, function (res) {
-      console.debug('Product clear: ' + res);
+      WBHelper.log('Product clear: ' + res);
     });
   }
 
@@ -80,7 +81,7 @@ export class ECommerceCart {
    */
   voucher(code) {
     return this.appProvider.post('e-commerce/cart/voucher/' + code, null, function (res) {
-      console.debug('Product clear: ' + res);
+      WBHelper.log('Product clear: ' + res);
     });
   }
 
@@ -91,7 +92,7 @@ export class ECommerceCart {
    */
   removeVoucher() {
     return this.appProvider.get('e-commerce/cart/voucher/remove', null, function (res) {
-      console.debug('Product clear: ' + res);
+      WBHelper.log('Product clear: ' + res);
     });
   }
 
@@ -103,7 +104,7 @@ export class ECommerceCart {
    */
   place(parameters) {
     return this.appProvider.post('e-commerce/place', parameters, function (res) {
-      console.debug('Product place: ' + res);
+      WBHelper.log('Product place: ' + res);
     });
   }
 

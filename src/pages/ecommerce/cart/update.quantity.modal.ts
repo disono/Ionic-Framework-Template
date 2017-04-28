@@ -4,6 +4,7 @@ import {ECommerceProduct} from "../../../providers/ecommerce/product/product";
 import {AuthProvider} from "../../../providers/auth-provider";
 import {ECommerceCart} from "../../../providers/ecommerce/cart/cart";
 import {WBView} from "../../../lib/views";
+import {WBHelper} from "../../../lib/helper";
 
 /**
  * @author Archie Disono
@@ -47,7 +48,7 @@ export class ECommerceCartItemQuantityModal {
    * Close the modal
    */
   dismiss() {
-    console.log('Modal filter cancelled...');
+    WBHelper.log('Modal filter cancelled...');
 
     this.viewCtrl.dismiss();
   }

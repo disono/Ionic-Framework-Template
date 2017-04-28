@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 import {NavController} from "ionic-angular";
 import {ECommerceOrder} from "../../../providers/ecommerce/order/order";
 import {ECommerceOrderDetailsPage} from "./order.details";
+import {WBHelper} from "../../../lib/helper";
 
 /**
  * @author Archie Disono
@@ -91,7 +92,7 @@ export class ECommerceOrderListPage {
       }
 
       // development
-      console.debug('Page: ' + thisApp.page + ' Data: ' + JSON.stringify(res.data));
+      WBHelper.log('Page: ' + thisApp.page + ' Data: ' + JSON.stringify(res.data));
 
       // update the page
       if (res.data.length) {

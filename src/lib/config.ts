@@ -11,6 +11,7 @@ import {WBHelper} from "./helper";
 
 let _WBConfig = (function () {
   return {
+    initial_loaded: false,
     // this application
     thisApp: null,
 

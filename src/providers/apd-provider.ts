@@ -8,6 +8,7 @@ import {WBSecurity} from "../lib/security";
 import {WBConfig} from "../lib/config";
 
 declare let jQ;
+declare let WBUpload;
 
 /**
  * @author Archie Disono
@@ -18,7 +19,7 @@ declare let jQ;
 export class APDProvider {
 
   constructor(public http: Http) {
-    console.log('App Provider Called.');
+    WBHelper.log('App Provider Called.');
   }
 
   static me() {
@@ -34,7 +35,7 @@ export class APDProvider {
    */
   static requestStatus(response) {
     if (response.status < 200 || response.status >= 300) {
-      console.error('APDProvider-requestStatus' + 'Bad response status: ' + response.status);
+      WBHelper.error('APDProvider-requestStatus' + 'Bad response status: ' + response.status);
       APDProvider._handleError('Bad response status: ' + response.status);
     }
 
@@ -49,7 +50,7 @@ export class APDProvider {
   static headersAuth() {
     let me = APDProvider.me();
 
-    console.debug('headersAuth: ' + JSON.stringify(me));
+    WBHelper.log('headersAuth: ' + JSON.stringify(me));
 
     // headers
     let headers = new Headers({
@@ -98,14 +99,12 @@ export class APDProvider {
     // append this additional parameters
     res_options.search = params;
 
-    return thisApp.http.get(url, res_options)
-      .map(function (response) {
-        let res = APDProvider.requestStatus(response);
+    return thisApp.http.get(url, res_options).map(function (response) {
+      let res = APDProvider.requestStatus(response);
 
-        successCallback(res);
-        return res;
-      })
-      .catch(APDProvider._handleError);
+      successCallback(res);
+      return res;
+    }).catch(APDProvider._handleError);
   }
 
   /**
@@ -122,14 +121,12 @@ export class APDProvider {
     let body = (parameters) ? JSON.stringify(parameters) : null;
     let headers = (APDProvider.me()) ? APDProvider.headersAuth() : APDProvider.headersGuest();
 
-    return thisApp.http.post(url, body, headers)
-      .map(function (response) {
-        let res = APDProvider.requestStatus(response);
+    return thisApp.http.post(url, body, headers).map(function (response) {
+      let res = APDProvider.requestStatus(response);
 
-        successCallback(res);
-        return res;
-      })
-      .catch(APDProvider._handleError);
+      successCallback(res);
+      return res;
+    }).catch(APDProvider._handleError);
   }
 
   /**
@@ -146,60 +143,8 @@ export class APDProvider {
   upload(uri, parameters, successCallback, errorCallback) {
     let me = APDProvider.me();
     let url = WBConfig.server_url() + uri;
-    let xhr = new XMLHttpRequest();
 
-    // form inputs
-    let formData = new FormData();
-
-    // open the connection.
-    xhr.open('POST', url, true);
-
-    // files to upload
-    if (parameters.files) {
-      jQ.each(parameters.files, function (i, val) {
-        if (Array.isArray(val)) {
-          // multiple files upload
-          for (let num = 0; num < val.length; num++) {
-            formData.append(i + '[]', val[num]);
-          }
-        } else {
-          // single upload
-          formData.append(i, val);
-        }
-      });
-    }
-
-    // inputs
-    if (parameters.inputs) {
-      jQ.each(parameters.inputs, function (i, val) {
-        formData.append(i, val);
-      });
-    }
-
-    // load to server
-    // set up a handler for when the request finishes.
-    xhr.onload = function () {
-      if (this.response) {
-        let res = JSON.parse(this.response);
-
-        if (res.success) {
-          successCallback(res);
-        } else {
-          errorCallback(res);
-          APDProvider._handleError(res.errors);
-        }
-      }
-    };
-
-    if (me) {
-      // add headers for JWT token
-      xhr.setRequestHeader("Authorization", "Bearer " + WBSecurity.jwtAuth());
-      xhr.setRequestHeader("token_key", me.token_key);
-      xhr.setRequestHeader("authenticated_id", me.id);
-    }
-
-    // send the data.
-    xhr.send(formData);
+    WBUpload(url, me, WBSecurity.jwtAuth(), APDProvider, parameters, successCallback, errorCallback);
   }
 
   /**
@@ -212,7 +157,7 @@ export class APDProvider {
   static _handleError(error) {
     if (error instanceof String || typeof error.json != 'function') {
       WBHelper.errorMessage(error);
-      console.error('APDProvider-_handleError-instanceof: ' + error);
+      WBHelper.error('APDProvider-_handleError-instanceof: ' + error);
 
       return Observable.throw(error);
     }
@@ -220,13 +165,13 @@ export class APDProvider {
     let error_data = error.json();
     if (!error_data.errors) {
       WBHelper.errorMessage(error);
-      console.log("APDProvider-_handleError-error_data: Unknown JSON data error.");
+      WBHelper.log("APDProvider-_handleError-error_data: Unknown JSON data error.");
 
       return Observable.throw("Unknown JSON data error.");
     }
 
     WBHelper.errorMessage(error_data.errors);
-    console.error('APDProvider-_handleError-Observable.throw: ' + JSON.stringify(error_data.errors));
+    WBHelper.error('APDProvider-_handleError-Observable.throw: ' + JSON.stringify(error_data.errors));
 
     return Observable.throw(JSON.stringify(error_data.errors));
   }

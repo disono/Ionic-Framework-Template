@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {NavController, NavParams, ViewController} from "ionic-angular";
 import {ECommerceProductCategories} from "../../../providers/ecommerce/product/category";
+import {WBHelper} from "../../../lib/helper";
 
 /**
  * @author Archie Disono
@@ -16,7 +17,7 @@ export class ECommerceProductFilterModal {
   categories = [];
 
   constructor(public nav: NavController, public viewCtrl: ViewController, public params: NavParams, public category: ECommerceProductCategories) {
-    console.log('Filter Data: ' + params.get('filter'));
+    WBHelper.log('Filter Data: ' + params.get('filter'));
 
     if (!this.filter.product_category_id) {
       this.filter.product_category_id = '';
@@ -33,7 +34,7 @@ export class ECommerceProductFilterModal {
     this.category.index().subscribe(function (response) {
       thisApp.categories = response.data;
     }, function (error) {
-      console.error('Subscribe Error: ' + error);
+      WBHelper.error('Subscribe Error: ' + error);
     });
   }
 
@@ -41,7 +42,7 @@ export class ECommerceProductFilterModal {
    * Apply the filter and search
    */
   search() {
-    console.log('Searching...');
+    WBHelper.log('Searching...');
 
     this.viewCtrl.dismiss(this.filter);
   }
@@ -74,7 +75,7 @@ export class ECommerceProductFilterModal {
    * Close the modal
    */
   dismiss() {
-    console.log('Modal filter cancelled...');
+    WBHelper.log('Modal filter cancelled...');
 
     this.viewCtrl.dismiss();
   }
