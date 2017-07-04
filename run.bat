@@ -1,1 +1,1 @@
-START ionic run android
+START ionic cordova run android

@@ -1,1 +1,1 @@
-START ionic build android
+START ionic cordova build android
