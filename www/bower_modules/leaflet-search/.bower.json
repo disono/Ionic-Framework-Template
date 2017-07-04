@@ -23,6 +23,7 @@
     "commit": "1b15fad4fdb5be0bdac8aa8883fab864e8675dc5"
   },
   "_source": "https://github.com/stefanocudini/leaflet-search.git",
-  "_target": "^2.7.0",
-  "_originalSource": "leaflet-search"
+  "_target": "^2.7.2",
+  "_originalSource": "leaflet-search",
+  "_direct": true
 }

@@ -29,17 +29,17 @@
 
   <form (submit)="doLogin($event, inputs)">
     <ion-list>
-      <ion-item>
+      <ion-item no-lines>
         <ion-label floating>Email</ion-label>
         <ion-input type="email" [(ngModel)]="inputs.email" name="email"></ion-input>
       </ion-item>
 
-      <ion-item>
+      <ion-item no-lines>
         <ion-label floating>Password</ion-label>
         <ion-input type="password" [(ngModel)]="inputs.password" name="password"></ion-input>
       </ion-item>
 
-      <ion-item>
+      <ion-item no-lines>
         <button ion-button block outline type="submit">Login</button>
       </ion-item>
     </ion-list>

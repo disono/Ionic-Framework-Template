@@ -18,7 +18,7 @@
   </button>
 
   <form (submit)="doRegister($event, inputs)">
-    <ion-list>
+    <ion-list no-lines>
       <ion-item>
         <ion-label floating>First Name</ion-label>
         <ion-input type="text" [(ngModel)]="inputs.first_name" name="first_name"></ion-input>

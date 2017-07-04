@@ -48,7 +48,7 @@
         <ion-toggle [(ngModel)]="filter.is_sale" (ionChange)="onChangeToggle('sale', filter.is_sale)"></ion-toggle>
       </ion-item>
 
-      <ion-item>
+      <ion-item no-lines>
         <ion-label>Latest / New Arrival</ion-label>
         <ion-toggle [(ngModel)]="filter.is_latest"
                     (ionChange)="onChangeToggle('latest', filter.is_latest)"></ion-toggle>

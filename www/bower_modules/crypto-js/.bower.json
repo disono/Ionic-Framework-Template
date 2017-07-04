@@ -40,5 +40,6 @@
   },
   "_source": "https://github.com/brix/crypto-js.git",
   "_target": "^3.1.9",
-  "_originalSource": "crypto-js"
+  "_originalSource": "crypto-js",
+  "_direct": true
 }
