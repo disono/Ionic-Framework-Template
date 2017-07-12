@@ -4,12 +4,6 @@ import {BrowserModule} from "@angular/platform-browser";
 import {IonicApp, IonicErrorHandler, IonicModule} from "ionic-angular";
 import {MyApp} from "./app.component";
 
-import {AboutPage} from "../pages/about/about";
-import {ContactPage} from "../pages/contact/contact";
-import {HomePage} from "../pages/home/home";
-
-import {StatusBar} from "@ionic-native/status-bar";
-import {SplashScreen} from "@ionic-native/splash-screen";
 import {MessageProvider} from "../providers/message-provider";
 import {ECommerceOrder} from "../providers/ecommerce/order/order";
 import {ECommerceCart} from "../providers/ecommerce/cart/cart";
@@ -19,6 +13,10 @@ import {UserProvider} from "../providers/user-provider";
 import {ApplicationProvider} from "../providers/application-provider";
 import {AuthProvider} from "../providers/auth-provider";
 import {APDProvider} from "../providers/apd-provider";
+
+import {AboutPage} from "../pages/about/about";
+import {ContactPage} from "../pages/contact/contact";
+import {HomePage} from "../pages/home/home";
 import {UserListPage} from "../pages/user/user.list";
 import {ReadingInboxPage} from "../pages/message/reading.inbox";
 import {InboxPage} from "../pages/message/inbox";
@@ -41,6 +39,9 @@ import {RegisterPage} from "../pages/authentication/register";
 import {LoginPage} from "../pages/authentication/login";
 
 import {IonicImageLoader} from "ionic-image-loader";
+
+import {StatusBar} from "@ionic-native/status-bar";
+import {SplashScreen} from "@ionic-native/splash-screen";
 
 @NgModule({
   declarations: [
