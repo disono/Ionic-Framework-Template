@@ -15,6 +15,12 @@ is a starting blank template for Ionic Projects V3
 # NPM
 * **ionic-image-loader**[https://github.com/zyra/ionic-image-loader](https://github.com/zyra/ionic-image-loader)
 
+### Previous Version of Ionic
+```sh
+npm install -g ionic@2.2.3
+npm install -g ionic
+```
+
 ### Install Libraries
 ```sh
 1. npm install
