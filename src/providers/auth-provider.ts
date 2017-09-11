@@ -1,3 +1,10 @@
+/**
+ * @author Archie, Disono (webmonsph@gmail.com)
+ * @git https://github.com/disono/Ionic-Framework-Template
+ * @copyright Webmons Development Studio. (webmons.com), 2016-2017
+ * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
+ */
+
 import {Injectable} from "@angular/core";
 import {WBHelper} from "../lib/helper";
 import {APDProvider} from "./apd-provider";
@@ -7,11 +14,6 @@ import {WBSecurity} from "../lib/security";
 
 declare let facebookConnectPlugin;
 
-/**
- * @author Archie Disono
- * @url https://github.com/disono/Ionic-Framework-Template
- * @license Apache 2.0
- */
 @Injectable()
 export class AuthProvider {
 
@@ -190,13 +192,6 @@ export class AuthProvider {
    * Logout
    */
   logout() {
-    // remove sync_done listeners & events
-    WBSocket.emitter.removeListener('sync_done');
-    WBSocket.emitter.removeEvent('sync_done');
-
-    // reset the initial load
-    WBConfig.initial_loaded = false;
-
     // destroy the socket
     WBSocket.disconnect();
 

@@ -1,3 +1,10 @@
+/**
+ * @author Archie, Disono (webmonsph@gmail.com)
+ * @git https://github.com/disono/Ionic-Framework-Template
+ * @copyright Webmons Development Studio. (webmons.com), 2016-2017
+ * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
+ */
+
 import {Component} from "@angular/core";
 import {AlertController, LoadingController, Platform} from "ionic-angular";
 import {StatusBar} from "@ionic-native/status-bar";
@@ -28,11 +35,6 @@ export class MyApp {
    */
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
-
       let thisApp = this;
 
       // check if user is authenticated
@@ -50,12 +52,32 @@ export class MyApp {
   }
 
   /**
+   * Set the default page view
+   *
+   * @param thisApp
+   */
+  pageView(thisApp) {
+    // Okay, so the platform is ready and our plugins are available.
+    // Here you can do any higher level native things you might need.
+    this.statusBar.styleDefault();
+    if (this.splashScreen) {
+      this.splashScreen.hide();
+    }
+
+    // check if user is authenticated
+    // drawer menus
+    thisApp.rootPage = DrawerPage;
+  }
+
+  /**
    * Run the application
    */
   run() {
     let thisApp = this;
 
     if (!thisApp.authProvider.check()) {
+      // set page view
+      thisApp.pageView(thisApp);
       return;
     }
 
@@ -84,8 +106,8 @@ export class MyApp {
    * sync done
    */
   syncDone() {
-    WBSocket.emitter.emitEvent('sync_done');
-    WBConfig.initial_loaded = true;
+    // set page view
+    this.pageView(this);
   }
 
   /**

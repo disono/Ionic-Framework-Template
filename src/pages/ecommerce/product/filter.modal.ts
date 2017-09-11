@@ -1,13 +1,14 @@
+/**
+ * @author Archie, Disono (webmonsph@gmail.com)
+ * @git https://github.com/disono/Ionic-Framework-Template
+ * @copyright Webmons Development Studio. (webmons.com), 2016-2017
+ * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
+ */
+
 import {Component} from "@angular/core";
 import {NavController, NavParams, ViewController} from "ionic-angular";
 import {ECommerceProductCategories} from "../../../providers/ecommerce/product/category";
 import {WBHelper} from "../../../lib/helper";
-
-/**
- * @author Archie Disono
- * @url https://github.com/disono/Ionic-Framework-Template
- * @license Apache 2.0
- */
 
 @Component({
   templateUrl: 'filter.modal.html'

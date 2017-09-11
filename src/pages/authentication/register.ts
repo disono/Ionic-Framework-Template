@@ -1,3 +1,10 @@
+/**
+ * @author Archie, Disono (webmonsph@gmail.com)
+ * @git https://github.com/disono/Ionic-Framework-Template
+ * @copyright Webmons Development Studio. (webmons.com), 2016-2017
+ * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
+ */
+
 import {Component} from "@angular/core";
 import {AlertController, LoadingController, NavController, NavParams} from "ionic-angular";
 import {AuthProvider} from "../../providers/auth-provider";
@@ -5,12 +12,6 @@ import {WBView} from "../../lib/views";
 import {DrawerPage} from "../drawer/drawer";
 import {WBSocket} from "../../lib/socket";
 import {WBConfig} from "../../lib/config";
-
-/**
- * @author Archie Disono
- * @url https://github.com/disono/Ionic-Framework-Template
- * @license Apache 2.0
- */
 
 @Component({
   templateUrl: 'register.html'

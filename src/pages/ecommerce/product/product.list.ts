@@ -1,3 +1,10 @@
+/**
+ * @author Archie, Disono (webmonsph@gmail.com)
+ * @git https://github.com/disono/Ionic-Framework-Template
+ * @copyright Webmons Development Studio. (webmons.com), 2016-2017
+ * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
+ */
+
 import {Component, NgModule} from "@angular/core";
 import {ModalController, NavController} from "ionic-angular";
 import {ECommerceProduct} from "../../../providers/ecommerce/product/product";
@@ -11,12 +18,6 @@ import {ECommerceCartContentPage} from "../cart/content";
 import {WBConfig} from "../../../lib/config";
 import {WBSocket} from "../../../lib/socket";
 import {IonicImageLoader} from "ionic-image-loader";
-
-/**
- * @author Archie Disono
- * @url https://github.com/disono/Ionic-Framework-Template
- * @license Apache 2.0
- */
 
 @NgModule({
   imports: [
@@ -60,13 +61,7 @@ export class ECommerceProductListPage {
   ionViewDidLoad() {
     let thisApp = this;
 
-    if (WBConfig.initial_loaded || !thisApp.authProvider.check()) {
-      thisApp.init();
-    } else {
-      WBSocket.emitter.addListener('sync_done', function () {
-        thisApp.init();
-      });
-    }
+    thisApp.init();
   }
 
   init() {

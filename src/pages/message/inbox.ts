@@ -1,3 +1,10 @@
+/**
+ * @author Archie, Disono (webmonsph@gmail.com)
+ * @git https://github.com/disono/Ionic-Framework-Template
+ * @copyright Webmons Development Studio. (webmons.com), 2016-2017
+ * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
+ */
+
 import {Component, NgModule} from "@angular/core";
 import {ModalController, NavController} from "ionic-angular";
 import {MessageProvider} from "../../providers/message-provider";
@@ -5,12 +12,6 @@ import {ReadingInboxPage} from "./reading.inbox";
 import {UserListPage} from "../user/user.list";
 import {WBHelper} from "../../lib/helper";
 import {IonicImageLoader} from "ionic-image-loader";
-
-/**
- * @author Archie Disono
- * @url https://github.com/disono/Ionic-Framework-Template
- * @license Apache 2.0
- */
 
 @NgModule({
   imports: [

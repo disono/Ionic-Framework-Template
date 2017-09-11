@@ -1,11 +1,10 @@
 /**
- * @description SocketIO helpers
- * @file socket.ts
- *
- * @author Archie Disono
- * @url https://github.com/disono/Ionic-Framework-Template
- * @license Apache 2.0
+ * @author Archie, Disono (webmonsph@gmail.com)
+ * @git https://github.com/disono/Ionic-Framework-Template
+ * @copyright Webmons Development Studio. (webmons.com), 2016-2017
+ * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
+
 import {WBConfig} from "./config";
 import {WBHelper} from "./helper";
 

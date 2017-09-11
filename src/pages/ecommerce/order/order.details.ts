@@ -1,14 +1,15 @@
+/**
+ * @author Archie, Disono (webmonsph@gmail.com)
+ * @git https://github.com/disono/Ionic-Framework-Template
+ * @copyright Webmons Development Studio. (webmons.com), 2016-2017
+ * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
+ */
+
 import {Component, NgModule} from "@angular/core";
 import {NavController, NavParams} from "ionic-angular";
 import {ECommerceOrder} from "../../../providers/ecommerce/order/order";
 import {WBHelper} from "../../../lib/helper";
 import {IonicImageLoader} from "ionic-image-loader";
-
-/**
- * @author Archie Disono
- * @url https://github.com/disono/Ionic-Framework-Template
- * @license Apache 2.0
- */
 
 @NgModule({
   imports: [
