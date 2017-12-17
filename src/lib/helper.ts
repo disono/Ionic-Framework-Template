@@ -1,6 +1,6 @@
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -323,6 +323,20 @@ let _WBHelper = (function () {
     },
 
     /**
+     * Open file (PDF)
+     *
+     * @param file
+     */
+    openFile: function (file) {
+      if (WBConfig.is_browser || !file) {
+        WBHelper.debugging('File: ' + file);
+        return;
+      }
+
+      window.open(file, '_system');
+    },
+
+    /**
      * Log messages
      *
      * @param message
@@ -346,6 +360,19 @@ let _WBHelper = (function () {
       }
 
       console.log('WB Error ' + new Date() + ': ' + message);
+    },
+
+    /**
+     * Debugging
+     *
+     * @param message
+     */
+    debugging(message) {
+      if (WBConfig.is_browser || !message) {
+        return;
+      }
+
+      console.log(message);
     }
   };
 }());

@@ -1,6 +1,6 @@
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -37,10 +37,6 @@ export class MyApp {
     this.platform.ready().then(() => {
       let thisApp = this;
 
-      // check if user is authenticated
-      // drawer menus
-      thisApp.rootPage = DrawerPage;
-
       // run the application data
       thisApp.run();
 
@@ -60,9 +56,7 @@ export class MyApp {
     // Okay, so the platform is ready and our plugins are available.
     // Here you can do any higher level native things you might need.
     this.statusBar.styleDefault();
-    if (this.splashScreen) {
-      this.splashScreen.hide();
-    }
+    this.splashScreen.hide();
 
     // check if user is authenticated
     // drawer menus

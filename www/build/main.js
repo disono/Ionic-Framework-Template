@@ -1,14 +1,14 @@
 webpackJsonp([0],{
 
-/***/ 11:
+/***/ 12:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WBHelper; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(36);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -268,6 +268,18 @@ var _WBHelper = (function () {
             }
         },
         /**
+         * Open file (PDF)
+         *
+         * @param file
+         */
+        openFile: function (file) {
+            if (__WEBPACK_IMPORTED_MODULE_0__config__["a" /* WBConfig */].is_browser || !file) {
+                WBHelper.debugging('File: ' + file);
+                return;
+            }
+            window.open(file, '_system');
+        },
+        /**
          * Log messages
          *
          * @param message
@@ -288,6 +300,17 @@ var _WBHelper = (function () {
                 return;
             }
             console.log('WB Error ' + new Date() + ': ' + message);
+        },
+        /**
+         * Debugging
+         *
+         * @param message
+         */
+        debugging: function (message) {
+            if (__WEBPACK_IMPORTED_MODULE_0__config__["a" /* WBConfig */].is_browser || !message) {
+                return;
+            }
+            console.log(message);
         }
     };
 }());
@@ -296,25 +319,25 @@ var WBHelper = _WBHelper;
 
 /***/ }),
 
-/***/ 142:
+/***/ 164:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ECommerceProductListPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_ecommerce_product_product__ = __webpack_require__(63);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_provider__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_ecommerce_cart_cart__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__lib_helper__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__product_show__ = __webpack_require__(143);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__filter_modal__ = __webpack_require__(283);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__authentication_login__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__cart_content__ = __webpack_require__(89);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_ionic_image_loader__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_ecommerce_product_product__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_provider__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_ecommerce_cart_cart__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__lib_helper__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__product_show__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__filter_modal__ = __webpack_require__(378);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__authentication_login__ = __webpack_require__(70);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__cart_content__ = __webpack_require__(95);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_ionic_image_loader__ = __webpack_require__(33);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -546,42 +569,42 @@ var ECommerceProductListPage = (function () {
     ECommerceProductListPage.prototype.stringLimit = function (str) {
         return (str.length > 14) ? str.substring(0, 14) + '...' : str;
     };
+    ECommerceProductListPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_10_ionic_image_loader__["a" /* IonicImageLoader */]
+            ]
+        }),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\product\product.list.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @url https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>\n      Items\n    </ion-title>\n\n    <ion-buttons end>\n      <button ion-button icon-only (click)="searchProducts()">\n        <ion-icon name="search"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content class="bg-product-list">\n  <ion-refresher *ngIf="!init_loading" (ionRefresh)="doRefresh($event)">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <div *ngIf="!init_loading">\n    <ion-grid>\n      <ion-row *ngFor="let data_fetch of data_list">\n        <ion-col width-50 *ngFor="let item of data_fetch">\n          <ion-card>\n            <!-- item image -->\n            <img-loader src="{{item.cover}}" (click)="showProduct(item.id)" useImg></img-loader>\n\n            <ion-card-content>\n              <!-- item name -->\n              <h4 (click)="showProduct(item.id)">\n                {{stringLimit(item.name)}}\n              </h4>\n\n              <!-- srp and discounted srp -->\n              <p [innerHTML]="item.formatted_srp" color="danger"></p>\n              <p *ngIf="item.srp_discounted" [innerHTML]="item.formatted_srp_discounted"\n                 style="text-decoration: line-through;"></p>\n\n              <!-- add to cart button -->\n              <button (click)="addToCart(item.id)" ion-button block clear>Add to cart</button>\n            </ion-card-content>\n          </ion-card>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <h1 class="text-center" *ngIf="!data_list.length && !init_loading">\n    No Items Found.\n  </h1>\n\n  <ion-infinite-scroll *ngIf="!init_loading" (ionInfinite)="doInfinite($event)">\n    <ion-infinite-scroll-content></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n\n  <h1 class="text-center" *ngIf="init_loading">\n    <ion-spinner icon="spiral"></ion-spinner>\n    Loading...\n  </h1>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\product\product.list.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_ecommerce_product_product__["a" /* ECommerceProduct */], __WEBPACK_IMPORTED_MODULE_3__providers_auth_provider__["a" /* AuthProvider */], __WEBPACK_IMPORTED_MODULE_4__providers_ecommerce_cart_cart__["a" /* ECommerceCart */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ModalController */]])
+    ], ECommerceProductListPage);
     return ECommerceProductListPage;
 }());
-ECommerceProductListPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* NgModule */])({
-        imports: [
-            __WEBPACK_IMPORTED_MODULE_10_ionic_image_loader__["a" /* IonicImageLoader */]
-        ]
-    }),
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\product\product.list.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @git https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>\n      Items\n    </ion-title>\n\n    <ion-buttons end>\n      <button ion-button icon-only (click)="searchProducts()">\n        <ion-icon name="search"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content class="bg-product-list">\n  <ion-refresher *ngIf="!init_loading" (ionRefresh)="doRefresh($event)">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <div *ngIf="!init_loading">\n    <ion-grid>\n      <ion-row *ngFor="let data_fetch of data_list">\n        <ion-col width-50 *ngFor="let item of data_fetch">\n          <ion-card>\n            <!-- item image -->\n            <img-loader src="{{item.cover}}" (click)="showProduct(item.id)" useImg></img-loader>\n\n            <ion-card-content>\n              <!-- item name -->\n              <h4 (click)="showProduct(item.id)">\n                {{stringLimit(item.name)}}\n              </h4>\n\n              <!-- srp and discounted srp -->\n              <p [innerHTML]="item.formatted_srp" color="danger"></p>\n              <p *ngIf="item.srp_discounted" [innerHTML]="item.formatted_srp_discounted"\n                 style="text-decoration: line-through;"></p>\n\n              <!-- add to cart button -->\n              <button (click)="addToCart(item.id)" ion-button block clear>Add to cart</button>\n            </ion-card-content>\n          </ion-card>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <h1 class="text-center" *ngIf="!data_list.length && !init_loading">\n    No Items Found.\n  </h1>\n\n  <ion-infinite-scroll *ngIf="!init_loading" (ionInfinite)="doInfinite($event)">\n    <ion-infinite-scroll-content></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n\n  <h1 class="text-center" *ngIf="init_loading">\n    <ion-spinner icon="spiral"></ion-spinner>\n    Loading...\n  </h1>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\product\product.list.html"*/
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_ecommerce_product_product__["a" /* ECommerceProduct */], __WEBPACK_IMPORTED_MODULE_3__providers_auth_provider__["a" /* AuthProvider */], __WEBPACK_IMPORTED_MODULE_4__providers_ecommerce_cart_cart__["a" /* ECommerceCart */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ModalController */]])
-], ECommerceProductListPage);
 
 //# sourceMappingURL=product.list.js.map
 
 /***/ }),
 
-/***/ 143:
+/***/ 165:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ECommerceProductShowPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_ecommerce_product_product__ = __webpack_require__(63);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lib_views__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__lib_helper__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_auth_provider__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_ecommerce_cart_cart__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__cart_content__ = __webpack_require__(89);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__authentication_login__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_ionic_image_loader__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_ecommerce_product_product__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lib_views__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__lib_helper__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_auth_provider__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_ecommerce_cart_cart__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__cart_content__ = __webpack_require__(95);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__authentication_login__ = __webpack_require__(70);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_ionic_image_loader__ = __webpack_require__(33);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -678,35 +701,35 @@ var ECommerceProductShowPage = (function () {
     ECommerceProductShowPage.prototype.cartList = function () {
         this.nav.setRoot(__WEBPACK_IMPORTED_MODULE_7__cart_content__["a" /* ECommerceCartContentPage */]);
     };
+    ECommerceProductShowPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_9_ionic_image_loader__["a" /* IonicImageLoader */]
+            ]
+        }),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\product\product.show.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @url https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <ion-title>\n      {{title}}\n    </ion-title>\n\n    <ion-buttons *ngIf="details" end>\n      <button ion-button icon-only (click)="cartList()">\n        <ion-icon ios="ios-cart" md="md-cart"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div *ngIf="details">\n    <h1>{{title}}</h1>\n    <p *ngIf="details.size">{{details.size}}</p>\n\n    <!-- srp and discounted srp -->\n    <h5 [innerHTML]="details.formatted_srp" color="danger"></h5>\n    <h6 *ngIf="details.srp_discounted" [innerHTML]="details.formatted_srp_discounted"\n        style="text-decoration: line-through;"></h6>\n\n    <!-- images on slider -->\n    <ion-slides pager *ngIf="details.images.length">\n      <ion-slide *ngFor="let image of details.images" style="width: 100% !important;">\n        <img-loader src="{{image.path}}" useImg></img-loader>\n      </ion-slide>\n    </ion-slides>\n\n    <h5>Product Details</h5>\n\n    <h6 *ngIf="details.description">Product Description</h6>\n    <p *ngIf="details.description">{{details.description}}</p>\n\n    <h6 *ngIf="details.features">Product Features</h6>\n    <p *ngIf="details.features">{{details.features}}</p>\n\n    <h6 *ngIf="details.application">Application</h6>\n    <p *ngIf="details.application">{{details.application}}</p>\n\n    <h6 *ngIf="details.suitable_for">Suitable For</h6>\n    <p *ngIf="details.suitable_for">{{details.suitable_for}}</p>\n  </div>\n\n  <h1 class="text-center" *ngIf="!details">\n    <ion-spinner icon="spiral"></ion-spinner>\n    Loading...\n  </h1>\n</ion-content>\n\n<!-- add to cart button -->\n<ion-footer *ngIf="details">\n  <ion-toolbar>\n    <button ion-button block color="danger" (click)="addToCart(details.id)">\n      <ion-icon ios="ios-cart" md="md-cart"></ion-icon>\n      Add to cart\n    </button>\n  </ion-toolbar>\n</ion-footer>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\product\product.show.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_5__providers_auth_provider__["a" /* AuthProvider */], __WEBPACK_IMPORTED_MODULE_6__providers_ecommerce_cart_cart__["a" /* ECommerceCart */],
+            __WEBPACK_IMPORTED_MODULE_2__providers_ecommerce_product_product__["a" /* ECommerceProduct */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ModalController */]])
+    ], ECommerceProductShowPage);
     return ECommerceProductShowPage;
 }());
-ECommerceProductShowPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* NgModule */])({
-        imports: [
-            __WEBPACK_IMPORTED_MODULE_9_ionic_image_loader__["a" /* IonicImageLoader */]
-        ]
-    }),
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\product\product.show.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @git https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <ion-title>\n      {{title}}\n    </ion-title>\n\n    <ion-buttons *ngIf="details" end>\n      <button ion-button icon-only (click)="cartList()">\n        <ion-icon ios="ios-cart" md="md-cart"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div *ngIf="details">\n    <h1>{{title}}</h1>\n    <p *ngIf="details.size">{{details.size}}</p>\n\n    <!-- srp and discounted srp -->\n    <h5 [innerHTML]="details.formatted_srp" color="danger"></h5>\n    <h6 *ngIf="details.srp_discounted" [innerHTML]="details.formatted_srp_discounted"\n        style="text-decoration: line-through;"></h6>\n\n    <!-- images on slider -->\n    <ion-slides pager *ngIf="details.images.length">\n      <ion-slide *ngFor="let image of details.images" style="width: 100% !important;">\n        <img-loader src="{{image.path}}" useImg></img-loader>\n      </ion-slide>\n    </ion-slides>\n\n    <h5>Product Details</h5>\n\n    <h6 *ngIf="details.description">Product Description</h6>\n    <p *ngIf="details.description">{{details.description}}</p>\n\n    <h6 *ngIf="details.features">Product Features</h6>\n    <p *ngIf="details.features">{{details.features}}</p>\n\n    <h6 *ngIf="details.application">Application</h6>\n    <p *ngIf="details.application">{{details.application}}</p>\n\n    <h6 *ngIf="details.suitable_for">Suitable For</h6>\n    <p *ngIf="details.suitable_for">{{details.suitable_for}}</p>\n  </div>\n\n  <h1 class="text-center" *ngIf="!details">\n    <ion-spinner icon="spiral"></ion-spinner>\n    Loading...\n  </h1>\n</ion-content>\n\n<!-- add to cart button -->\n<ion-footer *ngIf="details">\n  <ion-toolbar>\n    <button ion-button block color="danger" (click)="addToCart(details.id)">\n      <ion-icon ios="ios-cart" md="md-cart"></ion-icon>\n      Add to cart\n    </button>\n  </ion-toolbar>\n</ion-footer>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\product\product.show.html"*/
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_5__providers_auth_provider__["a" /* AuthProvider */], __WEBPACK_IMPORTED_MODULE_6__providers_ecommerce_cart_cart__["a" /* ECommerceCart */],
-        __WEBPACK_IMPORTED_MODULE_2__providers_ecommerce_product_product__["a" /* ECommerceProduct */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ModalController */]])
-], ECommerceProductShowPage);
 
 //# sourceMappingURL=product.show.js.map
 
 /***/ }),
 
-/***/ 144:
+/***/ 166:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ECommerceOrder; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__apd_provider__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_helper__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__apd_provider__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_helper__ = __webpack_require__(12);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -750,28 +773,28 @@ var ECommerceOrder = (function () {
             __WEBPACK_IMPORTED_MODULE_2__lib_helper__["a" /* WBHelper */].log('Order-show: ' + res);
         });
     };
+    ECommerceOrder = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__apd_provider__["a" /* APDProvider */]])
+    ], ECommerceOrder);
     return ECommerceOrder;
 }());
-ECommerceOrder = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__apd_provider__["a" /* APDProvider */]])
-], ECommerceOrder);
 
 //# sourceMappingURL=order.js.map
 
 /***/ }),
 
-/***/ 145:
+/***/ 167:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MessageProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__apd_provider__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_helper__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__apd_provider__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_helper__ = __webpack_require__(12);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -834,69 +857,55 @@ var MessageProvider = (function () {
      *
      * @param to_id
      * @param parameters
-     * @param successCallback
-     * @param errorCallback
      */
-    MessageProvider.prototype.send = function (to_id, parameters, successCallback, errorCallback) {
-        this.appProvider.upload('message/send/' + to_id, parameters, function (res) {
+    MessageProvider.prototype.send = function (to_id, parameters) {
+        return this.appProvider.upload('message/send/' + to_id, parameters, function (res) {
             // success
-            successCallback(res);
-        }, function (res) {
-            // errors
-            errorCallback(res);
+            __WEBPACK_IMPORTED_MODULE_2__lib_helper__["a" /* WBHelper */].log('Message-send: ' + res);
         });
     };
+    MessageProvider = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__apd_provider__["a" /* APDProvider */]])
+    ], MessageProvider);
     return MessageProvider;
 }());
-MessageProvider = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__apd_provider__["a" /* APDProvider */]])
-], MessageProvider);
 
 //# sourceMappingURL=message-provider.js.map
 
 /***/ }),
 
-/***/ 156:
+/***/ 180:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
-	return new Promise(function(resolve, reject) { reject(new Error("Cannot find module '" + req + "'.")); });
+	// Here Promise.resolve().then() is used instead of new Promise() to prevent
+	// uncatched exception popping up in devtools
+	return Promise.resolve().then(function() {
+		throw new Error("Cannot find module '" + req + "'.");
+	});
 }
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 156;
+webpackEmptyAsyncContext.id = 180;
 
 /***/ }),
 
-/***/ 200:
-/***/ (function(module, exports) {
-
-function webpackEmptyAsyncContext(req) {
-	return new Promise(function(resolve, reject) { reject(new Error("Cannot find module '" + req + "'.")); });
-}
-webpackEmptyAsyncContext.keys = function() { return []; };
-webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
-module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 200;
-
-/***/ }),
-
-/***/ 21:
+/***/ 22:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_helper__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__apd_provider__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lib_config__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__lib_socket__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__lib_security__ = __webpack_require__(271);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_helper__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__apd_provider__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lib_config__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__lib_socket__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__lib_security__ = __webpack_require__(366);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -1018,17 +1027,10 @@ var AuthProvider = (function () {
      * Update user settings or profile
      *
      * @param parameters
-     * @param successCallback
-     * @param errorCallback
      */
-    AuthProvider.prototype.update = function (parameters, successCallback, errorCallback) {
-        this.appProvider.upload('user/update/setting', parameters, function (res) {
-            // success
-            successCallback(res);
+    AuthProvider.prototype.update = function (parameters) {
+        return this.appProvider.upload('user/update/setting', parameters, function (res) {
             __WEBPACK_IMPORTED_MODULE_5__lib_security__["a" /* WBSecurity */].saveAuth(res.data);
-        }, function (res) {
-            // errors
-            errorCallback(res);
         });
     };
     /**
@@ -1097,25 +1099,42 @@ var AuthProvider = (function () {
             __WEBPACK_IMPORTED_MODULE_1__lib_helper__["a" /* WBHelper */].log('AuthProvider-fcm_token: ' + res);
         });
     };
+    AuthProvider = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__apd_provider__["a" /* APDProvider */]])
+    ], AuthProvider);
     return AuthProvider;
 }());
-AuthProvider = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__apd_provider__["a" /* APDProvider */]])
-], AuthProvider);
 
 //# sourceMappingURL=auth-provider.js.map
 
 /***/ }),
 
-/***/ 27:
+/***/ 224:
+/***/ (function(module, exports) {
+
+function webpackEmptyAsyncContext(req) {
+	// Here Promise.resolve().then() is used instead of new Promise() to prevent
+	// uncatched exception popping up in devtools
+	return Promise.resolve().then(function() {
+		throw new Error("Cannot find module '" + req + "'.");
+	});
+}
+webpackEmptyAsyncContext.keys = function() { return []; };
+webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
+module.exports = webpackEmptyAsyncContext;
+webpackEmptyAsyncContext.id = 224;
+
+/***/ }),
+
+/***/ 28:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WBView; });
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -1169,15 +1188,77 @@ var WBView = _WBView;
 
 /***/ }),
 
-/***/ 271:
+/***/ 36:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WBConfig; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(12);
+/**
+ * @author Archie, Disono (webmonsph@gmail.com)
+ * @url https://github.com/disono/Ionic-Framework-Template
+ * @copyright Webmons Development Studio. (webmons.com), 2016-2017
+ * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
+ */
+
+var _WBConfig = (function () {
+    return {
+        // this application
+        thisApp: null,
+        // is development mode
+        dev: true,
+        // platform type default is browser mode
+        is_browser: true,
+        // api for google maps
+        api_key_google: '',
+        map_box_token: '',
+        // facebook authentication (disabled)
+        facebook_auth: true,
+        // server url
+        dev_domain: 'http://192.168.1.58',
+        prod_domain: 'http://your-prod',
+        server_url: function () {
+            return (_WBConfig.dev) ? _WBConfig.dev_domain + ':40103/api/v1/' : _WBConfig.prod_domain + '/api/v1/';
+        },
+        // socket IO
+        enable_web_socket: false,
+        socket_uri: function () {
+            return (_WBConfig.dev) ? _WBConfig.dev_domain + ':3000/' : _WBConfig.prod_domain + ':3000/';
+        },
+        // Fire-base Cloud Messaging
+        enableFCM: false,
+        // we will watch the user's position on application sync
+        watchPosition: false,
+        // GPS
+        lat: 0,
+        lng: 0,
+        watchPositionID: null,
+        // socket defaults
+        private_message_on_view: false,
+        // reset the config
+        resetGPS: function () {
+            // stop GSP watch
+            __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* WBHelper */].stopWatchPosition();
+            _WBConfig.lat = 0;
+            _WBConfig.lng = 0;
+            _WBConfig.watchPositionID = null;
+        }
+    };
+}());
+var WBConfig = _WBConfig;
+//# sourceMappingURL=config.js.map
+
+/***/ }),
+
+/***/ 366:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WBSecurity; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(12);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -1303,7 +1384,7 @@ var WBSecurity = _WBSecurity;
 
 /***/ }),
 
-/***/ 272:
+/***/ 367:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1312,7 +1393,7 @@ var WBSecurity = _WBSecurity;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -1331,19 +1412,19 @@ var AboutPage = (function () {
     function AboutPage(nav) {
         this.nav = nav;
     }
+    AboutPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\about\about.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @url https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>\n      About\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h1>About</h1>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\about\about.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */]])
+    ], AboutPage);
     return AboutPage;
 }());
-AboutPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\about\about.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @git https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>\n      About\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h1>About</h1>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\about\about.html"*/
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */]])
-], AboutPage);
 
 //# sourceMappingURL=about.js.map
 
 /***/ }),
 
-/***/ 273:
+/***/ 368:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1352,7 +1433,7 @@ AboutPage = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -1371,29 +1452,29 @@ var ContactPage = (function () {
     function ContactPage(nav) {
         this.nav = nav;
     }
+    ContactPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\contact\contact.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @url https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>\n      Contact\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-list>\n    <ion-list-header>Follow me on Twitter</ion-list-header>\n    <ion-item>\n      <ion-icon name="logo-twitter" item-left></ion-icon>\n      @master_archie\n    </ion-item>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\contact\contact.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */]])
+    ], ContactPage);
     return ContactPage;
 }());
-ContactPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\contact\contact.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @git https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>\n      Contact\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-list>\n    <ion-list-header>Follow me on Twitter</ion-list-header>\n    <ion-item>\n      <ion-icon name="logo-twitter" item-left></ion-icon>\n      @master_archie\n    </ion-item>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\contact\contact.html"*/
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */]])
-], ContactPage);
 
 //# sourceMappingURL=contact.js.map
 
 /***/ }),
 
-/***/ 274:
+/***/ 369:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SettingsTabPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__general__ = __webpack_require__(275);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__security__ = __webpack_require__(276);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__general__ = __webpack_require__(370);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__security__ = __webpack_require__(371);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -1416,32 +1497,268 @@ var SettingsTabPage = (function () {
         this.generalRoot = __WEBPACK_IMPORTED_MODULE_1__general__["a" /* GeneralPage */];
         this.securityRoot = __WEBPACK_IMPORTED_MODULE_2__security__["a" /* SecurityPage */];
     }
+    SettingsTabPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\settings\settings-tab.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @url https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-tabs>\n  <ion-tab [root]="generalRoot" tabTitle="General" tabIcon="md-settings"></ion-tab>\n  <ion-tab [root]="securityRoot" tabTitle="Security" tabIcon="md-unlock"></ion-tab>\n</ion-tabs>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\settings\settings-tab.html"*/
+        }),
+        __metadata("design:paramtypes", [])
+    ], SettingsTabPage);
     return SettingsTabPage;
 }());
-SettingsTabPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\settings\settings-tab.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @git https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-tabs>\n  <ion-tab [root]="generalRoot" tabTitle="General" tabIcon="md-settings"></ion-tab>\n  <ion-tab [root]="securityRoot" tabTitle="Security" tabIcon="md-unlock"></ion-tab>\n</ion-tabs>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\settings\settings-tab.html"*/
-    }),
-    __metadata("design:paramtypes", [])
-], SettingsTabPage);
 
 //# sourceMappingURL=settings-tab.js.map
 
 /***/ }),
 
-/***/ 275:
+/***/ 37:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return APDProvider; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__(274);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(277);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Rx__ = __webpack_require__(437);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Rx__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__lib_helper__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__lib_security__ = __webpack_require__(366);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__lib_config__ = __webpack_require__(36);
+/**
+ * @author Archie, Disono (webmonsph@gmail.com)
+ * @url https://github.com/disono/Ionic-Framework-Template
+ * @copyright Webmons Development Studio. (webmons.com), 2016-2017
+ * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
+ */
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+var APDProvider = (function () {
+    function APDProvider(http) {
+        this.http = http;
+        __WEBPACK_IMPORTED_MODULE_5__lib_helper__["a" /* WBHelper */].log('App Provider Called.');
+    }
+    APDProvider_1 = APDProvider;
+    /**
+     * GET request
+     *
+     * @param uri
+     * @param parameters
+     * @param successCallback
+     * @returns {any}
+     */
+    APDProvider.prototype.get = function (uri, parameters, successCallback) {
+        var thisApp = this;
+        var url = __WEBPACK_IMPORTED_MODULE_7__lib_config__["a" /* WBConfig */].server_url() + uri;
+        var headers = (APDProvider_1.me()) ? thisApp.headersAuth() : thisApp.headersGuest();
+        // parameters
+        var params = new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["d" /* HttpParams */]();
+        if (parameters) {
+            jQ.each(parameters, function (i, val) {
+                var _val = (val === null) ? '' : val;
+                params = params.append(i, _val);
+            });
+        }
+        return thisApp.http
+            .get(url, {
+            headers: headers,
+            params: params
+        })
+            .map(function (response) {
+            var res = APDProvider_1.requestStatus(response);
+            successCallback(res);
+            return res;
+        })
+            .catch(APDProvider_1._handleError);
+    };
+    /**
+     * POST request
+     *
+     * @param uri
+     * @param parameters
+     * @param successCallback
+     * @returns {any}
+     */
+    APDProvider.prototype.post = function (uri, parameters, successCallback) {
+        var thisApp = this;
+        var url = __WEBPACK_IMPORTED_MODULE_7__lib_config__["a" /* WBConfig */].server_url() + uri;
+        var params = (parameters) ? JSON.stringify(parameters) : null;
+        var headers = (APDProvider_1.me()) ? thisApp.headersAuth() : thisApp.headersGuest();
+        return thisApp.http
+            .post(url, params, {
+            headers: headers
+        })
+            .map(function (response) {
+            var res = APDProvider_1.requestStatus(response);
+            successCallback(res);
+            return res;
+        })
+            .catch(APDProvider_1._handleError);
+    };
+    /**
+     * Upload
+     *
+     * Single file: {name: value}
+     * Multiple file: {name_1: [value_1, value_2], name_2: [value_1, value_2]}
+     *
+     * @param uri
+     * @param parameters
+     * @param successCallback
+     */
+    APDProvider.prototype.upload = function (uri, parameters, successCallback) {
+        // form inputs
+        var formData = new FormData();
+        // files to upload
+        if (parameters.files) {
+            jQ.each(parameters.files, function (i, val) {
+                if (Array.isArray(val)) {
+                    // multiple files upload
+                    for (var num = 0; num < val.length; num++) {
+                        // make has values
+                        if (val[num]) {
+                            formData.append(i + '[]', val[num]);
+                        }
+                    }
+                }
+                else {
+                    // single upload
+                    // make has value
+                    if (val) {
+                        formData.append(i, val);
+                    }
+                }
+            });
+        }
+        // other form inputs
+        if (parameters.inputs) {
+            jQ.each(parameters.inputs, function (i, val) {
+                formData.append(i, val);
+            });
+        }
+        var thisApp = this;
+        var url = __WEBPACK_IMPORTED_MODULE_7__lib_config__["a" /* WBConfig */].server_url() + uri;
+        var me = APDProvider_1.me();
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["c" /* HttpHeaders */]()
+            .append('Authorization', "Bearer " + __WEBPACK_IMPORTED_MODULE_6__lib_security__["a" /* WBSecurity */].jwtAuth().toLocaleString())
+            .append('token_key', me.token_key.toLocaleString())
+            .append('authenticated_id', me.id.toLocaleString());
+        return thisApp.http
+            .post(url, formData, {
+            headers: headers
+        })
+            .map(function (response) {
+            var res = APDProvider_1.requestStatus(response);
+            successCallback(res);
+            return res;
+        })
+            .catch(APDProvider_1._handleError);
+    };
+    /**
+     * Authenticated user
+     *
+     * @returns {string}
+     */
+    APDProvider.me = function () {
+        return __WEBPACK_IMPORTED_MODULE_5__lib_helper__["a" /* WBHelper */].getItem('user', true);
+    };
+    /**
+     * Request status response
+     *
+     * @param response
+     * @returns {any}
+     */
+    APDProvider.requestStatus = function (response) {
+        if (!response.success) {
+            __WEBPACK_IMPORTED_MODULE_5__lib_helper__["a" /* WBHelper */].error(response);
+            APDProvider_1._handleError(response);
+        }
+        return response;
+    };
+    /**
+     * HttpHeaders for authenticated
+     *
+     * @returns {HttpHeaders}
+     */
+    APDProvider.prototype.headersAuth = function () {
+        var me = APDProvider_1.me();
+        return new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["c" /* HttpHeaders */]()
+            .append('Content-Type', 'application/json')
+            .append('Authorization', "Bearer " + __WEBPACK_IMPORTED_MODULE_6__lib_security__["a" /* WBSecurity */].jwtAuth().toLocaleString())
+            .append('token_key', me.token_key.toLocaleString())
+            .append('authenticated_id', me.id.toLocaleString());
+    };
+    /**
+     * HttpHeaders for guest
+     *
+     * @returns {HttpHeaders}
+     */
+    APDProvider.prototype.headersGuest = function () {
+        return new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["c" /* HttpHeaders */]()
+            .append('Content-Type', 'application/json');
+    };
+    /**
+     * Handle errors
+     *
+     * @param e
+     * @returns {any}
+     * @private
+     */
+    APDProvider._handleError = function (e) {
+        if (e instanceof String) {
+            __WEBPACK_IMPORTED_MODULE_5__lib_helper__["a" /* WBHelper */].errorMessage(e);
+            __WEBPACK_IMPORTED_MODULE_5__lib_helper__["a" /* WBHelper */].error('APDProvider-_handleError-instanceof: ' + e);
+            return __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__["Observable"].throw(e);
+        }
+        if (e.error.errors) {
+            __WEBPACK_IMPORTED_MODULE_5__lib_helper__["a" /* WBHelper */].errorMessage(e.error.errors);
+            __WEBPACK_IMPORTED_MODULE_5__lib_helper__["a" /* WBHelper */].error('APDProvider-_handleError-instanceof: ' + e.error.errors);
+            return __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__["Observable"].throw(e.error.errors);
+        }
+        __WEBPACK_IMPORTED_MODULE_5__lib_helper__["a" /* WBHelper */].errorMessage("APDProvider-_handleError-error_data: " + " Status Code: " + e.status + ' Message: ' + JSON.stringify(e));
+        __WEBPACK_IMPORTED_MODULE_5__lib_helper__["a" /* WBHelper */].debugging("APDProvider-_handleError-error_data: " + " Status Code: " + e.status + ' Message: ' + JSON.stringify(e));
+        return __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__["Observable"].throw("Unknown JSON data error: " + e);
+    };
+    APDProvider = APDProvider_1 = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]])
+    ], APDProvider);
+    return APDProvider;
+    var APDProvider_1;
+}());
+
+//# sourceMappingURL=apd-provider.js.map
+
+/***/ }),
+
+/***/ 370:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GeneralPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_views__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_provider__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__drawer_drawer__ = __webpack_require__(62);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ionic_image_loader__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_views__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_provider__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__drawer_drawer__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ionic_image_loader__ = __webpack_require__(33);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -1530,18 +1847,15 @@ var GeneralPage = (function () {
         if (inputs.birthday) {
             inputs.birthday = moment(new Date(inputs.birthday)).format('MMMM DD YYYY');
         }
-        // show loading
-        var loading = __WEBPACK_IMPORTED_MODULE_2__lib_views__["a" /* WBView */].loading(thisApp.loadingCtrl, 'Updating profile...');
         // update the profile
+        var loading = __WEBPACK_IMPORTED_MODULE_2__lib_views__["a" /* WBView */].loading(thisApp.loadingCtrl, 'Updating profile...');
         thisApp.auth.update({
             inputs: inputs,
             files: thisApp.files
-        }, function (res) {
-            setTimeout(function () {
-                thisApp.authInputs();
-            }, 100);
+        }).subscribe(function () {
+            thisApp.authInputs();
             loading.dismiss();
-        }, function (errors) {
+        }, function () {
             // errors
             loading.dismiss();
         });
@@ -1569,36 +1883,36 @@ var GeneralPage = (function () {
         this.auth.logout();
         this.app.getRootNav().setRoot(__WEBPACK_IMPORTED_MODULE_4__drawer_drawer__["a" /* DrawerPage */]);
     };
+    GeneralPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_5_ionic_image_loader__["a" /* IonicImageLoader */]
+            ]
+        }),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\settings\general.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @url https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>\n      General Settings\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div style="text-align: center;">\n    <img-loader src="{{inputs.avatar}}" style="width: 164px;" useImg></img-loader>\n  </div>\n\n  <form (submit)="doSave($event, inputs)">\n    <input type="file" style="visibility: hidden;" id="file">\n\n    <ion-list>\n      <button ion-button block type="button" (click)="openFileDialog()">Select Image</button>\n\n      <ion-item>\n        <ion-label floating>First Name*</ion-label>\n        <ion-input type="text" [(ngModel)]="inputs.first_name" name="first_name"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Last Name*</ion-label>\n        <ion-input type="text" [(ngModel)]="inputs.last_name" name="last_name"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Phone*</ion-label>\n        <ion-input type="tel" [(ngModel)]="inputs.phone" name="phone"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Gender*</ion-label>\n        <ion-select [(ngModel)]="inputs.gender" name="gender">\n          <ion-option value="Male">Male</ion-option>\n          <ion-option value="Female">Female</ion-option>\n        </ion-select>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Birthday</ion-label>\n        <ion-datetime displayFormat="MMMM DD YYYY" [(ngModel)]="inputs.birthday" name="birthday"></ion-datetime>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Address</ion-label>\n        <ion-textarea rows="3" [(ngModel)]="inputs.address" name="address"></ion-textarea>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Email*</ion-label>\n        <ion-input type="email" [(ngModel)]="inputs.email" name="email"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>About Me</ion-label>\n        <ion-textarea rows="3" [(ngModel)]="inputs.about" name="about"></ion-textarea>\n      </ion-item>\n    </ion-list>\n\n    <button ion-button block type="submit">Save Changes</button>\n  </form>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\settings\general.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */],
+            __WEBPACK_IMPORTED_MODULE_3__providers_auth_provider__["a" /* AuthProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* App */]])
+    ], GeneralPage);
     return GeneralPage;
 }());
-GeneralPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* NgModule */])({
-        imports: [
-            __WEBPACK_IMPORTED_MODULE_5_ionic_image_loader__["a" /* IonicImageLoader */]
-        ]
-    }),
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\settings\general.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @git https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>\n      General Settings\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div style="text-align: center;">\n    <img-loader src="{{inputs.avatar}}" style="width: 164px;" useImg></img-loader>\n  </div>\n\n  <form (submit)="doSave($event, inputs)">\n    <input type="file" style="visibility: hidden;" id="file">\n\n    <ion-list>\n      <button ion-button block type="button" (click)="openFileDialog()">Select Image</button>\n\n      <ion-item>\n        <ion-label floating>First Name*</ion-label>\n        <ion-input type="text" [(ngModel)]="inputs.first_name" name="first_name"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Last Name*</ion-label>\n        <ion-input type="text" [(ngModel)]="inputs.last_name" name="last_name"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Phone*</ion-label>\n        <ion-input type="tel" [(ngModel)]="inputs.phone" name="phone"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Gender*</ion-label>\n        <ion-select [(ngModel)]="inputs.gender" name="gender">\n          <ion-option value="Male">Male</ion-option>\n          <ion-option value="Female">Female</ion-option>\n        </ion-select>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Birthday</ion-label>\n        <ion-datetime displayFormat="MMMM DD YYYY" [(ngModel)]="inputs.birthday" name="birthday"></ion-datetime>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Address</ion-label>\n        <ion-textarea rows="3" [(ngModel)]="inputs.address" name="address"></ion-textarea>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Email*</ion-label>\n        <ion-input type="email" [(ngModel)]="inputs.email" name="email"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>About Me</ion-label>\n        <ion-textarea rows="3" [(ngModel)]="inputs.about" name="about"></ion-textarea>\n      </ion-item>\n    </ion-list>\n\n    <button ion-button block type="submit">Save Changes</button>\n  </form>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\settings\general.html"*/
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */],
-        __WEBPACK_IMPORTED_MODULE_3__providers_auth_provider__["a" /* AuthProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* App */]])
-], GeneralPage);
 
 //# sourceMappingURL=general.js.map
 
 /***/ }),
 
-/***/ 276:
+/***/ 371:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SecurityPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_views__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_provider__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_views__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_provider__ = __webpack_require__(22);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -1660,36 +1974,36 @@ var SecurityPage = (function () {
             loading.dismiss();
         });
     };
+    SecurityPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\settings\security.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @url https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>\n      Security\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <form (submit)="doSave($event, inputs)">\n    <ion-item>\n      <ion-label floating>Email*</ion-label>\n      <ion-input type="email" [(ngModel)]="inputs.email" name="email"></ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-label floating>Current Password*</ion-label>\n      <ion-input type="password" [(ngModel)]="inputs.current_password" name="current_password"></ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-label floating>New Password*</ion-label>\n      <ion-input type="password" [(ngModel)]="inputs.password" name="password"></ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-label floating>Confirm New Password*</ion-label>\n      <ion-input type="password" [(ngModel)]="inputs.password_confirmation" name="password_confirmation"></ion-input>\n    </ion-item>\n\n    <button ion-button block type="submit">Save Changes</button>\n  </form>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\settings\security.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */],
+            __WEBPACK_IMPORTED_MODULE_3__providers_auth_provider__["a" /* AuthProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* App */]])
+    ], SecurityPage);
     return SecurityPage;
 }());
-SecurityPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\settings\security.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @git https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>\n      Security\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <form (submit)="doSave($event, inputs)">\n    <ion-item>\n      <ion-label floating>Email*</ion-label>\n      <ion-input type="email" [(ngModel)]="inputs.email" name="email"></ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-label floating>Current Password*</ion-label>\n      <ion-input type="password" [(ngModel)]="inputs.current_password" name="current_password"></ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-label floating>New Password*</ion-label>\n      <ion-input type="password" [(ngModel)]="inputs.password" name="password"></ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-label floating>Confirm New Password*</ion-label>\n      <ion-input type="password" [(ngModel)]="inputs.password_confirmation" name="password_confirmation"></ion-input>\n    </ion-item>\n\n    <button ion-button block type="submit">Save Changes</button>\n  </form>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\settings\security.html"*/
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */],
-        __WEBPACK_IMPORTED_MODULE_3__providers_auth_provider__["a" /* AuthProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* App */]])
-], SecurityPage);
 
 //# sourceMappingURL=security.js.map
 
 /***/ }),
 
-/***/ 277:
+/***/ 372:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ECommerceCartCheckoutPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_auth_provider__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_ecommerce_cart_cart__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_application_provider__ = __webpack_require__(278);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__success__ = __webpack_require__(279);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__lib_views__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__lib_config__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__lib_helper__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_auth_provider__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_ecommerce_cart_cart__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_application_provider__ = __webpack_require__(373);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__success__ = __webpack_require__(374);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__lib_views__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__lib_config__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__lib_helper__ = __webpack_require__(12);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -1902,30 +2216,30 @@ var ECommerceCartCheckoutPage = (function () {
         thisApp.fetchData();
         thisApp.nav.setRoot(__WEBPACK_IMPORTED_MODULE_5__success__["a" /* ECommerceCartSuccessPage */]);
     };
+    ECommerceCartCheckoutPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\cart\checkout.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @url https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Secure Checkout\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <div *ngIf="cart_details">\n    <ion-grid>\n      <ion-row>\n        <ion-col width-50>Total</ion-col>\n        <ion-col width-50 [innerHTML]="cart_details.formatted_total"></ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col width-50>Tax</ion-col>\n        <ion-col width-50 [innerHTML]="cart_details.formatted_tax"></ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col width-50>Shipping Fee</ion-col>\n        <ion-col width-50 [innerHTML]="cart_details.formatted_delivery_cost"></ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col width-50>Discount</ion-col>\n        <ion-col width-50 [innerHTML]="cart_details.formatted_discount"></ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col width-50>Subtotal</ion-col>\n        <ion-col width-50 [innerHTML]="cart_details.formatted_subtotal"></ion-col>\n      </ion-row>\n    </ion-grid>\n\n    <ion-list>\n      <ion-item>\n        <ion-label floating>Full Name*</ion-label>\n        <ion-input type="text" [(ngModel)]="inputs.full_name" name="full_name"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Phone*</ion-label>\n        <ion-input type="tel" [(ngModel)]="inputs.phone" name="phone"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>email*</ion-label>\n        <ion-input type="email" [(ngModel)]="inputs.email" name="email"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Payment Types*</ion-label>\n        <ion-select [(ngModel)]="inputs.payment_type_id"\n                    (ionChange)="paymentTypeSelected($event, inputs.payment_type_id)">\n          <ion-option value="">Select Payment Type</ion-option>\n          <ion-option *ngFor="let item of payment_types" value="{{item.id}}">{{item.name}}</ion-option>\n        </ion-select>\n      </ion-item>\n\n      <!-- card details -->\n      <div *ngIf="is_card_mode">\n        <ion-item><h4>Your Card Details</h4></ion-item>\n\n        <ion-item>\n          <ion-label floating>First Name*</ion-label>\n          <ion-input type="text" [(ngModel)]="inputs.card_first_name" name="card_first_name"></ion-input>\n        </ion-item>\n\n        <ion-item>\n          <ion-label floating>Last Name*</ion-label>\n          <ion-input type="text" [(ngModel)]="inputs.card_last_name" name="card_last_name"></ion-input>\n        </ion-item>\n\n        <ion-item>\n          <ion-label>Card Types*</ion-label>\n          <ion-select [(ngModel)]="inputs.card_type">\n            <ion-option value="visa">Visa</ion-option>\n            <ion-option value="mastercard">Mastercard</ion-option>\n          </ion-select>\n        </ion-item>\n\n        <ion-item>\n          <ion-label floating>Card #*</ion-label>\n          <ion-input type="tel" [(ngModel)]="inputs.card_number" name="card_number"></ion-input>\n        </ion-item>\n\n        <ion-item>\n          <ion-label floating>Exp Month*</ion-label>\n          <ion-input type="tel" [(ngModel)]="inputs.card_exp_month" name="card_exp_month"></ion-input>\n        </ion-item>\n\n        <ion-item>\n          <ion-label floating>Exp Year*</ion-label>\n          <ion-input type="tel" [(ngModel)]="inputs.card_exp_yr" name="card_exp_yr"></ion-input>\n        </ion-item>\n\n        <ion-item>\n          <ion-label floating>CVV2*</ion-label>\n          <ion-input type="tel" [(ngModel)]="inputs.card_cvv" name="card_cvv"></ion-input>\n        </ion-item>\n      </div>\n\n      <ion-item *ngIf="payment_type_details">\n        <p color="secondary">{{payment_type_details}}</p>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Billing Address*</ion-label>\n        <ion-textarea rows="3" [(ngModel)]="inputs.billing_address" name="billing_address"></ion-textarea>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Shipping Address*</ion-label>\n        <ion-textarea rows="3" [(ngModel)]="inputs.shipping_address" name="shipping_address"></ion-textarea>\n      </ion-item>\n\n      <!-- applied voucher -->\n      <ion-item *ngIf="!cart_details.options.voucher_code">\n        <ion-label floating>Apply Voucher</ion-label>\n        <ion-input type="text" [(ngModel)]="voucher_code" name="voucher_code"></ion-input>\n      </ion-item>\n      <ion-item *ngIf="!cart_details.options.voucher_code">\n        <button ion-button clear block color="danger" (click)="voucherApply()">Apply Voucher</button>\n      </ion-item>\n\n      <!-- remove voucher -->\n      <ion-item *ngIf="cart_details.options.voucher_code">\n        <p>{{cart_details.options.voucher_code}}</p>\n      </ion-item>\n      <ion-item *ngIf="cart_details.options.voucher_code">\n        <button ion-button clear block color="danger" (click)="removeVoucher()">Remove Voucher</button>\n      </ion-item>\n    </ion-list>\n\n    <div padding>\n      <button ion-button block color="danger" (click)="placeOrder()">Place Order</button>\n    </div>\n  </div>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\cart\checkout.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_auth_provider__["a" /* AuthProvider */], __WEBPACK_IMPORTED_MODULE_3__providers_ecommerce_cart_cart__["a" /* ECommerceCart */], __WEBPACK_IMPORTED_MODULE_4__providers_application_provider__["a" /* ApplicationProvider */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */]])
+    ], ECommerceCartCheckoutPage);
     return ECommerceCartCheckoutPage;
 }());
-ECommerceCartCheckoutPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\cart\checkout.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @git https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Secure Checkout\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <div *ngIf="cart_details">\n    <ion-grid>\n      <ion-row>\n        <ion-col width-50>Total</ion-col>\n        <ion-col width-50 [innerHTML]="cart_details.formatted_total"></ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col width-50>Tax</ion-col>\n        <ion-col width-50 [innerHTML]="cart_details.formatted_tax"></ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col width-50>Shipping Fee</ion-col>\n        <ion-col width-50 [innerHTML]="cart_details.formatted_delivery_cost"></ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col width-50>Discount</ion-col>\n        <ion-col width-50 [innerHTML]="cart_details.formatted_discount"></ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col width-50>Subtotal</ion-col>\n        <ion-col width-50 [innerHTML]="cart_details.formatted_subtotal"></ion-col>\n      </ion-row>\n    </ion-grid>\n\n    <ion-list>\n      <ion-item>\n        <ion-label floating>Full Name*</ion-label>\n        <ion-input type="text" [(ngModel)]="inputs.full_name" name="full_name"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Phone*</ion-label>\n        <ion-input type="tel" [(ngModel)]="inputs.phone" name="phone"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>email*</ion-label>\n        <ion-input type="email" [(ngModel)]="inputs.email" name="email"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Payment Types*</ion-label>\n        <ion-select [(ngModel)]="inputs.payment_type_id"\n                    (ionChange)="paymentTypeSelected($event, inputs.payment_type_id)">\n          <ion-option value="">Select Payment Type</ion-option>\n          <ion-option *ngFor="let item of payment_types" value="{{item.id}}">{{item.name}}</ion-option>\n        </ion-select>\n      </ion-item>\n\n      <!-- card details -->\n      <div *ngIf="is_card_mode">\n        <ion-item><h4>Your Card Details</h4></ion-item>\n\n        <ion-item>\n          <ion-label floating>First Name*</ion-label>\n          <ion-input type="text" [(ngModel)]="inputs.card_first_name" name="card_first_name"></ion-input>\n        </ion-item>\n\n        <ion-item>\n          <ion-label floating>Last Name*</ion-label>\n          <ion-input type="text" [(ngModel)]="inputs.card_last_name" name="card_last_name"></ion-input>\n        </ion-item>\n\n        <ion-item>\n          <ion-label>Card Types*</ion-label>\n          <ion-select [(ngModel)]="inputs.card_type">\n            <ion-option value="visa">Visa</ion-option>\n            <ion-option value="mastercard">Mastercard</ion-option>\n          </ion-select>\n        </ion-item>\n\n        <ion-item>\n          <ion-label floating>Card #*</ion-label>\n          <ion-input type="tel" [(ngModel)]="inputs.card_number" name="card_number"></ion-input>\n        </ion-item>\n\n        <ion-item>\n          <ion-label floating>Exp Month*</ion-label>\n          <ion-input type="tel" [(ngModel)]="inputs.card_exp_month" name="card_exp_month"></ion-input>\n        </ion-item>\n\n        <ion-item>\n          <ion-label floating>Exp Year*</ion-label>\n          <ion-input type="tel" [(ngModel)]="inputs.card_exp_yr" name="card_exp_yr"></ion-input>\n        </ion-item>\n\n        <ion-item>\n          <ion-label floating>CVV2*</ion-label>\n          <ion-input type="tel" [(ngModel)]="inputs.card_cvv" name="card_cvv"></ion-input>\n        </ion-item>\n      </div>\n\n      <ion-item *ngIf="payment_type_details">\n        <p color="secondary">{{payment_type_details}}</p>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Billing Address*</ion-label>\n        <ion-textarea rows="3" [(ngModel)]="inputs.billing_address" name="billing_address"></ion-textarea>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Shipping Address*</ion-label>\n        <ion-textarea rows="3" [(ngModel)]="inputs.shipping_address" name="shipping_address"></ion-textarea>\n      </ion-item>\n\n      <!-- applied voucher -->\n      <ion-item *ngIf="!cart_details.options.voucher_code">\n        <ion-label floating>Apply Voucher</ion-label>\n        <ion-input type="text" [(ngModel)]="voucher_code" name="voucher_code"></ion-input>\n      </ion-item>\n      <ion-item *ngIf="!cart_details.options.voucher_code">\n        <button ion-button clear block color="danger" (click)="voucherApply()">Apply Voucher</button>\n      </ion-item>\n\n      <!-- remove voucher -->\n      <ion-item *ngIf="cart_details.options.voucher_code">\n        <p>{{cart_details.options.voucher_code}}</p>\n      </ion-item>\n      <ion-item *ngIf="cart_details.options.voucher_code">\n        <button ion-button clear block color="danger" (click)="removeVoucher()">Remove Voucher</button>\n      </ion-item>\n    </ion-list>\n\n    <div padding>\n      <button ion-button block color="danger" (click)="placeOrder()">Place Order</button>\n    </div>\n  </div>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\cart\checkout.html"*/
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_auth_provider__["a" /* AuthProvider */], __WEBPACK_IMPORTED_MODULE_3__providers_ecommerce_cart_cart__["a" /* ECommerceCart */], __WEBPACK_IMPORTED_MODULE_4__providers_application_provider__["a" /* ApplicationProvider */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */]])
-], ECommerceCartCheckoutPage);
 
 //# sourceMappingURL=checkout.js.map
 
 /***/ }),
 
-/***/ 278:
+/***/ 373:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ApplicationProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__apd_provider__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_helper__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__apd_provider__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_helper__ = __webpack_require__(12);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -1958,28 +2272,28 @@ var ApplicationProvider = (function () {
             __WEBPACK_IMPORTED_MODULE_2__lib_helper__["a" /* WBHelper */].log('ApplicationProvider-index: ' + res);
         });
     };
+    ApplicationProvider = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__apd_provider__["a" /* APDProvider */]])
+    ], ApplicationProvider);
     return ApplicationProvider;
 }());
-ApplicationProvider = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__apd_provider__["a" /* APDProvider */]])
-], ApplicationProvider);
 
 //# sourceMappingURL=application-provider.js.map
 
 /***/ }),
 
-/***/ 279:
+/***/ 374:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ECommerceCartSuccessPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__product_product_list__ = __webpack_require__(142);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__product_product_list__ = __webpack_require__(164);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -2002,33 +2316,33 @@ var ECommerceCartSuccessPage = (function () {
     ECommerceCartSuccessPage.prototype.productList = function () {
         this.nav.setRoot(__WEBPACK_IMPORTED_MODULE_2__product_product_list__["a" /* ECommerceProductListPage */]);
     };
+    ECommerceCartSuccessPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\cart\success.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @url https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>\n      Your order is place\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h1 class="text-center">Thank you for buying.</h1>\n  <button ion-button block clear (click)="productList()">Back to items and products</button>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\cart\success.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */]])
+    ], ECommerceCartSuccessPage);
     return ECommerceCartSuccessPage;
 }());
-ECommerceCartSuccessPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\cart\success.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @git https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>\n      Your order is place\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h1 class="text-center">Thank you for buying.</h1>\n  <button ion-button block clear (click)="productList()">Back to items and products</button>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\cart\success.html"*/
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */]])
-], ECommerceCartSuccessPage);
 
 //# sourceMappingURL=success.js.map
 
 /***/ }),
 
-/***/ 280:
+/***/ 375:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ECommerceCartItemQuantityModal; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_ecommerce_product_product__ = __webpack_require__(63);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_provider__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_ecommerce_cart_cart__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__lib_views__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__lib_helper__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_ecommerce_product_product__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_provider__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_ecommerce_cart_cart__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__lib_views__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__lib_helper__ = __webpack_require__(12);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -2081,34 +2395,34 @@ var ECommerceCartItemQuantityModal = (function () {
         __WEBPACK_IMPORTED_MODULE_6__lib_helper__["a" /* WBHelper */].log('Modal filter cancelled...');
         this.viewCtrl.dismiss();
     };
+    ECommerceCartItemQuantityModal = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\cart\update.quantity.modal.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @url https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Update Quantity\n    </ion-title>\n\n    <ion-buttons start>\n      <button ion-button clear (click)="dismiss()">\n        Cancel\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-list>\n    <ion-item>\n      <ion-label floating>Quantity*</ion-label>\n      <ion-input type="tel" [(ngModel)]="quantity" name="quantity"></ion-input>\n    </ion-item>\n  </ion-list>\n\n  <button ion-button clear block color="danger" (click)="update()">Update Quantity</button>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\cart\update.quantity.modal.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_ecommerce_product_product__["a" /* ECommerceProduct */], __WEBPACK_IMPORTED_MODULE_3__providers_auth_provider__["a" /* AuthProvider */], __WEBPACK_IMPORTED_MODULE_4__providers_ecommerce_cart_cart__["a" /* ECommerceCart */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ViewController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */]])
+    ], ECommerceCartItemQuantityModal);
     return ECommerceCartItemQuantityModal;
 }());
-ECommerceCartItemQuantityModal = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\cart\update.quantity.modal.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @git https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Update Quantity\n    </ion-title>\n\n    <ion-buttons start>\n      <button ion-button clear (click)="dismiss()">\n        Cancel\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-list>\n    <ion-item>\n      <ion-label floating>Quantity*</ion-label>\n      <ion-input type="tel" [(ngModel)]="quantity" name="quantity"></ion-input>\n    </ion-item>\n  </ion-list>\n\n  <button ion-button clear block color="danger" (click)="update()">Update Quantity</button>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\cart\update.quantity.modal.html"*/
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_ecommerce_product_product__["a" /* ECommerceProduct */], __WEBPACK_IMPORTED_MODULE_3__providers_auth_provider__["a" /* AuthProvider */], __WEBPACK_IMPORTED_MODULE_4__providers_ecommerce_cart_cart__["a" /* ECommerceCart */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ViewController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */]])
-], ECommerceCartItemQuantityModal);
 
 //# sourceMappingURL=update.quantity.modal.js.map
 
 /***/ }),
 
-/***/ 281:
+/***/ 376:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RegisterPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_auth_provider__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lib_views__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__drawer_drawer__ = __webpack_require__(62);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__lib_socket__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__lib_config__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_auth_provider__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lib_views__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__drawer_drawer__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__lib_socket__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__lib_config__ = __webpack_require__(36);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -2229,32 +2543,32 @@ var RegisterPage = (function () {
     RegisterPage.prototype.cancel = function () {
         this.nav.setRoot(__WEBPACK_IMPORTED_MODULE_4__drawer_drawer__["a" /* DrawerPage */]);
     };
+    RegisterPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\authentication\register.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @url https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <ion-title>Register</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <!-- facebook login button -->\n  <button type="button" *ngIf="wb_config.facebook_auth" color="facebook-color" ion-button block (click)="doFacebook()">\n    <ion-icon ios="logo-facebook" md="logo-facebook"></ion-icon>\n    Continue with Facebook\n  </button>\n\n  <form (submit)="doRegister($event, inputs)">\n    <ion-list no-lines>\n      <ion-item>\n        <ion-label floating>First Name</ion-label>\n        <ion-input type="text" [(ngModel)]="inputs.first_name" name="first_name"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Last Name</ion-label>\n        <ion-input type="text" [(ngModel)]="inputs.last_name" name="last_name"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Phone</ion-label>\n        <ion-input type="tel" [(ngModel)]="inputs.phone" name="phone"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Email</ion-label>\n        <ion-input type="email" [(ngModel)]="inputs.email" name="email"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Username</ion-label>\n        <ion-input type="text" [(ngModel)]="inputs.username" name="username"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Password</ion-label>\n        <ion-input type="password" [(ngModel)]="inputs.password" name="password"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <button ion-button block outline type="submit">Register</button>\n      </ion-item>\n    </ion-list>\n\n    <button ion-button block clear type="button" (click)="cancel()">Cancel</button>\n  </form>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\authentication\register.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */],
+            __WEBPACK_IMPORTED_MODULE_2__providers_auth_provider__["a" /* AuthProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */]])
+    ], RegisterPage);
     return RegisterPage;
 }());
-RegisterPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\authentication\register.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @git https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <ion-title>Register</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <!-- facebook login button -->\n  <button type="button" *ngIf="wb_config.facebook_auth" color="facebook-color" ion-button block (click)="doFacebook()">\n    <ion-icon ios="logo-facebook" md="logo-facebook"></ion-icon>\n    Continue with Facebook\n  </button>\n\n  <form (submit)="doRegister($event, inputs)">\n    <ion-list no-lines>\n      <ion-item>\n        <ion-label floating>First Name</ion-label>\n        <ion-input type="text" [(ngModel)]="inputs.first_name" name="first_name"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Last Name</ion-label>\n        <ion-input type="text" [(ngModel)]="inputs.last_name" name="last_name"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Phone</ion-label>\n        <ion-input type="tel" [(ngModel)]="inputs.phone" name="phone"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Email</ion-label>\n        <ion-input type="email" [(ngModel)]="inputs.email" name="email"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Username</ion-label>\n        <ion-input type="text" [(ngModel)]="inputs.username" name="username"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Password</ion-label>\n        <ion-input type="password" [(ngModel)]="inputs.password" name="password"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <button ion-button block outline type="submit">Register</button>\n      </ion-item>\n    </ion-list>\n\n    <button ion-button block clear type="button" (click)="cancel()">Cancel</button>\n  </form>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\authentication\register.html"*/
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */],
-        __WEBPACK_IMPORTED_MODULE_2__providers_auth_provider__["a" /* AuthProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */]])
-], RegisterPage);
 
 //# sourceMappingURL=register.js.map
 
 /***/ }),
 
-/***/ 282:
+/***/ 377:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ForgotPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lib_views__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_auth_provider__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login__ = __webpack_require__(70);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lib_views__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_auth_provider__ = __webpack_require__(22);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -2312,31 +2626,31 @@ var ForgotPage = (function () {
             loading.dismiss();
         });
     };
+    ForgotPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\authentication\forgot.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @url https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <ion-title>Forgot</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <form (submit)="doReset($event, inputs)">\n    <ion-list no-lines>\n      <ion-item>\n        <ion-label floating>Email</ion-label>\n        <ion-input type="email" [(ngModel)]="inputs.email" name="email"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <button ion-button block outline type="submit">Reset</button>\n      </ion-item>\n    </ion-list>\n  </form>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\authentication\forgot.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */],
+            __WEBPACK_IMPORTED_MODULE_4__providers_auth_provider__["a" /* AuthProvider */]])
+    ], ForgotPage);
     return ForgotPage;
 }());
-ForgotPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\authentication\forgot.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @git https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <ion-title>Forgot</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <form (submit)="doReset($event, inputs)">\n    <ion-list no-lines>\n      <ion-item>\n        <ion-label floating>Email</ion-label>\n        <ion-input type="email" [(ngModel)]="inputs.email" name="email"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <button ion-button block outline type="submit">Reset</button>\n      </ion-item>\n    </ion-list>\n  </form>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\authentication\forgot.html"*/
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */],
-        __WEBPACK_IMPORTED_MODULE_4__providers_auth_provider__["a" /* AuthProvider */]])
-], ForgotPage);
 
 //# sourceMappingURL=forgot.js.map
 
 /***/ }),
 
-/***/ 283:
+/***/ 378:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ECommerceProductFilterModal; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_ecommerce_product_category__ = __webpack_require__(284);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lib_helper__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_ecommerce_product_category__ = __webpack_require__(379);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lib_helper__ = __webpack_require__(12);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -2416,29 +2730,29 @@ var ECommerceProductFilterModal = (function () {
         __WEBPACK_IMPORTED_MODULE_3__lib_helper__["a" /* WBHelper */].log('Modal filter cancelled...');
         this.viewCtrl.dismiss();
     };
+    ECommerceProductFilterModal = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\product\filter.modal.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @url https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Filter\n    </ion-title>\n\n    <ion-buttons start>\n      <button ion-button clear (click)="dismiss()">\n        Cancel\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <div padding>\n    <!-- search input -->\n    <ion-searchbar [(ngModel)]="filter.search" placeholder="Search product by name..."></ion-searchbar>\n\n    <ion-list>\n      <ion-item>\n        <ion-label floating>Min Price</ion-label>\n        <ion-input type="tel" [(ngModel)]="filter.min_srp" name="min_srp"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Max Price</ion-label>\n        <ion-input type="tel" [(ngModel)]="filter.max_srp" name="max_srp"></ion-input>\n      </ion-item>\n\n      <!-- category -->\n      <ion-item>\n        <ion-label>Category</ion-label>\n        <ion-select [(ngModel)]="filter.product_category_id" name="product_category_id">\n          <ion-option value="">All</ion-option>\n          <ion-option *ngFor="let item of categories" value="{{item.id}}">{{item.name}}</ion-option>\n        </ion-select>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>On Sale</ion-label>\n        <ion-toggle [(ngModel)]="filter.is_sale" (ionChange)="onChangeToggle(\'sale\', filter.is_sale)"></ion-toggle>\n      </ion-item>\n\n      <ion-item no-lines>\n        <ion-label>Latest / New Arrival</ion-label>\n        <ion-toggle [(ngModel)]="filter.is_latest"\n                    (ionChange)="onChangeToggle(\'latest\', filter.is_latest)"></ion-toggle>\n      </ion-item>\n    </ion-list>\n\n    <button ion-button block clear (click)="search()">Apply Filters</button>\n  </div>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\product\filter.modal.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ViewController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_ecommerce_product_category__["a" /* ECommerceProductCategories */]])
+    ], ECommerceProductFilterModal);
     return ECommerceProductFilterModal;
 }());
-ECommerceProductFilterModal = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\product\filter.modal.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @git https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Filter\n    </ion-title>\n\n    <ion-buttons start>\n      <button ion-button clear (click)="dismiss()">\n        Cancel\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <div padding>\n    <!-- search input -->\n    <ion-searchbar [(ngModel)]="filter.search" placeholder="Search product by name..."></ion-searchbar>\n\n    <ion-list>\n      <ion-item>\n        <ion-label floating>Min Price</ion-label>\n        <ion-input type="tel" [(ngModel)]="filter.min_srp" name="min_srp"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Max Price</ion-label>\n        <ion-input type="tel" [(ngModel)]="filter.max_srp" name="max_srp"></ion-input>\n      </ion-item>\n\n      <!-- category -->\n      <ion-item>\n        <ion-label>Category</ion-label>\n        <ion-select [(ngModel)]="filter.product_category_id" name="product_category_id">\n          <ion-option value="">All</ion-option>\n          <ion-option *ngFor="let item of categories" value="{{item.id}}">{{item.name}}</ion-option>\n        </ion-select>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>On Sale</ion-label>\n        <ion-toggle [(ngModel)]="filter.is_sale" (ionChange)="onChangeToggle(\'sale\', filter.is_sale)"></ion-toggle>\n      </ion-item>\n\n      <ion-item no-lines>\n        <ion-label>Latest / New Arrival</ion-label>\n        <ion-toggle [(ngModel)]="filter.is_latest"\n                    (ionChange)="onChangeToggle(\'latest\', filter.is_latest)"></ion-toggle>\n      </ion-item>\n    </ion-list>\n\n    <button ion-button block clear (click)="search()">Apply Filters</button>\n  </div>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\product\filter.modal.html"*/
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ViewController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__providers_ecommerce_product_category__["a" /* ECommerceProductCategories */]])
-], ECommerceProductFilterModal);
 
 //# sourceMappingURL=filter.modal.js.map
 
 /***/ }),
 
-/***/ 284:
+/***/ 379:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ECommerceProductCategories; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__apd_provider__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_helper__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__apd_provider__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_helper__ = __webpack_require__(12);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -2469,30 +2783,30 @@ var ECommerceProductCategories = (function () {
             __WEBPACK_IMPORTED_MODULE_2__lib_helper__["a" /* WBHelper */].log('Product-categories: ' + res);
         });
     };
+    ECommerceProductCategories = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__apd_provider__["a" /* APDProvider */]])
+    ], ECommerceProductCategories);
     return ECommerceProductCategories;
 }());
-ECommerceProductCategories = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__apd_provider__["a" /* APDProvider */]])
-], ECommerceProductCategories);
 
 //# sourceMappingURL=category.js.map
 
 /***/ }),
 
-/***/ 285:
+/***/ 380:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ECommerceOrderListPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_ecommerce_order_order__ = __webpack_require__(144);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__order_details__ = __webpack_require__(286);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__lib_helper__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_ecommerce_order_order__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__order_details__ = __webpack_require__(381);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__lib_helper__ = __webpack_require__(12);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -2601,31 +2915,31 @@ var ECommerceOrderListPage = (function () {
             id: id
         });
     };
+    ECommerceOrderListPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\order\order.list.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @url https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>\n      My Orders\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-refresher *ngIf="!init_loading" (ionRefresh)="doRefresh($event)">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <div *ngIf="!init_loading">\n    <ion-list>\n      <ion-item *ngFor="let data_fetch of data_list" (click)="itemSelected(data_fetch.id)">\n        <h2 [innerHTML]="data_fetch.formatted_total"></h2>\n        <p>{{data_fetch.count_items}} items</p>\n        <p>{{data_fetch.created_at}}</p>\n      </ion-item>\n    </ion-list>\n  </div>\n\n  <!-- no orders -->\n  <h1 class="text-center" *ngIf="!data_list.length && !init_loading">\n    No Orders!\n  </h1>\n\n  <ion-infinite-scroll *ngIf="!init_loading" (ionInfinite)="doInfinite($event)">\n    <ion-infinite-scroll-content></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n\n  <h1 class="text-center" *ngIf="init_loading">\n    <ion-spinner icon="spiral"></ion-spinner>\n    Loading...\n  </h1>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\order\order.list.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_ecommerce_order_order__["a" /* ECommerceOrder */]])
+    ], ECommerceOrderListPage);
     return ECommerceOrderListPage;
 }());
-ECommerceOrderListPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\order\order.list.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @git https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>\n      My Orders\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-refresher *ngIf="!init_loading" (ionRefresh)="doRefresh($event)">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <div *ngIf="!init_loading">\n    <ion-list>\n      <ion-item *ngFor="let data_fetch of data_list" (click)="itemSelected(data_fetch.id)">\n        <h2 [innerHTML]="data_fetch.formatted_total"></h2>\n        <p>{{data_fetch.count_items}} items</p>\n        <p>{{data_fetch.created_at}}</p>\n      </ion-item>\n    </ion-list>\n  </div>\n\n  <!-- no orders -->\n  <h1 class="text-center" *ngIf="!data_list.length && !init_loading">\n    No Orders!\n  </h1>\n\n  <ion-infinite-scroll *ngIf="!init_loading" (ionInfinite)="doInfinite($event)">\n    <ion-infinite-scroll-content></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n\n  <h1 class="text-center" *ngIf="init_loading">\n    <ion-spinner icon="spiral"></ion-spinner>\n    Loading...\n  </h1>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\order\order.list.html"*/
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_ecommerce_order_order__["a" /* ECommerceOrder */]])
-], ECommerceOrderListPage);
 
 //# sourceMappingURL=order.list.js.map
 
 /***/ }),
 
-/***/ 286:
+/***/ 381:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ECommerceOrderDetailsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_ecommerce_order_order__ = __webpack_require__(144);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lib_helper__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_image_loader__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_ecommerce_order_order__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lib_helper__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_image_loader__ = __webpack_require__(33);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -2700,38 +3014,38 @@ var ECommerceOrderDetailsPage = (function () {
             this.refresher.complete();
         }
     };
+    ECommerceOrderDetailsPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_4_ionic_image_loader__["a" /* IonicImageLoader */]
+            ]
+        }),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\order\order.details.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @url https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Ordered Items\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <!-- refresh items -->\n  <ion-refresher *ngIf="!init_loading" (ionRefresh)="doRefresh($event)">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <!-- list of items on cart -->\n  <div *ngIf="!init_loading">\n    <ion-list>\n      <ion-item *ngFor="let data_fetch of data_list">\n        <ion-avatar item-left>\n          <img-loader src="{{data_fetch.cover}}" useImg></img-loader>\n        </ion-avatar>\n\n        <h2>{{data_fetch.product_name}}</h2>\n        <p>Quantity: {{data_fetch.qty}}</p>\n        <p>Total: <span color="danger"\n                        [innerHTML]="data_fetch.formatted_total"></span></p>\n        <p>{{data_fetch.status}}</p>\n      </ion-item>\n    </ion-list>\n\n    <!-- no items -->\n    <h1 class="text-center" *ngIf="!data_list.length">No Ordered Items!</h1>\n  </div>\n\n  <!-- loading -->\n  <h1 class="text-center" *ngIf="init_loading">\n    <ion-spinner icon="spiral"></ion-spinner>\n    Loading...\n  </h1>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\order\order.details.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_ecommerce_order_order__["a" /* ECommerceOrder */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */]])
+    ], ECommerceOrderDetailsPage);
     return ECommerceOrderDetailsPage;
 }());
-ECommerceOrderDetailsPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* NgModule */])({
-        imports: [
-            __WEBPACK_IMPORTED_MODULE_4_ionic_image_loader__["a" /* IonicImageLoader */]
-        ]
-    }),
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\order\order.details.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @git https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Ordered Items\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <!-- refresh items -->\n  <ion-refresher *ngIf="!init_loading" (ionRefresh)="doRefresh($event)">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <!-- list of items on cart -->\n  <div *ngIf="!init_loading">\n    <ion-list>\n      <ion-item *ngFor="let data_fetch of data_list">\n        <ion-avatar item-left>\n          <img-loader src="{{data_fetch.cover}}" useImg></img-loader>\n        </ion-avatar>\n\n        <h2>{{data_fetch.product_name}}</h2>\n        <p>Quantity: {{data_fetch.qty}}</p>\n        <p>Total: <span color="danger"\n                        [innerHTML]="data_fetch.formatted_total"></span></p>\n        <p>{{data_fetch.status}}</p>\n      </ion-item>\n    </ion-list>\n\n    <!-- no items -->\n    <h1 class="text-center" *ngIf="!data_list.length">No Ordered Items!</h1>\n  </div>\n\n  <!-- loading -->\n  <h1 class="text-center" *ngIf="init_loading">\n    <ion-spinner icon="spiral"></ion-spinner>\n    Loading...\n  </h1>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\order\order.details.html"*/
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_ecommerce_order_order__["a" /* ECommerceOrder */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */]])
-], ECommerceOrderDetailsPage);
 
 //# sourceMappingURL=order.details.js.map
 
 /***/ }),
 
-/***/ 287:
+/***/ 382:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InboxPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_message_provider__ = __webpack_require__(145);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reading_inbox__ = __webpack_require__(288);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__user_user_list__ = __webpack_require__(289);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__lib_helper__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ionic_image_loader__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_message_provider__ = __webpack_require__(167);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reading_inbox__ = __webpack_require__(383);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__user_user_list__ = __webpack_require__(384);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__lib_helper__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ionic_image_loader__ = __webpack_require__(33);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -2860,40 +3174,40 @@ var InboxPage = (function () {
         });
         searchListModal.present();
     };
+    InboxPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_6_ionic_image_loader__["a" /* IonicImageLoader */]
+            ]
+        }),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\message\inbox.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @url https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>\n      Inbox\n    </ion-title>\n\n    <ion-buttons end>\n      <button ion-button icon-only (click)="searchUser()">\n        <ion-icon ios="ios-person" md="md-person"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-refresher *ngIf="!init_loading" (ionRefresh)="doRefresh($event)">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <div *ngIf="!init_loading">\n    <ion-list>\n      <ion-item *ngFor="let data_fetch of data_list" (click)="readingMessage(data_fetch.from_id)">\n        <ion-avatar item-left>\n          <img-loader src="{{data_fetch.from_avatar}}" useImg></img-loader>\n        </ion-avatar>\n\n        <h2>{{data_fetch.from_full_name}}</h2>\n        <h3>{{data_fetch.formatted_created_at}}</h3>\n        <p>{{data_fetch.limit_message}}</p>\n      </ion-item>\n    </ion-list>\n  </div>\n\n  <h1 class="text-center" *ngIf="!data_list.length && !init_loading">\n    No Messages.\n  </h1>\n\n  <ion-infinite-scroll *ngIf="!init_loading" (ionInfinite)="doInfinite($event)">\n    <ion-infinite-scroll-content></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n\n  <h1 class="text-center" *ngIf="init_loading">\n    <ion-spinner icon="spiral"></ion-spinner>\n    Loading...\n  </h1>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\message\inbox.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_message_provider__["a" /* MessageProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ModalController */]])
+    ], InboxPage);
     return InboxPage;
 }());
-InboxPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* NgModule */])({
-        imports: [
-            __WEBPACK_IMPORTED_MODULE_6_ionic_image_loader__["a" /* IonicImageLoader */]
-        ]
-    }),
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\message\inbox.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @git https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>\n      Inbox\n    </ion-title>\n\n    <ion-buttons end>\n      <button ion-button icon-only (click)="searchUser()">\n        <ion-icon ios="ios-person" md="md-person"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-refresher *ngIf="!init_loading" (ionRefresh)="doRefresh($event)">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <div *ngIf="!init_loading">\n    <ion-list>\n      <ion-item *ngFor="let data_fetch of data_list" (click)="readingMessage(data_fetch.from_id)">\n        <ion-avatar item-left>\n          <img-loader src="{{data_fetch.from_avatar}}" useImg></img-loader>\n        </ion-avatar>\n\n        <h2>{{data_fetch.from_full_name}}</h2>\n        <h3>{{data_fetch.formatted_created_at}}</h3>\n        <p>{{data_fetch.limit_message}}</p>\n      </ion-item>\n    </ion-list>\n  </div>\n\n  <h1 class="text-center" *ngIf="!data_list.length && !init_loading">\n    No Messages.\n  </h1>\n\n  <ion-infinite-scroll *ngIf="!init_loading" (ionInfinite)="doInfinite($event)">\n    <ion-infinite-scroll-content></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n\n  <h1 class="text-center" *ngIf="init_loading">\n    <ion-spinner icon="spiral"></ion-spinner>\n    Loading...\n  </h1>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\message\inbox.html"*/
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_message_provider__["a" /* MessageProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ModalController */]])
-], InboxPage);
 
 //# sourceMappingURL=inbox.js.map
 
 /***/ }),
 
-/***/ 288:
+/***/ 383:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ReadingInboxPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_message_provider__ = __webpack_require__(145);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lib_config__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__lib_socket__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_auth_provider__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__lib_views__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__lib_helper__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_ionic_image_loader__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_message_provider__ = __webpack_require__(167);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lib_config__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__lib_socket__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_auth_provider__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__lib_views__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__lib_helper__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_ionic_image_loader__ = __webpack_require__(33);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -3024,11 +3338,11 @@ var ReadingInboxPage = (function () {
             files: {
                 msg_file: file
             }
-        }, function (response) {
+        }).subscribe(function (response) {
             loading.dismiss();
             thisApp.data_list.push(response.data);
             thisApp.chatBox = null;
-        }, function (error) {
+        }, function (e) {
             loading.dismiss();
         });
     };
@@ -3048,11 +3362,10 @@ var ReadingInboxPage = (function () {
             inputs: {
                 message: text
             }
-        }, function (response) {
+        }).subscribe(function (response) {
             thisApp.data_list.push(response.data);
             // reset the chat box input
             thisApp.chatBox = null;
-        }, function (error) {
         });
     };
     /**
@@ -3086,42 +3399,42 @@ var ReadingInboxPage = (function () {
             this.sendFile(input.files[0]);
         }
     };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Content */]),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Content */])
+    ], ReadingInboxPage.prototype, "content", void 0);
+    ReadingInboxPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_8_ionic_image_loader__["a" /* IonicImageLoader */]
+            ]
+        }),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\message\reading.inbox.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @url https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Reading Message\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-list>\n    <ion-item *ngFor="let data_fetch of data_list" text-wrap>\n      <!-- avatar and name (you) -->\n      <ion-avatar item-left *ngIf="data_fetch.sender_type == \'you\'">\n        <img-loader src="{{data_fetch.from_avatar}}" useImg></img-loader>\n      </ion-avatar>\n      <h2 *ngIf="data_fetch.sender_type == \'you\'">{{data_fetch.from_full_name}}</h2>\n\n      <!-- avatar and name (sender) -->\n      <ion-avatar item-right *ngIf="data_fetch.sender_type == \'sender\'">\n        <img-loader src="{{data_fetch.from_avatar}}" useImg></img-loader>\n      </ion-avatar>\n      <h2 *ngIf="data_fetch.sender_type == \'sender\'" style="text-align: right !important;">\n        {{data_fetch.from_full_name}}</h2>\n\n      <!-- date and time -->\n      <p *ngIf="data_fetch.sender_type == \'you\'">{{data_fetch.formatted_created_at}}</p>\n      <p *ngIf="data_fetch.sender_type == \'sender\'" style="text-align: right !important;">\n        {{data_fetch.formatted_created_at}}</p>\n\n      <!-- text message -->\n      <p *ngIf="data_fetch.type == \'text\' && data_fetch.sender_type == \'you\'" class="text-wrap">\n        {{data_fetch.message}}</p>\n      <p *ngIf="data_fetch.type == \'text\' && data_fetch.sender_type == \'sender\'" style="text-align: right !important;">\n        {{data_fetch.message}}</p>\n\n      <!-- image message -->\n      <p *ngIf="data_fetch.type == \'image\' && data_fetch.sender_type == \'you\'">\n        <img-loader src="{{data_fetch.file}}"\n                    width="50%" useImg></img-loader>\n      </p>\n      <p *ngIf="data_fetch.type == \'image\' && data_fetch.sender_type == \'sender\'" style="text-align: right !important;">\n        <img-loader src="{{data_fetch.file}}" width="75%" useImg></img-loader>\n      </p>\n\n      <!-- video message -->\n      <p *ngIf="data_fetch.type == \'video\' && data_fetch.sender_type == \'you\'">\n        <video width="100%" controls>\n          <source src="{{data_fetch.file}}" type="video/mp4">\n        </video>\n      </p>\n      <p *ngIf="data_fetch.type == \'video\' && data_fetch.sender_type == \'sender\'" style="text-align: right !important;">\n        <video width="100%" controls>\n          <source src="{{data_fetch.file}}" type="video/mp4">\n        </video>\n      </p>\n    </ion-item>\n  </ion-list>\n</ion-content>\n\n<ion-footer>\n  <!-- file -->\n  <input type="file" style="display: none;" id="messageFile"\n         accept="image/x-png,image/gif,image/jpeg,video/mp4,video/x-m4v">\n\n  <ion-toolbar>\n    <!-- input box -->\n    <ion-input type="text" value="" [(ngModel)]="chatBox" placeholder="Type your message"></ion-input>\n\n    <ion-buttons end>\n      <!-- upload image / video -->\n      <button ion-button clear (click)="openFileDialog()">\n        <ion-icon ios="ios-cloud-upload" md="md-cloud-upload"></ion-icon>\n      </button>\n\n      <!-- send text message -->\n      <button ion-button clear icon-right (click)="sendText(chatBox)">\n        Send\n        <ion-icon name="send"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-footer>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\message\reading.inbox.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_message_provider__["a" /* MessageProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_5__providers_auth_provider__["a" /* AuthProvider */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["j" /* ChangeDetectorRef */]])
+    ], ReadingInboxPage);
     return ReadingInboxPage;
 }());
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_13" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Content */]),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Content */])
-], ReadingInboxPage.prototype, "content", void 0);
-ReadingInboxPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* NgModule */])({
-        imports: [
-            __WEBPACK_IMPORTED_MODULE_8_ionic_image_loader__["a" /* IonicImageLoader */]
-        ]
-    }),
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\message\reading.inbox.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @git https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Reading Message\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-list>\n    <ion-item *ngFor="let data_fetch of data_list" text-wrap>\n      <!-- avatar and name (you) -->\n      <ion-avatar item-left *ngIf="data_fetch.sender_type == \'you\'">\n        <img-loader src="{{data_fetch.from_avatar}}" useImg></img-loader>\n      </ion-avatar>\n      <h2 *ngIf="data_fetch.sender_type == \'you\'">{{data_fetch.from_full_name}}</h2>\n\n      <!-- avatar and name (sender) -->\n      <ion-avatar item-right *ngIf="data_fetch.sender_type == \'sender\'">\n        <img-loader src="{{data_fetch.from_avatar}}" useImg></img-loader>\n      </ion-avatar>\n      <h2 *ngIf="data_fetch.sender_type == \'sender\'" style="text-align: right !important;">\n        {{data_fetch.from_full_name}}</h2>\n\n      <!-- date and time -->\n      <p *ngIf="data_fetch.sender_type == \'you\'">{{data_fetch.formatted_created_at}}</p>\n      <p *ngIf="data_fetch.sender_type == \'sender\'" style="text-align: right !important;">\n        {{data_fetch.formatted_created_at}}</p>\n\n      <!-- text message -->\n      <p *ngIf="data_fetch.type == \'text\' && data_fetch.sender_type == \'you\'" class="text-wrap">\n        {{data_fetch.message}}</p>\n      <p *ngIf="data_fetch.type == \'text\' && data_fetch.sender_type == \'sender\'" style="text-align: right !important;">\n        {{data_fetch.message}}</p>\n\n      <!-- image message -->\n      <p *ngIf="data_fetch.type == \'image\' && data_fetch.sender_type == \'you\'">\n        <img-loader src="{{data_fetch.file}}"\n                    width="50%" useImg></img-loader>\n      </p>\n      <p *ngIf="data_fetch.type == \'image\' && data_fetch.sender_type == \'sender\'" style="text-align: right !important;">\n        <img-loader src="{{data_fetch.file}}" width="75%" useImg></img-loader>\n      </p>\n\n      <!-- video message -->\n      <p *ngIf="data_fetch.type == \'video\' && data_fetch.sender_type == \'you\'">\n        <video width="100%" controls>\n          <source src="{{data_fetch.file}}" type="video/mp4">\n        </video>\n      </p>\n      <p *ngIf="data_fetch.type == \'video\' && data_fetch.sender_type == \'sender\'" style="text-align: right !important;">\n        <video width="100%" controls>\n          <source src="{{data_fetch.file}}" type="video/mp4">\n        </video>\n      </p>\n    </ion-item>\n  </ion-list>\n</ion-content>\n\n<ion-footer>\n  <!-- file -->\n  <input type="file" style="display: none;" id="messageFile"\n         accept="image/x-png,image/gif,image/jpeg,video/mp4,video/x-m4v">\n\n  <ion-toolbar>\n    <!-- input box -->\n    <ion-input type="text" value="" [(ngModel)]="chatBox" placeholder="Type your message"></ion-input>\n\n    <ion-buttons end>\n      <!-- upload image / video -->\n      <button ion-button clear (click)="openFileDialog()">\n        <ion-icon ios="ios-cloud-upload" md="md-cloud-upload"></ion-icon>\n      </button>\n\n      <!-- send text message -->\n      <button ion-button clear icon-right (click)="sendText(chatBox)">\n        Send\n        <ion-icon name="send"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-footer>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\message\reading.inbox.html"*/
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_message_provider__["a" /* MessageProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_5__providers_auth_provider__["a" /* AuthProvider */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["k" /* ChangeDetectorRef */]])
-], ReadingInboxPage);
 
 //# sourceMappingURL=reading.inbox.js.map
 
 /***/ }),
 
-/***/ 289:
+/***/ 384:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserListPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_provider__ = __webpack_require__(290);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_provider__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__lib_helper__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ionic_image_loader__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_provider__ = __webpack_require__(385);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_provider__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__lib_helper__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ionic_image_loader__ = __webpack_require__(33);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -3253,35 +3566,35 @@ var UserListPage = (function () {
     UserListPage.prototype.closeModal = function () {
         this.viewCtrl.dismiss();
     };
+    UserListPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_5_ionic_image_loader__["a" /* IonicImageLoader */]
+            ]
+        }),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\user\user.list.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @url https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Search Users\n    </ion-title>\n\n    <ion-buttons end>\n      <!-- show this button if modal -->\n      <button *ngIf="params.get(\'return_page\') == \'modal\'" ion-button icon-only (click)="closeModal()">\n        <ion-icon ios="ios-close" md="md-close"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-refresher *ngIf="!init_loading" (ionRefresh)="doRefresh($event)">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <ion-list>\n    <ion-item *ngFor="let item of data_list" (click)="selectedUser(item.id)">\n      <ion-avatar item-left>\n        <img-loader src="{{item.avatar}}" useImg></img-loader>\n      </ion-avatar>\n\n      <h2>{{item.full_name}}</h2>\n    </ion-item>\n  </ion-list>\n\n  <!-- no orders -->\n  <h1 class="text-center" *ngIf="!data_list.length && !init_loading">\n    No Users!\n  </h1>\n\n  <ion-infinite-scroll *ngIf="!init_loading" (ionInfinite)="doInfinite($event)">\n    <ion-infinite-scroll-content></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n\n  <h1 class="text-center" *ngIf="init_loading">\n    <ion-spinner icon="spiral"></ion-spinner>\n    Loading...\n  </h1>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\user\user.list.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3__providers_auth_provider__["a" /* AuthProvider */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ViewController */], __WEBPACK_IMPORTED_MODULE_2__providers_user_provider__["a" /* UserProvider */]])
+    ], UserListPage);
     return UserListPage;
 }());
-UserListPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* NgModule */])({
-        imports: [
-            __WEBPACK_IMPORTED_MODULE_5_ionic_image_loader__["a" /* IonicImageLoader */]
-        ]
-    }),
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\user\user.list.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @git https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Search Users\n    </ion-title>\n\n    <ion-buttons end>\n      <!-- show this button if modal -->\n      <button *ngIf="params.get(\'return_page\') == \'modal\'" ion-button icon-only (click)="closeModal()">\n        <ion-icon ios="ios-close" md="md-close"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-refresher *ngIf="!init_loading" (ionRefresh)="doRefresh($event)">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <ion-list>\n    <ion-item *ngFor="let item of data_list" (click)="selectedUser(item.id)">\n      <ion-avatar item-left>\n        <img-loader src="{{item.avatar}}" useImg></img-loader>\n      </ion-avatar>\n\n      <h2>{{item.full_name}}</h2>\n    </ion-item>\n  </ion-list>\n\n  <!-- no orders -->\n  <h1 class="text-center" *ngIf="!data_list.length && !init_loading">\n    No Users!\n  </h1>\n\n  <ion-infinite-scroll *ngIf="!init_loading" (ionInfinite)="doInfinite($event)">\n    <ion-infinite-scroll-content></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n\n  <h1 class="text-center" *ngIf="init_loading">\n    <ion-spinner icon="spiral"></ion-spinner>\n    Loading...\n  </h1>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\user\user.list.html"*/
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3__providers_auth_provider__["a" /* AuthProvider */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ViewController */], __WEBPACK_IMPORTED_MODULE_2__providers_user_provider__["a" /* UserProvider */]])
-], UserListPage);
 
 //# sourceMappingURL=user.list.js.map
 
 /***/ }),
 
-/***/ 290:
+/***/ 385:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__apd_provider__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_helper__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__apd_provider__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_helper__ = __webpack_require__(12);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -3325,24 +3638,24 @@ var UserProvider = (function () {
             __WEBPACK_IMPORTED_MODULE_2__lib_helper__["a" /* WBHelper */].log('UserProvider-show: ' + res);
         });
     };
+    UserProvider = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__apd_provider__["a" /* APDProvider */]])
+    ], UserProvider);
     return UserProvider;
 }());
-UserProvider = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__apd_provider__["a" /* APDProvider */]])
-], UserProvider);
 
 //# sourceMappingURL=user-provider.js.map
 
 /***/ }),
 
-/***/ 291:
+/***/ 386:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(292);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(296);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(387);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(391);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -3350,54 +3663,54 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 296:
+/***/ 391:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_image_loader__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_status_bar__ = __webpack_require__(246);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_splash_screen__ = __webpack_require__(247);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(342);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_message_provider__ = __webpack_require__(145);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__providers_ecommerce_order_order__ = __webpack_require__(144);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_ecommerce_cart_cart__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_ecommerce_product_product__ = __webpack_require__(63);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__providers_ecommerce_product_category__ = __webpack_require__(284);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__providers_user_provider__ = __webpack_require__(290);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__providers_application_provider__ = __webpack_require__(278);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__providers_auth_provider__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__providers_apd_provider__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_about_about__ = __webpack_require__(272);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_contact_contact__ = __webpack_require__(273);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_home_home__ = __webpack_require__(608);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_user_user_list__ = __webpack_require__(289);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pages_message_reading_inbox__ = __webpack_require__(288);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_message_inbox__ = __webpack_require__(287);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_ecommerce_order_order_details__ = __webpack_require__(286);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_ecommerce_order_order_list__ = __webpack_require__(285);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pages_ecommerce_cart_update_quantity_modal__ = __webpack_require__(280);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__pages_ecommerce_cart_success__ = __webpack_require__(279);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__pages_ecommerce_cart_checkout__ = __webpack_require__(277);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__pages_ecommerce_cart_content__ = __webpack_require__(89);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_ecommerce_product_filter_modal__ = __webpack_require__(283);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pages_ecommerce_product_product_show__ = __webpack_require__(143);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__pages_ecommerce_product_product_list__ = __webpack_require__(142);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__pages_ecommerce_product_category__ = __webpack_require__(609);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__pages_drawer_drawer__ = __webpack_require__(62);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__pages_settings_security__ = __webpack_require__(276);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__pages_settings_general__ = __webpack_require__(275);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__pages_settings_settings_tab__ = __webpack_require__(274);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__pages_authentication_forgot__ = __webpack_require__(282);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__pages_authentication_register__ = __webpack_require__(281);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__pages_authentication_login__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_angular__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_image_loader__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(272);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_splash_screen__ = __webpack_require__(273);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_common_http__ = __webpack_require__(274);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(436);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_message_provider__ = __webpack_require__(167);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__providers_ecommerce_order_order__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_ecommerce_cart_cart__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_ecommerce_product_product__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__providers_ecommerce_product_category__ = __webpack_require__(379);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__providers_user_provider__ = __webpack_require__(385);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__providers_application_provider__ = __webpack_require__(373);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__providers_auth_provider__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__providers_apd_provider__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_about_about__ = __webpack_require__(367);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_contact_contact__ = __webpack_require__(368);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_home_home__ = __webpack_require__(713);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_user_user_list__ = __webpack_require__(384);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pages_message_reading_inbox__ = __webpack_require__(383);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_message_inbox__ = __webpack_require__(382);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_ecommerce_order_order_details__ = __webpack_require__(381);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_ecommerce_order_order_list__ = __webpack_require__(380);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pages_ecommerce_cart_update_quantity_modal__ = __webpack_require__(375);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__pages_ecommerce_cart_success__ = __webpack_require__(374);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__pages_ecommerce_cart_checkout__ = __webpack_require__(372);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__pages_ecommerce_cart_content__ = __webpack_require__(95);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_ecommerce_product_filter_modal__ = __webpack_require__(378);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pages_ecommerce_product_product_show__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__pages_ecommerce_product_product_list__ = __webpack_require__(164);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__pages_ecommerce_product_category__ = __webpack_require__(714);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__pages_drawer_drawer__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__pages_settings_security__ = __webpack_require__(371);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__pages_settings_general__ = __webpack_require__(370);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__pages_settings_settings_tab__ = __webpack_require__(369);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__pages_authentication_forgot__ = __webpack_require__(377);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__pages_authentication_register__ = __webpack_require__(376);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__pages_authentication_login__ = __webpack_require__(70);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -3450,116 +3763,118 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var AppModule = (function () {
     function AppModule() {
     }
+    AppModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["I" /* NgModule */])({
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* MyApp */],
+                __WEBPACK_IMPORTED_MODULE_39__pages_authentication_login__["a" /* LoginPage */],
+                __WEBPACK_IMPORTED_MODULE_38__pages_authentication_register__["a" /* RegisterPage */],
+                __WEBPACK_IMPORTED_MODULE_37__pages_authentication_forgot__["a" /* ForgotPage */],
+                __WEBPACK_IMPORTED_MODULE_36__pages_settings_settings_tab__["a" /* SettingsTabPage */],
+                __WEBPACK_IMPORTED_MODULE_35__pages_settings_general__["a" /* GeneralPage */],
+                __WEBPACK_IMPORTED_MODULE_34__pages_settings_security__["a" /* SecurityPage */],
+                __WEBPACK_IMPORTED_MODULE_33__pages_drawer_drawer__["a" /* DrawerPage */],
+                __WEBPACK_IMPORTED_MODULE_19__pages_home_home__["a" /* HomePage */],
+                __WEBPACK_IMPORTED_MODULE_17__pages_about_about__["a" /* AboutPage */],
+                __WEBPACK_IMPORTED_MODULE_18__pages_contact_contact__["a" /* ContactPage */],
+                // ECommerce Declarations
+                __WEBPACK_IMPORTED_MODULE_32__pages_ecommerce_product_category__["a" /* ECommerceProductCategoryPage */],
+                __WEBPACK_IMPORTED_MODULE_31__pages_ecommerce_product_product_list__["a" /* ECommerceProductListPage */],
+                __WEBPACK_IMPORTED_MODULE_30__pages_ecommerce_product_product_show__["a" /* ECommerceProductShowPage */],
+                __WEBPACK_IMPORTED_MODULE_29__pages_ecommerce_product_filter_modal__["a" /* ECommerceProductFilterModal */],
+                __WEBPACK_IMPORTED_MODULE_28__pages_ecommerce_cart_content__["a" /* ECommerceCartContentPage */],
+                __WEBPACK_IMPORTED_MODULE_27__pages_ecommerce_cart_checkout__["a" /* ECommerceCartCheckoutPage */],
+                __WEBPACK_IMPORTED_MODULE_26__pages_ecommerce_cart_success__["a" /* ECommerceCartSuccessPage */],
+                __WEBPACK_IMPORTED_MODULE_25__pages_ecommerce_cart_update_quantity_modal__["a" /* ECommerceCartItemQuantityModal */],
+                __WEBPACK_IMPORTED_MODULE_24__pages_ecommerce_order_order_list__["a" /* ECommerceOrderListPage */],
+                __WEBPACK_IMPORTED_MODULE_23__pages_ecommerce_order_order_details__["a" /* ECommerceOrderDetailsPage */],
+                // Messenger
+                __WEBPACK_IMPORTED_MODULE_22__pages_message_inbox__["a" /* InboxPage */],
+                __WEBPACK_IMPORTED_MODULE_21__pages_message_reading_inbox__["a" /* ReadingInboxPage */],
+                // User
+                __WEBPACK_IMPORTED_MODULE_20__pages_user_user_list__["a" /* UserListPage */]
+            ],
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__["a" /* BrowserModule */],
+                __WEBPACK_IMPORTED_MODULE_6__angular_common_http__["b" /* HttpClientModule */],
+                __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["g" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* MyApp */], {}, {
+                    links: []
+                }),
+                __WEBPACK_IMPORTED_MODULE_3_ionic_image_loader__["a" /* IonicImageLoader */].forRoot()
+            ],
+            bootstrap: [__WEBPACK_IMPORTED_MODULE_0_ionic_angular__["e" /* IonicApp */]],
+            entryComponents: [
+                __WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* MyApp */],
+                __WEBPACK_IMPORTED_MODULE_39__pages_authentication_login__["a" /* LoginPage */],
+                __WEBPACK_IMPORTED_MODULE_38__pages_authentication_register__["a" /* RegisterPage */],
+                __WEBPACK_IMPORTED_MODULE_37__pages_authentication_forgot__["a" /* ForgotPage */],
+                __WEBPACK_IMPORTED_MODULE_36__pages_settings_settings_tab__["a" /* SettingsTabPage */],
+                __WEBPACK_IMPORTED_MODULE_35__pages_settings_general__["a" /* GeneralPage */],
+                __WEBPACK_IMPORTED_MODULE_34__pages_settings_security__["a" /* SecurityPage */],
+                __WEBPACK_IMPORTED_MODULE_33__pages_drawer_drawer__["a" /* DrawerPage */],
+                __WEBPACK_IMPORTED_MODULE_19__pages_home_home__["a" /* HomePage */],
+                __WEBPACK_IMPORTED_MODULE_17__pages_about_about__["a" /* AboutPage */],
+                __WEBPACK_IMPORTED_MODULE_18__pages_contact_contact__["a" /* ContactPage */],
+                // ECommerce Declarations
+                __WEBPACK_IMPORTED_MODULE_32__pages_ecommerce_product_category__["a" /* ECommerceProductCategoryPage */],
+                __WEBPACK_IMPORTED_MODULE_31__pages_ecommerce_product_product_list__["a" /* ECommerceProductListPage */],
+                __WEBPACK_IMPORTED_MODULE_30__pages_ecommerce_product_product_show__["a" /* ECommerceProductShowPage */],
+                __WEBPACK_IMPORTED_MODULE_29__pages_ecommerce_product_filter_modal__["a" /* ECommerceProductFilterModal */],
+                __WEBPACK_IMPORTED_MODULE_28__pages_ecommerce_cart_content__["a" /* ECommerceCartContentPage */],
+                __WEBPACK_IMPORTED_MODULE_27__pages_ecommerce_cart_checkout__["a" /* ECommerceCartCheckoutPage */],
+                __WEBPACK_IMPORTED_MODULE_26__pages_ecommerce_cart_success__["a" /* ECommerceCartSuccessPage */],
+                __WEBPACK_IMPORTED_MODULE_25__pages_ecommerce_cart_update_quantity_modal__["a" /* ECommerceCartItemQuantityModal */],
+                __WEBPACK_IMPORTED_MODULE_24__pages_ecommerce_order_order_list__["a" /* ECommerceOrderListPage */],
+                __WEBPACK_IMPORTED_MODULE_23__pages_ecommerce_order_order_details__["a" /* ECommerceOrderDetailsPage */],
+                // Messenger
+                __WEBPACK_IMPORTED_MODULE_22__pages_message_inbox__["a" /* InboxPage */],
+                __WEBPACK_IMPORTED_MODULE_21__pages_message_reading_inbox__["a" /* ReadingInboxPage */],
+                // User
+                __WEBPACK_IMPORTED_MODULE_20__pages_user_user_list__["a" /* UserListPage */]
+            ],
+            providers: [
+                __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__["a" /* StatusBar */],
+                __WEBPACK_IMPORTED_MODULE_5__ionic_native_splash_screen__["a" /* SplashScreen */],
+                __WEBPACK_IMPORTED_MODULE_16__providers_apd_provider__["a" /* APDProvider */],
+                __WEBPACK_IMPORTED_MODULE_14__providers_application_provider__["a" /* ApplicationProvider */],
+                __WEBPACK_IMPORTED_MODULE_15__providers_auth_provider__["a" /* AuthProvider */],
+                __WEBPACK_IMPORTED_MODULE_13__providers_user_provider__["a" /* UserProvider */],
+                // ECommerce Providers
+                __WEBPACK_IMPORTED_MODULE_12__providers_ecommerce_product_category__["a" /* ECommerceProductCategories */],
+                __WEBPACK_IMPORTED_MODULE_11__providers_ecommerce_product_product__["a" /* ECommerceProduct */],
+                __WEBPACK_IMPORTED_MODULE_10__providers_ecommerce_cart_cart__["a" /* ECommerceCart */],
+                __WEBPACK_IMPORTED_MODULE_9__providers_ecommerce_order_order__["a" /* ECommerceOrder */],
+                // Messenger
+                __WEBPACK_IMPORTED_MODULE_8__providers_message_provider__["a" /* MessageProvider */],
+                { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["f" /* IonicErrorHandler */] }
+            ]
+        })
+    ], AppModule);
     return AppModule;
 }());
-AppModule = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* NgModule */])({
-        declarations: [
-            __WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* MyApp */],
-            __WEBPACK_IMPORTED_MODULE_39__pages_authentication_login__["a" /* LoginPage */],
-            __WEBPACK_IMPORTED_MODULE_38__pages_authentication_register__["a" /* RegisterPage */],
-            __WEBPACK_IMPORTED_MODULE_37__pages_authentication_forgot__["a" /* ForgotPage */],
-            __WEBPACK_IMPORTED_MODULE_36__pages_settings_settings_tab__["a" /* SettingsTabPage */],
-            __WEBPACK_IMPORTED_MODULE_35__pages_settings_general__["a" /* GeneralPage */],
-            __WEBPACK_IMPORTED_MODULE_34__pages_settings_security__["a" /* SecurityPage */],
-            __WEBPACK_IMPORTED_MODULE_33__pages_drawer_drawer__["a" /* DrawerPage */],
-            __WEBPACK_IMPORTED_MODULE_19__pages_home_home__["a" /* HomePage */],
-            __WEBPACK_IMPORTED_MODULE_17__pages_about_about__["a" /* AboutPage */],
-            __WEBPACK_IMPORTED_MODULE_18__pages_contact_contact__["a" /* ContactPage */],
-            // ECommerce Declarations
-            __WEBPACK_IMPORTED_MODULE_32__pages_ecommerce_product_category__["a" /* ECommerceProductCategoryPage */],
-            __WEBPACK_IMPORTED_MODULE_31__pages_ecommerce_product_product_list__["a" /* ECommerceProductListPage */],
-            __WEBPACK_IMPORTED_MODULE_30__pages_ecommerce_product_product_show__["a" /* ECommerceProductShowPage */],
-            __WEBPACK_IMPORTED_MODULE_29__pages_ecommerce_product_filter_modal__["a" /* ECommerceProductFilterModal */],
-            __WEBPACK_IMPORTED_MODULE_28__pages_ecommerce_cart_content__["a" /* ECommerceCartContentPage */],
-            __WEBPACK_IMPORTED_MODULE_27__pages_ecommerce_cart_checkout__["a" /* ECommerceCartCheckoutPage */],
-            __WEBPACK_IMPORTED_MODULE_26__pages_ecommerce_cart_success__["a" /* ECommerceCartSuccessPage */],
-            __WEBPACK_IMPORTED_MODULE_25__pages_ecommerce_cart_update_quantity_modal__["a" /* ECommerceCartItemQuantityModal */],
-            __WEBPACK_IMPORTED_MODULE_24__pages_ecommerce_order_order_list__["a" /* ECommerceOrderListPage */],
-            __WEBPACK_IMPORTED_MODULE_23__pages_ecommerce_order_order_details__["a" /* ECommerceOrderDetailsPage */],
-            // Messenger
-            __WEBPACK_IMPORTED_MODULE_22__pages_message_inbox__["a" /* InboxPage */],
-            __WEBPACK_IMPORTED_MODULE_21__pages_message_reading_inbox__["a" /* ReadingInboxPage */],
-            // User
-            __WEBPACK_IMPORTED_MODULE_20__pages_user_user_list__["a" /* UserListPage */]
-        ],
-        imports: [
-            __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__["a" /* BrowserModule */],
-            __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* HttpModule */],
-            __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["g" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* MyApp */]),
-            __WEBPACK_IMPORTED_MODULE_4_ionic_image_loader__["a" /* IonicImageLoader */].forRoot()
-        ],
-        bootstrap: [__WEBPACK_IMPORTED_MODULE_3_ionic_angular__["e" /* IonicApp */]],
-        entryComponents: [
-            __WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* MyApp */],
-            __WEBPACK_IMPORTED_MODULE_39__pages_authentication_login__["a" /* LoginPage */],
-            __WEBPACK_IMPORTED_MODULE_38__pages_authentication_register__["a" /* RegisterPage */],
-            __WEBPACK_IMPORTED_MODULE_37__pages_authentication_forgot__["a" /* ForgotPage */],
-            __WEBPACK_IMPORTED_MODULE_36__pages_settings_settings_tab__["a" /* SettingsTabPage */],
-            __WEBPACK_IMPORTED_MODULE_35__pages_settings_general__["a" /* GeneralPage */],
-            __WEBPACK_IMPORTED_MODULE_34__pages_settings_security__["a" /* SecurityPage */],
-            __WEBPACK_IMPORTED_MODULE_33__pages_drawer_drawer__["a" /* DrawerPage */],
-            __WEBPACK_IMPORTED_MODULE_19__pages_home_home__["a" /* HomePage */],
-            __WEBPACK_IMPORTED_MODULE_17__pages_about_about__["a" /* AboutPage */],
-            __WEBPACK_IMPORTED_MODULE_18__pages_contact_contact__["a" /* ContactPage */],
-            // ECommerce Declarations
-            __WEBPACK_IMPORTED_MODULE_32__pages_ecommerce_product_category__["a" /* ECommerceProductCategoryPage */],
-            __WEBPACK_IMPORTED_MODULE_31__pages_ecommerce_product_product_list__["a" /* ECommerceProductListPage */],
-            __WEBPACK_IMPORTED_MODULE_30__pages_ecommerce_product_product_show__["a" /* ECommerceProductShowPage */],
-            __WEBPACK_IMPORTED_MODULE_29__pages_ecommerce_product_filter_modal__["a" /* ECommerceProductFilterModal */],
-            __WEBPACK_IMPORTED_MODULE_28__pages_ecommerce_cart_content__["a" /* ECommerceCartContentPage */],
-            __WEBPACK_IMPORTED_MODULE_27__pages_ecommerce_cart_checkout__["a" /* ECommerceCartCheckoutPage */],
-            __WEBPACK_IMPORTED_MODULE_26__pages_ecommerce_cart_success__["a" /* ECommerceCartSuccessPage */],
-            __WEBPACK_IMPORTED_MODULE_25__pages_ecommerce_cart_update_quantity_modal__["a" /* ECommerceCartItemQuantityModal */],
-            __WEBPACK_IMPORTED_MODULE_24__pages_ecommerce_order_order_list__["a" /* ECommerceOrderListPage */],
-            __WEBPACK_IMPORTED_MODULE_23__pages_ecommerce_order_order_details__["a" /* ECommerceOrderDetailsPage */],
-            // Messenger
-            __WEBPACK_IMPORTED_MODULE_22__pages_message_inbox__["a" /* InboxPage */],
-            __WEBPACK_IMPORTED_MODULE_21__pages_message_reading_inbox__["a" /* ReadingInboxPage */],
-            // User
-            __WEBPACK_IMPORTED_MODULE_20__pages_user_user_list__["a" /* UserListPage */]
-        ],
-        providers: [
-            __WEBPACK_IMPORTED_MODULE_5__ionic_native_status_bar__["a" /* StatusBar */],
-            __WEBPACK_IMPORTED_MODULE_6__ionic_native_splash_screen__["a" /* SplashScreen */],
-            __WEBPACK_IMPORTED_MODULE_16__providers_apd_provider__["a" /* APDProvider */],
-            __WEBPACK_IMPORTED_MODULE_14__providers_application_provider__["a" /* ApplicationProvider */],
-            __WEBPACK_IMPORTED_MODULE_15__providers_auth_provider__["a" /* AuthProvider */],
-            __WEBPACK_IMPORTED_MODULE_13__providers_user_provider__["a" /* UserProvider */],
-            // ECommerce Providers
-            __WEBPACK_IMPORTED_MODULE_12__providers_ecommerce_product_category__["a" /* ECommerceProductCategories */],
-            __WEBPACK_IMPORTED_MODULE_11__providers_ecommerce_product_product__["a" /* ECommerceProduct */],
-            __WEBPACK_IMPORTED_MODULE_10__providers_ecommerce_cart_cart__["a" /* ECommerceCart */],
-            __WEBPACK_IMPORTED_MODULE_9__providers_ecommerce_order_order__["a" /* ECommerceOrder */],
-            // Messenger
-            __WEBPACK_IMPORTED_MODULE_8__providers_message_provider__["a" /* MessageProvider */],
-            { provide: __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["f" /* IonicErrorHandler */] }
-        ]
-    })
-], AppModule);
 
 //# sourceMappingURL=app.module.js.map
 
 /***/ }),
 
-/***/ 342:
+/***/ 436:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(246);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(247);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_auth_provider__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__lib_config__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__lib_views__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_drawer_drawer__ = __webpack_require__(62);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__lib_socket__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__lib_helper__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(272);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(273);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_auth_provider__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__lib_config__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__lib_views__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_drawer_drawer__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__lib_socket__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__lib_helper__ = __webpack_require__(12);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -3599,9 +3914,6 @@ var MyApp = (function () {
         var _this = this;
         this.platform.ready().then(function () {
             var thisApp = _this;
-            // check if user is authenticated
-            // drawer menus
-            thisApp.rootPage = __WEBPACK_IMPORTED_MODULE_7__pages_drawer_drawer__["a" /* DrawerPage */];
             // run the application data
             thisApp.run();
             // event listener for syncing application
@@ -3619,9 +3931,7 @@ var MyApp = (function () {
         // Okay, so the platform is ready and our plugins are available.
         // Here you can do any higher level native things you might need.
         this.statusBar.styleDefault();
-        if (this.splashScreen) {
-            this.splashScreen.hide();
-        }
+        this.splashScreen.hide();
         // check if user is authenticated
         // drawer menus
         thisApp.rootPage = __WEBPACK_IMPORTED_MODULE_7__pages_drawer_drawer__["a" /* DrawerPage */];
@@ -3750,279 +4060,31 @@ var MyApp = (function () {
         session.lng = __WEBPACK_IMPORTED_MODULE_5__lib_config__["a" /* WBConfig */].lng;
         __WEBPACK_IMPORTED_MODULE_8__lib_socket__["a" /* WBSocket */].emit('register_session', session);
     };
+    MyApp = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            template: "<ion-nav [root]=\"rootPage\"></ion-nav>"
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* Platform */], __WEBPACK_IMPORTED_MODULE_4__providers_auth_provider__["a" /* AuthProvider */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */],
+            __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
+    ], MyApp);
     return MyApp;
 }());
-MyApp = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        template: "<ion-nav [root]=\"rootPage\"></ion-nav>"
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* Platform */], __WEBPACK_IMPORTED_MODULE_4__providers_auth_provider__["a" /* AuthProvider */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */],
-        __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
-], MyApp);
 
 //# sourceMappingURL=app.component.js.map
 
 /***/ }),
 
-/***/ 37:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WBConfig; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(11);
-/**
- * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
- * @copyright Webmons Development Studio. (webmons.com), 2016-2017
- * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
- */
-
-var _WBConfig = (function () {
-    return {
-        // this application
-        thisApp: null,
-        // is development mode
-        dev: true,
-        // platform type default is browser mode
-        is_browser: true,
-        // api for google maps
-        api_key_google: '',
-        map_box_token: '',
-        // facebook authentication (disabled)
-        facebook_auth: true,
-        // server url
-        dev_domain: 'http://your-dev',
-        prod_domain: 'http://your-prod',
-        server_url: function () {
-            return (_WBConfig.dev) ? _WBConfig.dev_domain + ':80/api/v1/' : _WBConfig.prod_domain + '/api/v1/';
-        },
-        // socket IO
-        enable_web_socket: false,
-        socket_uri: function () {
-            return (_WBConfig.dev) ? _WBConfig.dev_domain + ':3000/' : _WBConfig.prod_domain + ':3000/';
-        },
-        // Fire-base Cloud Messaging
-        enableFCM: false,
-        // we will watch the user's position on application sync
-        watchPosition: false,
-        // GPS
-        lat: 0,
-        lng: 0,
-        watchPositionID: null,
-        // socket defaults
-        private_message_on_view: false,
-        // reset the config
-        resetGPS: function () {
-            // stop GSP watch
-            __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* WBHelper */].stopWatchPosition();
-            _WBConfig.lat = 0;
-            _WBConfig.lng = 0;
-            _WBConfig.watchPositionID = null;
-        }
-    };
-}());
-var WBConfig = _WBConfig;
-//# sourceMappingURL=config.js.map
-
-/***/ }),
-
-/***/ 38:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return APDProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(248);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Rx__ = __webpack_require__(343);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Rx__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__lib_helper__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__lib_security__ = __webpack_require__(271);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__lib_config__ = __webpack_require__(37);
-/**
- * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
- * @copyright Webmons Development Studio. (webmons.com), 2016-2017
- * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
- */
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-
-var APDProvider = APDProvider_1 = (function () {
-    function APDProvider(http) {
-        this.http = http;
-        __WEBPACK_IMPORTED_MODULE_4__lib_helper__["a" /* WBHelper */].log('App Provider Called.');
-    }
-    APDProvider.me = function () {
-        var auth = __WEBPACK_IMPORTED_MODULE_4__lib_helper__["a" /* WBHelper */].getItem('user', true);
-        return (!!(auth)) ? auth : null;
-    };
-    /**
-     * Request status response
-     *
-     * @param response
-     * @returns {any}
-     */
-    APDProvider.requestStatus = function (response) {
-        if (response.status < 200 || response.status >= 300) {
-            __WEBPACK_IMPORTED_MODULE_4__lib_helper__["a" /* WBHelper */].error('APDProvider-requestStatus' + 'Bad response status: ' + response.status);
-            APDProvider_1._handleError('Bad response status: ' + response.status);
-        }
-        return response.json();
-    };
-    /**
-     * Headers for authenticated
-     *
-     * @returns {Headers}
-     */
-    APDProvider.headersAuth = function () {
-        var me = APDProvider_1.me();
-        __WEBPACK_IMPORTED_MODULE_4__lib_helper__["a" /* WBHelper */].log('headersAuth: ' + JSON.stringify(me));
-        // headers
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({
-            'Content-Type': 'application/json',
-            'Authorization': "Bearer " + __WEBPACK_IMPORTED_MODULE_6__lib_security__["a" /* WBSecurity */].jwtAuth(),
-            'token_key': me.token_key,
-            'authenticated_id': me.id
-        });
-        return new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
-    };
-    /**
-     * Headers for guest
-     *
-     * @returns {RequestOptions}
-     */
-    APDProvider.headersGuest = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({
-            'Content-Type': 'application/json'
-        });
-        return new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
-    };
-    /**
-     * GET request
-     *
-     * @param uri
-     * @param parameters
-     * @param successCallback
-     * @returns {any}
-     */
-    APDProvider.prototype.get = function (uri, parameters, successCallback) {
-        var thisApp = this;
-        var url = __WEBPACK_IMPORTED_MODULE_7__lib_config__["a" /* WBConfig */].server_url() + uri;
-        var res_options = (APDProvider_1.me()) ? APDProvider_1.headersAuth() : APDProvider_1.headersGuest();
-        // parameters
-        var params = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["e" /* URLSearchParams */]();
-        if (parameters) {
-            jQ.each(parameters, function (i, val) {
-                params.set(i, val);
-            });
-        }
-        // append this additional parameters
-        res_options.search = params;
-        return thisApp.http.get(url, res_options).map(function (response) {
-            var res = APDProvider_1.requestStatus(response);
-            successCallback(res);
-            return res;
-        }).catch(APDProvider_1._handleError);
-    };
-    /**
-     * POST request
-     *
-     * @param uri
-     * @param parameters
-     * @param successCallback
-     * @returns {any}
-     */
-    APDProvider.prototype.post = function (uri, parameters, successCallback) {
-        var thisApp = this;
-        var url = __WEBPACK_IMPORTED_MODULE_7__lib_config__["a" /* WBConfig */].server_url() + uri;
-        var body = (parameters) ? JSON.stringify(parameters) : null;
-        var headers = (APDProvider_1.me()) ? APDProvider_1.headersAuth() : APDProvider_1.headersGuest();
-        return thisApp.http.post(url, body, headers).map(function (response) {
-            var res = APDProvider_1.requestStatus(response);
-            successCallback(res);
-            return res;
-        }).catch(APDProvider_1._handleError);
-    };
-    /**
-     * Upload
-     *
-     * Single file: {name: value}
-     * Multiple file: {name_1: [value_1, value_2], name_2: [value_1, value_2]}
-     *
-     * @param uri
-     * @param parameters
-     * @param successCallback
-     * @param errorCallback
-     */
-    APDProvider.prototype.upload = function (uri, parameters, successCallback, errorCallback) {
-        var me = APDProvider_1.me();
-        var url = __WEBPACK_IMPORTED_MODULE_7__lib_config__["a" /* WBConfig */].server_url() + uri;
-        WBUpload(url, me, __WEBPACK_IMPORTED_MODULE_6__lib_security__["a" /* WBSecurity */].jwtAuth(), APDProvider_1, parameters, successCallback, errorCallback);
-    };
-    /**
-     * Handle errors
-     *
-     * @param error
-     * @returns {any}
-     * @private
-     */
-    APDProvider._handleError = function (error) {
-        if (error instanceof String || typeof error.json != 'function') {
-            __WEBPACK_IMPORTED_MODULE_4__lib_helper__["a" /* WBHelper */].errorMessage(error);
-            __WEBPACK_IMPORTED_MODULE_4__lib_helper__["a" /* WBHelper */].error('APDProvider-_handleError-instanceof: ' + error);
-            return __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__["Observable"].throw(error);
-        }
-        var error_data = error.json();
-        if (!error_data.errors) {
-            __WEBPACK_IMPORTED_MODULE_4__lib_helper__["a" /* WBHelper */].errorMessage(error);
-            __WEBPACK_IMPORTED_MODULE_4__lib_helper__["a" /* WBHelper */].log("APDProvider-_handleError-error_data: Unknown JSON data error.");
-            return __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__["Observable"].throw("Unknown JSON data error.");
-        }
-        __WEBPACK_IMPORTED_MODULE_4__lib_helper__["a" /* WBHelper */].errorMessage(error_data.errors);
-        __WEBPACK_IMPORTED_MODULE_4__lib_helper__["a" /* WBHelper */].error('APDProvider-_handleError-Observable.throw: ' + JSON.stringify(error_data.errors));
-        return __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__["Observable"].throw(JSON.stringify(error_data.errors));
-    };
-    return APDProvider;
-}());
-APDProvider = APDProvider_1 = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]])
-], APDProvider);
-
-var APDProvider_1;
-//# sourceMappingURL=apd-provider.js.map
-
-/***/ }),
-
-/***/ 49:
+/***/ 50:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WBSocket; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helper__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helper__ = __webpack_require__(12);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -4130,17 +4192,17 @@ var WBSocket = _WBSocket;
 
 /***/ }),
 
-/***/ 50:
+/***/ 51:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ECommerceCart; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__apd_provider__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_helper__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__apd_provider__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_helper__ = __webpack_require__(12);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -4247,120 +4309,38 @@ var ECommerceCart = (function () {
             __WEBPACK_IMPORTED_MODULE_2__lib_helper__["a" /* WBHelper */].log('Product place: ' + res);
         });
     };
+    ECommerceCart = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__apd_provider__["a" /* APDProvider */]])
+    ], ECommerceCart);
     return ECommerceCart;
 }());
-ECommerceCart = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__apd_provider__["a" /* APDProvider */]])
-], ECommerceCart);
 
 //# sourceMappingURL=cart.js.map
 
 /***/ }),
 
-/***/ 608:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/**
- * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
- * @copyright Webmons Development Studio. (webmons.com), 2016-2017
- * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
- */
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var HomePage = (function () {
-    function HomePage(nav) {
-        this.nav = nav;
-    }
-    HomePage.prototype.ionViewDidEnter = function () {
-    };
-    return HomePage;
-}());
-HomePage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\home\home.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @git https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>Home</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\home\home.html"*/
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */]])
-], HomePage);
-
-//# sourceMappingURL=home.js.map
-
-/***/ }),
-
-/***/ 609:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ECommerceProductCategoryPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/**
- * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
- * @copyright Webmons Development Studio. (webmons.com), 2016-2017
- * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
- */
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var ECommerceProductCategoryPage = (function () {
-    function ECommerceProductCategoryPage(nav) {
-        this.nav = nav;
-    }
-    return ECommerceProductCategoryPage;
-}());
-ECommerceProductCategoryPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\product\category.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @git https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>\n      Category\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\product\category.html"*/
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */]])
-], ECommerceProductCategoryPage);
-
-//# sourceMappingURL=category.js.map
-
-/***/ }),
-
-/***/ 62:
+/***/ 68:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DrawerPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__about_about__ = __webpack_require__(272);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__contact_contact__ = __webpack_require__(273);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__settings_settings_tab__ = __webpack_require__(274);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ecommerce_product_product_list__ = __webpack_require__(142);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ecommerce_cart_content__ = __webpack_require__(89);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ecommerce_order_order_list__ = __webpack_require__(285);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__message_inbox__ = __webpack_require__(287);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__authentication_login__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_auth_provider__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__lib_socket__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_ionic_image_loader__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__about_about__ = __webpack_require__(367);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__contact_contact__ = __webpack_require__(368);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__settings_settings_tab__ = __webpack_require__(369);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ecommerce_product_product_list__ = __webpack_require__(164);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ecommerce_cart_content__ = __webpack_require__(95);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ecommerce_order_order_list__ = __webpack_require__(380);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__message_inbox__ = __webpack_require__(382);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__authentication_login__ = __webpack_require__(70);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_auth_provider__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__lib_socket__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_ionic_image_loader__ = __webpack_require__(33);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -4386,7 +4366,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var DrawerPage = DrawerPage_1 = (function () {
+var DrawerPage = (function () {
     function DrawerPage(auth, modalCtrl, alertCtrl) {
         this.auth = auth;
         this.modalCtrl = modalCtrl;
@@ -4397,6 +4377,7 @@ var DrawerPage = DrawerPage_1 = (function () {
             thisApp.setMenus();
         });
     }
+    DrawerPage_1 = DrawerPage;
     DrawerPage.prototype.ionViewDidEnter = function () {
         this.setMenus();
     };
@@ -4479,39 +4460,39 @@ var DrawerPage = DrawerPage_1 = (function () {
             ]
         }).present();
     };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Nav */]),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Nav */])
+    ], DrawerPage.prototype, "nav", void 0);
+    DrawerPage = DrawerPage_1 = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_12_ionic_image_loader__["a" /* IonicImageLoader */]
+            ]
+        }),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\drawer\drawer.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @url https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-menu [content]="content">\n  <ion-header no-shadow>\n    <ion-toolbar>\n      <ion-title>Menu</ion-title>\n    </ion-toolbar>\n  </ion-header>\n\n  <ion-content>\n    <!-- profile details -->\n    <ion-card *ngIf="auth.check()" style="box-shadow: none !important;">\n      <ion-item class="profile-item">\n        <div class="profile-picture">\n          <img-loader src="{{auth.user().avatar}}" (click)="profile()" menuClose useImg></img-loader>\n        </div>\n\n        <h4 class="profile-name">{{auth.user().full_name}}</h4>\n        <p *ngIf="auth.user().email">{{auth.user().email}}</p>\n      </ion-item>\n\n      <ion-item class="profile-item">\n        <button menuClose ion-button block outline (click)="profile()">\n          Profile Settings\n        </button>\n      </ion-item>\n    </ion-card>\n\n    <!-- menu list -->\n    <ion-list>\n      <ion-item menuClose *ngFor="let p of pages" (click)="openPage(p)" no-lines>\n        {{p.title}}\n      </ion-item>\n    </ion-list>\n  </ion-content>\n</ion-menu>\n\n<ion-nav #content [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\drawer\drawer.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_10__providers_auth_provider__["a" /* AuthProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ModalController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */]])
+    ], DrawerPage);
     return DrawerPage;
+    var DrawerPage_1;
 }());
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_13" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Nav */]),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Nav */])
-], DrawerPage.prototype, "nav", void 0);
-DrawerPage = DrawerPage_1 = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* NgModule */])({
-        imports: [
-            __WEBPACK_IMPORTED_MODULE_12_ionic_image_loader__["a" /* IonicImageLoader */]
-        ]
-    }),
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\drawer\drawer.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @git https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-menu [content]="content">\n  <ion-header no-shadow>\n    <ion-toolbar>\n      <ion-title>Menu</ion-title>\n    </ion-toolbar>\n  </ion-header>\n\n  <ion-content>\n    <!-- profile details -->\n    <ion-card *ngIf="auth.check()" style="box-shadow: none !important;">\n      <ion-item class="profile-item">\n        <div class="profile-picture">\n          <img-loader src="{{auth.user().avatar}}" (click)="profile()" menuClose useImg></img-loader>\n        </div>\n\n        <h4 class="profile-name">{{auth.user().full_name}}</h4>\n        <p *ngIf="auth.user().email">{{auth.user().email}}</p>\n      </ion-item>\n\n      <ion-item class="profile-item">\n        <button menuClose ion-button block outline (click)="profile()">\n          Profile Settings\n        </button>\n      </ion-item>\n    </ion-card>\n\n    <!-- menu list -->\n    <ion-list>\n      <ion-item menuClose *ngFor="let p of pages" (click)="openPage(p)" no-lines>\n        {{p.title}}\n      </ion-item>\n    </ion-list>\n  </ion-content>\n</ion-menu>\n\n<ion-nav #content [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\drawer\drawer.html"*/,
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_10__providers_auth_provider__["a" /* AuthProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ModalController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */]])
-], DrawerPage);
 
-var DrawerPage_1;
 //# sourceMappingURL=drawer.js.map
 
 /***/ }),
 
-/***/ 63:
+/***/ 69:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ECommerceProduct; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__apd_provider__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_helper__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__apd_provider__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_helper__ = __webpack_require__(12);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -4553,34 +4534,34 @@ var ECommerceProduct = (function () {
             __WEBPACK_IMPORTED_MODULE_2__lib_helper__["a" /* WBHelper */].log('Product show: ' + res);
         });
     };
+    ECommerceProduct = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__apd_provider__["a" /* APDProvider */]])
+    ], ECommerceProduct);
     return ECommerceProduct;
 }());
-ECommerceProduct = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__apd_provider__["a" /* APDProvider */]])
-], ECommerceProduct);
 
 //# sourceMappingURL=product.js.map
 
 /***/ }),
 
-/***/ 64:
+/***/ 70:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_views__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_provider__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__register__ = __webpack_require__(281);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__forgot__ = __webpack_require__(282);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__lib_socket__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__lib_config__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__drawer_drawer__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_views__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_provider__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__register__ = __webpack_require__(376);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__forgot__ = __webpack_require__(377);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__lib_socket__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__lib_config__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__drawer_drawer__ = __webpack_require__(68);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -4602,7 +4583,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var LoginPage = LoginPage_1 = (function () {
+var LoginPage = (function () {
     function LoginPage(nav, app, alertCtrl, loadingCtrl, auth, params, viewCtrl) {
         this.nav = nav;
         this.app = app;
@@ -4615,6 +4596,7 @@ var LoginPage = LoginPage_1 = (function () {
         __WEBPACK_IMPORTED_MODULE_7__lib_config__["a" /* WBConfig */].thisApp = this;
         this.init();
     }
+    LoginPage_1 = LoginPage;
     /**
      * Initialize
      */
@@ -4735,39 +4717,121 @@ var LoginPage = LoginPage_1 = (function () {
     LoginPage.prototype.closeModal = function () {
         this.viewCtrl.dismiss();
     };
+    LoginPage = LoginPage_1 = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\authentication\login.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @url https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <ion-title>Login</ion-title>\n\n    <ion-buttons end>\n      <!-- show this button if modal -->\n      <button *ngIf="params.get(\'return_page\') == \'modal\'" ion-button icon-only (click)="closeModal()">\n        <ion-icon ios="ios-close" md="md-close"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <!-- facebook login button -->\n  <button type="button" *ngIf="wb_config.facebook_auth" ion-button block color="facebook-color" (click)="doFacebook()">\n    <ion-icon ios="logo-facebook" md="logo-facebook"></ion-icon>\n    Continue with Facebook\n  </button>\n\n  <form (submit)="doLogin($event, inputs)">\n    <ion-list>\n      <ion-item no-lines>\n        <ion-label floating>Email</ion-label>\n        <ion-input type="email" [(ngModel)]="inputs.email" name="email"></ion-input>\n      </ion-item>\n\n      <ion-item no-lines>\n        <ion-label floating>Password</ion-label>\n        <ion-input type="password" [(ngModel)]="inputs.password" name="password"></ion-input>\n      </ion-item>\n\n      <ion-item no-lines>\n        <button ion-button block outline type="submit">Login</button>\n      </ion-item>\n    </ion-list>\n\n    <button type="button" ion-button block clear dark (click)="goToRegister()">Register</button>\n    <button type="button" ion-button block clear dark (click)="goToReset()">Forgot Password</button>\n  </form>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\authentication\login.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* App */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */],
+            __WEBPACK_IMPORTED_MODULE_3__providers_auth_provider__["a" /* AuthProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ViewController */]])
+    ], LoginPage);
     return LoginPage;
+    var LoginPage_1;
 }());
-LoginPage = LoginPage_1 = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\authentication\login.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @git https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <ion-title>Login</ion-title>\n\n    <ion-buttons end>\n      <!-- show this button if modal -->\n      <button *ngIf="params.get(\'return_page\') == \'modal\'" ion-button icon-only (click)="closeModal()">\n        <ion-icon ios="ios-close" md="md-close"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <!-- facebook login button -->\n  <button type="button" *ngIf="wb_config.facebook_auth" ion-button block color="facebook-color" (click)="doFacebook()">\n    <ion-icon ios="logo-facebook" md="logo-facebook"></ion-icon>\n    Continue with Facebook\n  </button>\n\n  <form (submit)="doLogin($event, inputs)">\n    <ion-list>\n      <ion-item no-lines>\n        <ion-label floating>Email</ion-label>\n        <ion-input type="email" [(ngModel)]="inputs.email" name="email"></ion-input>\n      </ion-item>\n\n      <ion-item no-lines>\n        <ion-label floating>Password</ion-label>\n        <ion-input type="password" [(ngModel)]="inputs.password" name="password"></ion-input>\n      </ion-item>\n\n      <ion-item no-lines>\n        <button ion-button block outline type="submit">Login</button>\n      </ion-item>\n    </ion-list>\n\n    <button type="button" ion-button block clear dark (click)="goToRegister()">Register</button>\n    <button type="button" ion-button block clear dark (click)="goToReset()">Forgot Password</button>\n  </form>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\authentication\login.html"*/
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* App */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */],
-        __WEBPACK_IMPORTED_MODULE_3__providers_auth_provider__["a" /* AuthProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ViewController */]])
-], LoginPage);
 
-var LoginPage_1;
 //# sourceMappingURL=login.js.map
 
 /***/ }),
 
-/***/ 89:
+/***/ 713:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
+/**
+ * @author Archie, Disono (webmonsph@gmail.com)
+ * @url https://github.com/disono/Ionic-Framework-Template
+ * @copyright Webmons Development Studio. (webmons.com), 2016-2017
+ * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
+ */
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var HomePage = (function () {
+    function HomePage(nav) {
+        this.nav = nav;
+    }
+    HomePage.prototype.ionViewDidEnter = function () {
+    };
+    HomePage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\home\home.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @url https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>Home</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\home\home.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */]])
+    ], HomePage);
+    return HomePage;
+}());
+
+//# sourceMappingURL=home.js.map
+
+/***/ }),
+
+/***/ 714:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ECommerceProductCategoryPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
+/**
+ * @author Archie, Disono (webmonsph@gmail.com)
+ * @url https://github.com/disono/Ionic-Framework-Template
+ * @copyright Webmons Development Studio. (webmons.com), 2016-2017
+ * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
+ */
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var ECommerceProductCategoryPage = (function () {
+    function ECommerceProductCategoryPage(nav) {
+        this.nav = nav;
+    }
+    ECommerceProductCategoryPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\product\category.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @url https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>\n      Category\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\product\category.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */]])
+    ], ECommerceProductCategoryPage);
+    return ECommerceProductCategoryPage;
+}());
+
+//# sourceMappingURL=category.js.map
+
+/***/ }),
+
+/***/ 95:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ECommerceCartContentPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_ecommerce_product_product__ = __webpack_require__(63);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_provider__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_ecommerce_cart_cart__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__product_product_show__ = __webpack_require__(143);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__lib_helper__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__checkout__ = __webpack_require__(277);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__update_quantity_modal__ = __webpack_require__(280);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__lib_views__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_ionic_image_loader__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_ecommerce_product_product__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_provider__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_ecommerce_cart_cart__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__product_product_show__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__lib_helper__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__checkout__ = __webpack_require__(372);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__update_quantity_modal__ = __webpack_require__(375);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__lib_views__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_ionic_image_loader__ = __webpack_require__(33);
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -4960,23 +5024,23 @@ var ECommerceCartContentPage = (function () {
     ECommerceCartContentPage.prototype.checkout = function () {
         this.nav.push(__WEBPACK_IMPORTED_MODULE_7__checkout__["a" /* ECommerceCartCheckoutPage */]);
     };
+    ECommerceCartContentPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_10_ionic_image_loader__["a" /* IonicImageLoader */]
+            ]
+        }),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\cart\content.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @url https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>\n      My Cart\n    </ion-title>\n\n    <ion-buttons end>\n      <button ion-button icon-only (click)="clearCart()">\n        <ion-icon ios="ios-trash" md="md-trash"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content class="bg-product-list">\n  <!-- refresh items -->\n  <ion-refresher *ngIf="!init_loading" (ionRefresh)="doRefresh($event)">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <!-- list of items on cart -->\n  <div *ngIf="!init_loading">\n    <ion-list>\n      <ion-item *ngFor="let data_fetch of data_list">\n        <ion-avatar item-left>\n          <img-loader src="{{data_fetch.product.cover}}" (click)="showProduct(data_fetch.id)" useImg></img-loader>\n        </ion-avatar>\n\n        <h2 (click)="showProduct(data_fetch.id)">{{data_fetch.name}}</h2>\n        <p>Quantity: <span>{{data_fetch.qty}}</span> Price: <span color="danger"\n                                                                  [innerHTML]="data_fetch.formatted_price"></span></p>\n\n        <ion-grid>\n          <ion-row>\n            <ion-col width-50>\n              <button ion-button clear block small color="danger" icon-left (click)="removeToCart(data_fetch.id)">\n                <ion-icon ios="ios-trash" md="md-trash"></ion-icon>\n                Remove\n              </button>\n            </ion-col>\n\n            <ion-col width-50>\n              <button ion-button clear block small color="primary" icon-left (click)="updateQuantity(data_fetch.id)">\n                <ion-icon ios="ios-open" md="md-open"></ion-icon>\n                Quantity\n              </button>\n            </ion-col>\n          </ion-row>\n        </ion-grid>\n      </ion-item>\n    </ion-list>\n\n    <!-- no items -->\n    <h1 class="text-center" *ngIf="!data_list.length">No Items On Your Cart!</h1>\n  </div>\n\n  <!-- loading -->\n  <h1 class="text-center" *ngIf="init_loading">\n    <ion-spinner icon="spiral"></ion-spinner>\n    Loading...\n  </h1>\n</ion-content>\n\n<!-- checkout -->\n<ion-footer *ngIf="data_list.length">\n  <ion-toolbar>\n    <ion-grid>\n      <ion-row>\n        <ion-col width-50>\n          Estimated Total\n        </ion-col>\n\n        <ion-col width-50>\n          <strong><span [innerHTML]="cart_details.formatted_total"></span></strong>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </ion-toolbar>\n\n  <ion-toolbar>\n    <button ion-button block color="danger" (click)="checkout()">\n      Proceed to Checkout\n    </button>\n  </ion-toolbar>\n</ion-footer>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\cart\content.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_ecommerce_product_product__["a" /* ECommerceProduct */], __WEBPACK_IMPORTED_MODULE_3__providers_auth_provider__["a" /* AuthProvider */], __WEBPACK_IMPORTED_MODULE_4__providers_ecommerce_cart_cart__["a" /* ECommerceCart */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ModalController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */]])
+    ], ECommerceCartContentPage);
     return ECommerceCartContentPage;
 }());
-ECommerceCartContentPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* NgModule */])({
-        imports: [
-            __WEBPACK_IMPORTED_MODULE_10_ionic_image_loader__["a" /* IonicImageLoader */]
-        ]
-    }),
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\cart\content.html"*/'<!--\n* @author Archie, Disono (webmonsph@gmail.com)\n* @git https://github.com/disono/Ionic-Framework-Template\n* @copyright Webmons Development Studio. (webmons.com), 2016-2017\n* @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>\n      My Cart\n    </ion-title>\n\n    <ion-buttons end>\n      <button ion-button icon-only (click)="clearCart()">\n        <ion-icon ios="ios-trash" md="md-trash"></ion-icon>\n      </button>\n    </ion-buttons>\n  </ion-navbar>\n</ion-header>\n\n<ion-content class="bg-product-list">\n  <!-- refresh items -->\n  <ion-refresher *ngIf="!init_loading" (ionRefresh)="doRefresh($event)">\n    <ion-refresher-content></ion-refresher-content>\n  </ion-refresher>\n\n  <!-- list of items on cart -->\n  <div *ngIf="!init_loading">\n    <ion-list>\n      <ion-item *ngFor="let data_fetch of data_list">\n        <ion-avatar item-left>\n          <img-loader src="{{data_fetch.product.cover}}" (click)="showProduct(data_fetch.id)" useImg></img-loader>\n        </ion-avatar>\n\n        <h2 (click)="showProduct(data_fetch.id)">{{data_fetch.name}}</h2>\n        <p>Quantity: <span>{{data_fetch.qty}}</span> Price: <span color="danger"\n                                                                  [innerHTML]="data_fetch.formatted_price"></span></p>\n\n        <ion-grid>\n          <ion-row>\n            <ion-col width-50>\n              <button ion-button clear block small color="danger" icon-left (click)="removeToCart(data_fetch.id)">\n                <ion-icon ios="ios-trash" md="md-trash"></ion-icon>\n                Remove\n              </button>\n            </ion-col>\n\n            <ion-col width-50>\n              <button ion-button clear block small color="primary" icon-left (click)="updateQuantity(data_fetch.id)">\n                <ion-icon ios="ios-open" md="md-open"></ion-icon>\n                Quantity\n              </button>\n            </ion-col>\n          </ion-row>\n        </ion-grid>\n      </ion-item>\n    </ion-list>\n\n    <!-- no items -->\n    <h1 class="text-center" *ngIf="!data_list.length">No Items On Your Cart!</h1>\n  </div>\n\n  <!-- loading -->\n  <h1 class="text-center" *ngIf="init_loading">\n    <ion-spinner icon="spiral"></ion-spinner>\n    Loading...\n  </h1>\n</ion-content>\n\n<!-- checkout -->\n<ion-footer *ngIf="data_list.length">\n  <ion-toolbar>\n    <ion-grid>\n      <ion-row>\n        <ion-col width-50>\n          Estimated Total\n        </ion-col>\n\n        <ion-col width-50>\n          <strong><span [innerHTML]="cart_details.formatted_total"></span></strong>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </ion-toolbar>\n\n  <ion-toolbar>\n    <button ion-button block color="danger" (click)="checkout()">\n      Proceed to Checkout\n    </button>\n  </ion-toolbar>\n</ion-footer>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Ionic-Framework-Template\src\pages\ecommerce\cart\content.html"*/
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_ecommerce_product_product__["a" /* ECommerceProduct */], __WEBPACK_IMPORTED_MODULE_3__providers_auth_provider__["a" /* AuthProvider */], __WEBPACK_IMPORTED_MODULE_4__providers_ecommerce_cart_cart__["a" /* ECommerceCart */],
-        __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ModalController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */]])
-], ECommerceCartContentPage);
 
 //# sourceMappingURL=content.js.map
 
 /***/ })
 
-},[291]);
+},[386]);
 //# sourceMappingURL=main.js.map

@@ -1,6 +1,6 @@
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -156,12 +156,12 @@ export class ReadingInboxPage {
       files: {
         msg_file: file
       }
-    }, function (response) {
+    }).subscribe(function (response) {
       loading.dismiss();
 
       thisApp.data_list.push(response.data);
       thisApp.chatBox = null;
-    }, function (error) {
+    }, function (e) {
       loading.dismiss();
     });
   }
@@ -184,13 +184,11 @@ export class ReadingInboxPage {
       inputs: {
         message: text
       }
-    }, function (response) {
+    }).subscribe(function (response) {
       thisApp.data_list.push(response.data);
 
       // reset the chat box input
       thisApp.chatBox = null;
-    }, function (error) {
-
     });
   }
 

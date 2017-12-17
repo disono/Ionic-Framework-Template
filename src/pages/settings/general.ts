@@ -1,6 +1,6 @@
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -106,20 +106,15 @@ export class GeneralPage {
       inputs.birthday = moment(new Date(inputs.birthday)).format('MMMM DD YYYY');
     }
 
-    // show loading
-    let loading = WBView.loading(thisApp.loadingCtrl, 'Updating profile...');
-
     // update the profile
+    let loading = WBView.loading(thisApp.loadingCtrl, 'Updating profile...');
     thisApp.auth.update({
       inputs: inputs,
       files: thisApp.files
-    }, function (res) {
-      setTimeout(function () {
-        thisApp.authInputs();
-      }, 100);
-
+    }).subscribe(function () {
+      thisApp.authInputs();
       loading.dismiss();
-    }, function (errors) {
+    }, function () {
       // errors
       loading.dismiss();
     });

@@ -1,6 +1,6 @@
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -61,16 +61,11 @@ export class MessageProvider {
    *
    * @param to_id
    * @param parameters
-   * @param successCallback
-   * @param errorCallback
    */
-  send(to_id, parameters, successCallback, errorCallback) {
-    this.appProvider.upload('message/send/' + to_id, parameters, function (res) {
+  send(to_id, parameters) {
+    return this.appProvider.upload('message/send/' + to_id, parameters, function (res) {
       // success
-      successCallback(res);
-    }, function (res) {
-      // errors
-      errorCallback(res);
+      WBHelper.log('Message-send: ' + res);
     });
   }
 

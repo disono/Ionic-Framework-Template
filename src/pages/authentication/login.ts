@@ -1,6 +1,6 @@
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -27,6 +27,25 @@ export class LoginPage {
     WBConfig.thisApp = this;
 
     this.init();
+  }
+
+  /**
+   * Call the default page to call on successful login
+   *
+   * @param thisApp
+   */
+  static setPageType(thisApp) {
+    // emit to sync data
+    WBSocket.emitter.emitEvent('sync_application');
+
+    // set the main page or back to previous page (modal)
+    if (thisApp.params.get('return_page') == 'modal') {
+      thisApp.viewCtrl.dismiss();
+    } else if (thisApp.params.get('return_page') == 'page') {
+      thisApp.nav.pop();
+    } else {
+      thisApp.nav.setRoot(DrawerPage);
+    }
   }
 
   /**
@@ -115,25 +134,6 @@ export class LoginPage {
     } else {
       WBView.alert(thisApp.alertCtrl, 'Not Allowed', 'This Email/Username and password is not allowed to login.');
       thisApp.auth.logout();
-    }
-  }
-
-  /**
-   * Call the default page to call on successful login
-   *
-   * @param thisApp
-   */
-  static setPageType(thisApp) {
-    // emit to sync data
-    WBSocket.emitter.emitEvent('sync_application');
-
-    // set the main page or back to previous page (modal)
-    if (thisApp.params.get('return_page') == 'modal') {
-      thisApp.viewCtrl.dismiss();
-    } else if (thisApp.params.get('return_page') == 'page') {
-      thisApp.nav.pop();
-    } else {
-      thisApp.nav.setRoot(DrawerPage);
     }
   }
 

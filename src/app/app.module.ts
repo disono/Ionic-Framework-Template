@@ -1,17 +1,17 @@
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
 
-import {ErrorHandler, NgModule} from "@angular/core";
-import {HttpModule} from "@angular/http";
-import {BrowserModule} from "@angular/platform-browser";
 import {IonicApp, IonicErrorHandler, IonicModule} from "ionic-angular";
+import {ErrorHandler, NgModule} from "@angular/core";
+import {BrowserModule} from "@angular/platform-browser";
 import {IonicImageLoader} from "ionic-image-loader";
 import {StatusBar} from "@ionic-native/status-bar";
 import {SplashScreen} from "@ionic-native/splash-screen";
+import {HttpClientModule} from '@angular/common/http';
 
 import {MyApp} from "./app.component";
 
@@ -88,7 +88,7 @@ import {LoginPage} from "../pages/authentication/login";
   ],
   imports: [
     BrowserModule,
-    HttpModule,
+    HttpClientModule,
 
     IonicModule.forRoot(MyApp),
     IonicImageLoader.forRoot()

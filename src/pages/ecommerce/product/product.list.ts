@@ -1,6 +1,6 @@
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -15,8 +15,6 @@ import {ECommerceProductShowPage} from "./product.show";
 import {ECommerceProductFilterModal} from "./filter.modal";
 import {LoginPage} from "../../authentication/login";
 import {ECommerceCartContentPage} from "../cart/content";
-import {WBConfig} from "../../../lib/config";
-import {WBSocket} from "../../../lib/socket";
 import {IonicImageLoader} from "ionic-image-loader";
 
 @NgModule({

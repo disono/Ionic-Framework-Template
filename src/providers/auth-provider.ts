@@ -1,6 +1,6 @@
 /**
  * @author Archie, Disono (webmonsph@gmail.com)
- * @git https://github.com/disono/Ionic-Framework-Template
+ * @url https://github.com/disono/Ionic-Framework-Template
  * @copyright Webmons Development Studio. (webmons.com), 2016-2017
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
@@ -126,18 +126,10 @@ export class AuthProvider {
    * Update user settings or profile
    *
    * @param parameters
-   * @param successCallback
-   * @param errorCallback
    */
-  update(parameters, successCallback, errorCallback) {
-    this.appProvider.upload('user/update/setting', parameters, function (res) {
-      // success
-      successCallback(res);
-
+  update(parameters) {
+    return this.appProvider.upload('user/update/setting', parameters, function (res) {
       WBSecurity.saveAuth(res.data);
-    }, function (res) {
-      // errors
-      errorCallback(res);
     });
   }
 
