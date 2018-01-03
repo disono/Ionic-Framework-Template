@@ -28,7 +28,7 @@
   <ion-list>
     <ion-item *ngFor="let item of data_list" (click)="selectedUser(item.id)">
       <ion-avatar item-left>
-        <img-loader src="{{item.avatar}}" useImg></img-loader>
+        <img src="{{item.avatar}}"/>
       </ion-avatar>
 
       <h2>{{item.full_name}}</h2>

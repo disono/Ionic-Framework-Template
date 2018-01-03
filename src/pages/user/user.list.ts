@@ -5,18 +5,12 @@
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
 
-import {Component, NgModule} from "@angular/core";
+import {Component} from "@angular/core";
 import {NavController, NavParams, ViewController} from "ionic-angular";
 import {UserProvider} from "../../providers/user-provider";
 import {AuthProvider} from "../../providers/auth-provider";
 import {WBHelper} from "../../lib/helper";
-import {IonicImageLoader} from "ionic-image-loader";
 
-@NgModule({
-  imports: [
-    IonicImageLoader
-  ]
-})
 @Component({
   templateUrl: 'user.list.html'
 })

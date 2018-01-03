@@ -17,7 +17,7 @@
     <ion-card *ngIf="auth.check()" style="box-shadow: none !important;">
       <ion-item class="profile-item">
         <div class="profile-picture">
-          <img-loader src="{{auth.user().avatar}}" (click)="profile()" menuClose useImg></img-loader>
+          <img src="{{auth.user().avatar}}" (click)="profile()" menuClose />
         </div>
 
         <h4 class="profile-name">{{auth.user().full_name}}</h4>

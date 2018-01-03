@@ -1,86 +1,58 @@
 {
-  "_args": [
-    [
-      {
-        "raw": "cordova-plugin-dialogs",
-        "scope": null,
-        "escapedName": "cordova-plugin-dialogs",
-        "name": "cordova-plugin-dialogs",
-        "rawSpec": "",
-        "spec": "latest",
-        "type": "tag"
-      },
-      "F:\\Temp\\Testings\\Cordova\\Ionic3\\node_modules"
-    ]
-  ],
-  "_from": "cordova-plugin-dialogs@latest",
-  "_id": "cordova-plugin-dialogs@1.3.3",
-  "_inCache": true,
+  "_from": "cordova-plugin-dialogs",
+  "_id": "cordova-plugin-dialogs@2.0.1",
+  "_inBundle": false,
+  "_integrity": "sha1-N/7xUSWWyNXflUP7eHJFkPdn3PM=",
   "_location": "/cordova-plugin-dialogs",
-  "_nodeVersion": "6.10.1",
-  "_npmOperationalInternal": {
-    "host": "packages-12-west.internal.npmjs.com",
-    "tmp": "tmp/cordova-plugin-dialogs-1.3.3.tgz_1493685638186_0.20763673936016858"
-  },
-  "_npmUser": {
-    "name": "filmaj",
-    "email": "maj.fil@gmail.com"
-  },
-  "_npmVersion": "3.10.10",
   "_phantomChildren": {},
   "_requested": {
+    "type": "tag",
+    "registry": true,
     "raw": "cordova-plugin-dialogs",
-    "scope": null,
-    "escapedName": "cordova-plugin-dialogs",
     "name": "cordova-plugin-dialogs",
+    "escapedName": "cordova-plugin-dialogs",
     "rawSpec": "",
-    "spec": "latest",
-    "type": "tag"
+    "saveSpec": null,
+    "fetchSpec": "latest"
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/cordova-plugin-dialogs/-/cordova-plugin-dialogs-1.3.3.tgz",
-  "_shasum": "532ff2eb5c86133a5878550dae59c76ab397f8c9",
-  "_shrinkwrap": null,
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-dialogs/-/cordova-plugin-dialogs-2.0.1.tgz",
+  "_shasum": "37fef1512596c8d5df9543fb78724590f767dcf3",
   "_spec": "cordova-plugin-dialogs",
-  "_where": "F:\\Temp\\Testings\\Cordova\\Ionic3\\node_modules",
+  "_where": "F:\\Temp\\Trash\\blog",
   "author": {
     "name": "Apache Software Foundation"
   },
   "bugs": {
-    "url": "https://github.com/apache/cordova-plugin-dialogs/issues"
+    "url": "https://issues.apache.org/jira/browse/CB"
   },
+  "bundleDependencies": false,
   "cordova": {
     "id": "cordova-plugin-dialogs",
     "platforms": [
-      "firefoxos",
       "android",
       "browser",
-      "amazon-fireos",
-      "ubuntu",
       "ios",
-      "blackberry10",
-      "wp7",
-      "wp8",
-      "windows8",
       "windows"
     ]
   },
-  "dependencies": {},
+  "deprecated": false,
   "description": "Cordova Notification Plugin",
   "devDependencies": {
-    "jshint": "^2.6.0"
-  },
-  "directories": {},
-  "dist": {
-    "shasum": "532ff2eb5c86133a5878550dae59c76ab397f8c9",
-    "tarball": "https://registry.npmjs.org/cordova-plugin-dialogs/-/cordova-plugin-dialogs-1.3.3.tgz"
+    "eslint": "^3.19.0",
+    "eslint-config-semistandard": "^11.0.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-node": "^5.0.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1"
   },
   "engines": {
     "cordovaDependencies": {
-      "2.0.0": {
+      "3.0.0": {
         "cordova": ">100"
       }
     }
@@ -90,56 +62,21 @@
     "cordova",
     "notification",
     "ecosystem:cordova",
-    "cordova-firefoxos",
     "cordova-android",
     "cordova-browser",
-    "cordova-amazon-fireos",
-    "cordova-ubuntu",
     "cordova-ios",
-    "cordova-blackberry10",
-    "cordova-wp7",
-    "cordova-wp8",
-    "cordova-windows8",
     "cordova-windows"
   ],
   "license": "Apache-2.0",
-  "maintainers": [
-    {
-      "name": "bowserj",
-      "email": "bowserj@apache.org"
-    },
-    {
-      "name": "csantanapr",
-      "email": "csantana23@gmail.com"
-    },
-    {
-      "name": "filmaj",
-      "email": "maj.fil@gmail.com"
-    },
-    {
-      "name": "purplecabbage",
-      "email": "purplecabbage@gmail.com"
-    },
-    {
-      "name": "shazron",
-      "email": "shazron@gmail.com"
-    },
-    {
-      "name": "stevegill",
-      "email": "stevengill97@gmail.com"
-    }
-  ],
   "name": "cordova-plugin-dialogs",
-  "optionalDependencies": {},
-  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/apache/cordova-plugin-dialogs.git"
   },
   "scripts": {
-    "jshint": "node node_modules/jshint/bin/jshint www && node node_modules/jshint/bin/jshint src && node node_modules/jshint/bin/jshint tests",
-    "test": "npm run jshint"
+    "eslint": "node node_modules/eslint/bin/eslint www && node node_modules/eslint/bin/eslint src && node node_modules/eslint/bin/eslint tests",
+    "test": "npm run eslint"
   },
   "types": "./types/index.d.ts",
-  "version": "1.3.3"
+  "version": "2.0.1"
 }

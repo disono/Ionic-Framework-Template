@@ -5,7 +5,7 @@
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
 
-import {Component, NgModule} from "@angular/core";
+import {Component} from "@angular/core";
 import {ActionSheetController, LoadingController, ModalController, NavController} from "ionic-angular";
 import {ECommerceProduct} from "../../../providers/ecommerce/product/product";
 import {AuthProvider} from "../../../providers/auth-provider";
@@ -15,13 +15,7 @@ import {WBHelper} from "../../../lib/helper";
 import {ECommerceCartCheckoutPage} from "./checkout";
 import {ECommerceCartItemQuantityModal} from "./update.quantity.modal";
 import {WBView} from "../../../lib/views";
-import {IonicImageLoader} from "ionic-image-loader";
 
-@NgModule({
-  imports: [
-    IonicImageLoader
-  ]
-})
 @Component({
   templateUrl: 'content.html'
 })

@@ -5,7 +5,7 @@
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
 
-import {Component, NgModule, ViewChild} from "@angular/core";
+import {Component, ViewChild} from "@angular/core";
 import {AlertController, ModalController, Nav} from "ionic-angular";
 import {AboutPage} from "../about/about";
 import {ContactPage} from "../contact/contact";
@@ -17,13 +17,7 @@ import {InboxPage} from "../message/inbox";
 import {LoginPage} from "../authentication/login";
 import {AuthProvider} from "../../providers/auth-provider";
 import {WBSocket} from "../../lib/socket";
-import {IonicImageLoader} from "ionic-image-loader";
 
-@NgModule({
-  imports: [
-    IonicImageLoader
-  ]
-})
 @Component({
   templateUrl: 'drawer.html',
 })

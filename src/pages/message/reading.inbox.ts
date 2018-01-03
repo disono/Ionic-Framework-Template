@@ -5,7 +5,7 @@
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
 
-import {ChangeDetectorRef, Component, NgModule, ViewChild} from "@angular/core";
+import {ChangeDetectorRef, Component, ViewChild} from "@angular/core";
 import {Content, LoadingController, NavController, NavParams} from "ionic-angular";
 import {MessageProvider} from "../../providers/message-provider";
 import {WBConfig} from "../../lib/config";
@@ -13,15 +13,9 @@ import {WBSocket} from "../../lib/socket";
 import {AuthProvider} from "../../providers/auth-provider";
 import {WBView} from "../../lib/views";
 import {WBHelper} from "../../lib/helper";
-import {IonicImageLoader} from "ionic-image-loader";
 
 declare let jQ;
 
-@NgModule({
-  imports: [
-    IonicImageLoader
-  ]
-})
 @Component({
   templateUrl: 'reading.inbox.html'
 })

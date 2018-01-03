@@ -5,17 +5,11 @@
  * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
 
-import {Component, NgModule} from "@angular/core";
+import {Component} from "@angular/core";
 import {NavController, NavParams} from "ionic-angular";
 import {ECommerceOrder} from "../../../providers/ecommerce/order/order";
 import {WBHelper} from "../../../lib/helper";
-import {IonicImageLoader} from "ionic-image-loader";
 
-@NgModule({
-  imports: [
-    IonicImageLoader
-  ]
-})
 @Component({
   templateUrl: 'order.details.html'
 })

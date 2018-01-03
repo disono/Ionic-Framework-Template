@@ -11,7 +11,6 @@ declare let jQ;
 declare let navigator;
 declare let Connection;
 declare let window;
-declare let ionic;
 declare let moment;
 declare let cordova;
 
