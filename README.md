@@ -44,7 +44,7 @@ npm install -g ionic
 
 6. Update your package name at config.xml
 
-7. Install NPM libraries
+7. Install NPM libraries (Deprecated)
     npm install --save ionic-image-loader
     npm i --save @ionic-native/file
     npm i --save @ionic-native/transfer
