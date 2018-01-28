@@ -40,8 +40,11 @@ export class AuthProvider {
    */
   facebook(successCallback, errorCallback, completeCallback) {
     let thisApp = this;
+
+    // users birthday is required for approval
+    // user_birthday
     let permissions = [
-      'email', 'user_birthday'
+      'email'
     ];
 
     if (WBConfig.is_browser || !WBConfig.facebook_auth) {
@@ -54,7 +57,7 @@ export class AuthProvider {
         facebookConnectPlugin.login(permissions, function (login_response) {
           if (typeof login_response !== 'string') {
             // get user
-            facebookConnectPlugin.api('/me?fields=name,first_name,last_name,email,gender,birthday', permissions, function (api_response) {
+            facebookConnectPlugin.api('/me?fields=name,first_name,last_name,email,gender', permissions, function (api_response) {
               // submit to server
               thisApp.register({
                 social_id: api_response.id,
