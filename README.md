@@ -70,14 +70,14 @@ npm install -g ionic
 ```
 
 ### Crosswalk Plugin (optional)
+[https://github.com/crosswalk-project/cordova-plugin-crosswalk-webview](https://github.com/crosswalk-project/cordova-plugin-crosswalk-webview)
+
 ```sh
 cordova plugin add cordova-plugin-crosswalk-webview
 cordova build android
 
 /platforms/android/build/outputs/apk/android-x86-debug.apk
 /platforms/android/build/outputs/apk/android-armv7-debug.apk
-
-please refer to https://crosswalk-project.org/documentation/cordova.html
 ```
 
 # Credits
