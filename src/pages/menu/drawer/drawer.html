@@ -1,0 +1,38 @@
+<!--
+ * @author          Archie, Disono (webmonsph@gmail.com)
+ * @link            https://webmons.com
+ * @copyright       Webmons Development Studio. (webmons.com), 2018
+ * @license         Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
+-->
+
+<ion-menu [content]="content">
+  <ion-content>
+    <!-- Profile -->
+    <ion-card *ngIf="me" style="box-shadow: none !important;">
+      <ion-item class="profile-item">
+        <div class="profile-picture">
+          <img src="{{me.profile_picture}}" (click)="openSettings()" menuClose/>
+        </div>
+
+        <h4 class="profile-name">{{me.full_name}}</h4>
+        <p *ngIf="me.email">{{me.email}}</p>
+      </ion-item>
+
+      <ion-item class="profile-item">
+        <button menuClose ion-button block clear (click)="openSettings()">
+          Profile Settings
+        </button>
+      </ion-item>
+    </ion-card>
+
+    <!-- Menu -->
+    <ion-list>
+      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        {{p.title}}
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

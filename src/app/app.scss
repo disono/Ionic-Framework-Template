@@ -1,4 +1,4 @@
-// http://ionicframework.com/docs/v2/theming/
+// http://ionicframework.com/docs/theming/
 
 // App Global Sass
 // --------------------------------------------------
@@ -13,6 +13,11 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.text-center {
+  text-align: center;
+}
+
 .profile-item {
   text-align: center;
 }
@@ -40,22 +45,4 @@
   font-size: x-large !important;
   font-weight: bold !important;
   text-transform: capitalize;
-}
-
-.ion-footer-no-style {
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-.map {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-.text-center {
-  text-align: center !important;
-}
-
-.bg-product-list {
-  background: #F1F1F1 !important;
 }

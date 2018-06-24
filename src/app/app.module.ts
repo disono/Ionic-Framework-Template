@@ -1,151 +1,90 @@
-/**
- * @author Archie, Disono (webmonsph@gmail.com)
- * @url https://github.com/disono/Ionic-Framework-Template
- * @copyright Webmons Development Studio. (webmons.com), 2016-2017
- * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
- */
-
-import {IonicApp, IonicErrorHandler, IonicModule} from "ionic-angular";
-import {ErrorHandler, NgModule} from "@angular/core";
-import {BrowserModule} from "@angular/platform-browser";
-import {StatusBar} from "@ionic-native/status-bar";
-import {SplashScreen} from "@ionic-native/splash-screen";
+import {BrowserModule} from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
+import {ErrorHandler, NgModule} from '@angular/core';
+import {IonicApp, IonicErrorHandler, IonicModule} from 'ionic-angular';
 
-import {MyApp} from "./app.component";
+import {MyApp} from './app.component';
+import {HomePage} from '../pages/home/home';
 
-import {MessageProvider} from "../providers/message-provider";
-import {ECommerceOrder} from "../providers/ecommerce/order/order";
-import {ECommerceCart} from "../providers/ecommerce/cart/cart";
-import {ECommerceProduct} from "../providers/ecommerce/product/product";
-import {ECommerceProductCategories} from "../providers/ecommerce/product/category";
-import {UserProvider} from "../providers/user-provider";
-import {ApplicationProvider} from "../providers/application-provider";
-import {AuthProvider} from "../providers/auth-provider";
-import {APDProvider} from "../providers/apd-provider";
-
-import {AboutPage} from "../pages/about/about";
-import {ContactPage} from "../pages/contact/contact";
-import {HomePage} from "../pages/home/home";
-import {UserListPage} from "../pages/user/user.list";
-import {ReadingInboxPage} from "../pages/message/reading.inbox";
-import {InboxPage} from "../pages/message/inbox";
-import {ECommerceOrderDetailsPage} from "../pages/ecommerce/order/order.details";
-import {ECommerceOrderListPage} from "../pages/ecommerce/order/order.list";
-import {ECommerceCartItemQuantityModal} from "../pages/ecommerce/cart/update.quantity.modal";
-import {ECommerceCartSuccessPage} from "../pages/ecommerce/cart/success";
-import {ECommerceCartCheckoutPage} from "../pages/ecommerce/cart/checkout";
-import {ECommerceCartContentPage} from "../pages/ecommerce/cart/content";
-import {ECommerceProductFilterModal} from "../pages/ecommerce/product/filter.modal";
-import {ECommerceProductShowPage} from "../pages/ecommerce/product/product.show";
-import {ECommerceProductListPage} from "../pages/ecommerce/product/product.list";
-import {ECommerceProductCategoryPage} from "../pages/ecommerce/product/category";
-import {DrawerPage} from "../pages/drawer/drawer";
-import {SecurityPage} from "../pages/settings/security";
-import {GeneralPage} from "../pages/settings/general";
-import {SettingsTabPage} from "../pages/settings/settings-tab";
-import {ForgotPage} from "../pages/authentication/forgot";
-import {RegisterPage} from "../pages/authentication/register";
-import {LoginPage} from "../pages/authentication/login";
+import {StatusBar} from '@ionic-native/status-bar';
+import {SplashScreen} from '@ionic-native/splash-screen';
+import {UserProvider} from "../providers/user";
+import {AuthProvider} from "../providers/auth";
+import {AuthSocialProvider} from "../providers/authSocial";
+import {ApplicationProvider} from "../providers/application";
+import {BaseProvider} from "../providers/base";
+import {DrawerMenu} from "../pages/menu/drawer/drawer";
+import {LoginPage} from "../pages/authentication/login/login";
+import {RegisterPage} from "../pages/authentication/register/register";
+import {RecoverPage} from "../pages/authentication/recovery/forgot";
+import {AboutPage} from "../pages/page/about/about";
+import {PrivacyPage} from "../pages/page/privacy/privacy";
+import {ShowPage} from "../pages/page/show/show";
+import {TermsPage} from "../pages/page/terms/terms";
+import {VerifyPage} from "../pages/authentication/verify/verify";
+import {GeneralSettingsPage} from "../pages/user/settings/general";
+import {SecuritySettingsPage} from "../pages/user/settings/security";
+import {SettingsTabPage} from "../pages/user/settings/settings.tab";
+import {PageProvider} from "../providers/page";
 
 @NgModule({
   declarations: [
     MyApp,
+    HomePage,
+
+    DrawerMenu,
 
     LoginPage,
     RegisterPage,
-    ForgotPage,
+    RecoverPage,
+    VerifyPage,
+
+    AboutPage,
+    PrivacyPage,
+    ShowPage,
+    TermsPage,
 
     SettingsTabPage,
-    GeneralPage,
-    SecurityPage,
-
-    DrawerPage,
-
-    HomePage,
-    AboutPage,
-    ContactPage,
-
-    // ECommerce Declarations
-    ECommerceProductCategoryPage,
-    ECommerceProductListPage,
-    ECommerceProductShowPage,
-    ECommerceProductFilterModal,
-    ECommerceCartContentPage,
-    ECommerceCartCheckoutPage,
-    ECommerceCartSuccessPage,
-    ECommerceCartItemQuantityModal,
-    ECommerceOrderListPage,
-    ECommerceOrderDetailsPage,
-
-    // Messenger
-    InboxPage,
-    ReadingInboxPage,
-
-    // User
-    UserListPage
+    GeneralSettingsPage,
+    SecuritySettingsPage,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    HomePage,
+
+    DrawerMenu,
 
     LoginPage,
     RegisterPage,
-    ForgotPage,
+    RecoverPage,
+    VerifyPage,
+
+    AboutPage,
+    PrivacyPage,
+    ShowPage,
+    TermsPage,
 
     SettingsTabPage,
-    GeneralPage,
-    SecurityPage,
-
-    DrawerPage,
-
-    HomePage,
-    AboutPage,
-    ContactPage,
-
-    // ECommerce Declarations
-    ECommerceProductCategoryPage,
-    ECommerceProductListPage,
-    ECommerceProductShowPage,
-    ECommerceProductFilterModal,
-    ECommerceCartContentPage,
-    ECommerceCartCheckoutPage,
-    ECommerceCartSuccessPage,
-    ECommerceCartItemQuantityModal,
-    ECommerceOrderListPage,
-    ECommerceOrderDetailsPage,
-
-    // Messenger
-    InboxPage,
-    ReadingInboxPage,
-
-    // User
-    UserListPage
+    GeneralSettingsPage,
+    SecuritySettingsPage,
   ],
   providers: [
     StatusBar,
     SplashScreen,
 
-    APDProvider,
-    ApplicationProvider,
+    BaseProvider,
     AuthProvider,
+    AuthSocialProvider,
+    ApplicationProvider,
     UserProvider,
 
-    // ECommerce Providers
-    ECommerceProductCategories,
-    ECommerceProduct,
-    ECommerceCart,
-    ECommerceOrder,
-
-    // Messenger
-    MessageProvider,
-
+    PageProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

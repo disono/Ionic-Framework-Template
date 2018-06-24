@@ -1,8 +1,14 @@
 {
-  "name": "blog",
+  "name": "templateApp",
   "app_id": "",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "proxies": [
+    {
+      "path":"/",
+      "proxyUrl": "http://192.168.1.58:40103"
+    }
+  ]
 }

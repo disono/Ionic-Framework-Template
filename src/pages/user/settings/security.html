@@ -1,0 +1,44 @@
+<!--
+ * @author          Archie, Disono (webmonsph@gmail.com)
+ * @link            https://webmons.com
+ * @copyright       Webmons Development Studio. (webmons.com), 2018
+ * @license         Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
+-->
+
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>
+      Security
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form (submit)="doSave($event, inputs)">
+    <ion-item>
+      <ion-label floating>Email*</ion-label>
+      <ion-input type="email" [(ngModel)]="inputs.email" name="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Current Password*</ion-label>
+      <ion-input type="password" [(ngModel)]="inputs.current_password" name="current_password"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>New Password*</ion-label>
+      <ion-input type="password" [(ngModel)]="inputs.password" name="password"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Confirm New Password*</ion-label>
+      <ion-input type="password" [(ngModel)]="inputs.password_confirmation" name="password_confirmation"></ion-input>
+    </ion-item>
+
+    <button ion-button block type="submit" mode="ios">Save Changes</button>
+  </form>
+</ion-content>

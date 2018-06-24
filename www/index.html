@@ -2,12 +2,12 @@
 <html lang="en" dir="ltr">
 <head>
   <script data-ionic="inject">
-    (function(w){var i=w.Ionic=w.Ionic||{};i.version='3.9.2';i.angular='5.0.3';i.staticDir='build/';})(window);
+    (function(w){var i=w.Ionic=w.Ionic||{};i.version='3.9.2';i.angular='5.2.11';i.staticDir='build/';})(window);
   </script>
   <meta charset="UTF-8">
   <title>Ionic App</title>
   <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-tap-highlight" content="no">
 
@@ -15,7 +15,11 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#4e8ef7">
 
-  <!-- cordova.js required for cordova apps -->
+  <!-- add to homescreen for ios -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <!-- cordova.js required for cordova apps (remove if not needed) -->
   <script src="cordova.js"></script>
 
   <!-- un-comment this code to enable service worker
@@ -35,21 +39,20 @@
 <!-- Ionic's root component and where the app will load -->
 <ion-app></ion-app>
 
-<script type="text/javascript" src="bower_modules/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript" src="bower_modules/crypto-js/crypto-js.js"></script>
-<script type="text/javascript" src="bower_modules/socket.io-client/dist/socket.io.js"></script>
-<script type="text/javascript" src="bower_modules/eventEmitter/EventEmitter.js"></script>
-<script type="text/javascript" src="bower_modules/moment/min/moment.min.js"></script>
-
-<script type="text/javascript" src="assets/js/prototypes.js"></script>
-
 <!-- The polyfills js is generated during the build process -->
 <script src="build/polyfills.js"></script>
 
-<!-- The vendor js is generated during the build process It contains all of the dependencies in node_modules -->
+<script src="vendor/jquery.slim.min.js"></script>
+<script src="vendor/socket.io.slim.js"></script>
+<script src="vendor/crypto-js.slim.js"></script>
+<script src="vendor/moment.min.js"></script>
+<script src="vendor/prototypes.js"></script>
+
+<!-- The vendor js is generated during the build process
+     It contains all of the dependencies in node_modules -->
 <script src="build/vendor.js"></script>
 
-<!-- The bundle js is generated during the build process -->
+<!-- The main bundle js is generated during the build process -->
 <script src="build/main.js"></script>
 
 </body>

@@ -1,212 +1,67 @@
 /**
- * @author Archie, Disono (webmonsph@gmail.com)
- * @url https://github.com/disono/Ionic-Framework-Template
- * @copyright Webmons Development Studio. (webmons.com), 2016-2017
- * @license Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
+ * @author          Archie, Disono (webmonsph@gmail.com)
+ * @link            https://webmons.com
+ * @copyright       Webmons Development Studio. (webmons.com), 2018
+ * @license         Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
 
-import {Component} from "@angular/core";
-import {AlertController, LoadingController, Platform} from "ionic-angular";
-import {StatusBar} from "@ionic-native/status-bar";
-import {SplashScreen} from "@ionic-native/splash-screen";
-import {AuthProvider} from "../providers/auth-provider";
-import {WBConfig} from "../lib/config";
-import {WBView} from "../lib/views";
-import {DrawerPage} from "../pages/drawer/drawer";
-import {WBSocket} from "../lib/socket";
-import {WBHelper} from "../lib/helper";
-
-declare let FCMPlugin;
+import {Component, ViewChild} from '@angular/core';
+import {LoadingController, Nav, Platform} from 'ionic-angular';
+import {StatusBar} from '@ionic-native/status-bar';
+import {SplashScreen} from '@ionic-native/splash-screen';
+import {AuthProvider} from "../providers/auth";
+import {DrawerMenu} from "../pages/menu/drawer/drawer";
+import {LoginPage} from "../pages/authentication/login/login";
+import {WBViews} from "../libraries/views";
+import {VerifyPage} from "../pages/authentication/verify/verify";
 
 @Component({
   template: `<ion-nav [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
+  @ViewChild(Nav) nav: Nav;
+
   rootPage: any;
 
-  constructor(public platform: Platform, public authProvider: AuthProvider,
-              public loadingCtrl: LoadingController, public alertCtrl: AlertController,
-              public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen,
+              private authProvider: AuthProvider, private loadingCtrl: LoadingController) {
     this.initializeApp();
   }
 
-  /**
-   * Initialize the app
-   */
   initializeApp() {
     this.platform.ready().then(() => {
-      let thisApp = this;
-
-      // run the application data
-      thisApp.run();
-
-      // event listener for syncing application
-      WBSocket.emitter.addListener('sync_application', function () {
-        thisApp.run();
-      });
+      // Okay, so the platform is ready and our plugins are available.
+      // Here you can do any higher level native things you might need.
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
+      this.defaultPage();
     });
   }
 
-  /**
-   * Set the default page view
-   *
-   * @param thisApp
-   */
-  pageView(thisApp) {
-    // Okay, so the platform is ready and our plugins are available.
-    // Here you can do any higher level native things you might need.
-    this.statusBar.styleDefault();
-    this.splashScreen.hide();
-
-    // check if user is authenticated
-    // drawer menus
-    thisApp.rootPage = DrawerPage;
-  }
-
-  /**
-   * Run the application
-   */
-  run() {
-    let thisApp = this;
-
-    if (!thisApp.authProvider.check()) {
-      // set page view
-      thisApp.pageView(thisApp);
-      return;
-    }
-
-    // save the new authenticated user (Sync data)
-    let loading = WBView.loading(thisApp.loadingCtrl, 'Syncing...');
-
-    // sync any data on server
-    thisApp.authProvider.sync().subscribe(function (res) {
-      loading.dismiss();
-
-      // run the application
-      thisApp.initializeData(function () {
-        thisApp.syncDone();
-      });
-    }, function (error) {
-      loading.dismiss();
-
-      // run the application
-      thisApp.initializeData(function () {
-        thisApp.syncDone();
-      });
-    });
-  }
-
-  /**
-   * sync done
-   */
-  syncDone() {
-    // set page view
-    this.pageView(this);
-  }
-
-  /**
-   * Initialized required data
-   */
-  initializeData(callback) {
-    let thisApp = this;
-
-    // store the FCM token
-    if (WBConfig.enableFCM) {
-      FCMPlugin.getToken(
-        function (token) {
-          // send the token to server
-          thisApp.authProvider.fcm_token(thisApp.authProvider.user().id, token).subscribe(function (response) {
-            callback();
-          });
-        },
-        function (err) {
-          callback();
-
-          WBView.alert(thisApp.alertCtrl, 'FCM Error', 'Error retrieving token: ' + err);
-        }
-      );
+  defaultPage() {
+    // check if authenticated
+    if (this.authProvider.user()) {
+      this.sync();
     } else {
-      callback();
+      this.rootPage = LoginPage;
     }
-
-    // watch user's position (really)
-    if (WBConfig.watchPosition) {
-      WBHelper.watchPosition(function (position) {
-        // register session
-        thisApp.sentLocation();
-      }, function (error) {
-
-      });
-    }
-
-    // web sockets
-    thisApp.initSocket();
   }
 
-  /**
-   * Waiting for socket
-   */
-  initSocket() {
+  sync() {
     let thisApp = this;
-    let session = thisApp.authProvider.user();
+    let loader = WBViews.loading(this.loadingCtrl, 'Syncing...');
+    this.authProvider.sync()
+      .subscribe(function (response) {
+        loader.dismiss();
 
-    if (!WBConfig.enable_web_socket) {
-      return;
-    }
-
-    WBSocket.connect(function () {
-      // on connected
-
-      // register session
-      thisApp.sentLocation();
-
-      // web socket receiver
-      thisApp.webSocketReceiver(session);
-    }, function () {
-      // events
-    }, function () {
-      // disconnect
-      WBSocket.emit('destroy_session', {
-        token_key: session.token_key
+        if (thisApp.authProvider.user().is_email_verified === 1) {
+          thisApp.rootPage = DrawerMenu;
+        } else {
+          thisApp.rootPage = VerifyPage;
+        }
+      }, function (e) {
+        loader.dismiss();
+        thisApp.rootPage = DrawerMenu;
       });
-    });
-  }
-
-  /**
-   * Received data from web socket
-   *
-   * @param session
-   */
-  webSocketReceiver(session) {
-    // messenger
-    WBSocket.on('message_session_' + session.id, function (data) {
-      if (!WBConfig.private_message_on_view) {
-        WBHelper.notify('New Message (' + data.from_full_name + ')', data.limit_message);
-      } else {
-        WBSocket.emitter.emitEvent('msg_received', [data]);
-      }
-    });
-
-    // notification to
-    WBSocket.on('notification_' + session.id, function (data) {
-      // notify
-      WBHelper.notify(data.name, data.content);
-    });
-
-    // notification channel
-    WBSocket.on('notification_channel_' + session.role, function (data) {
-      // notify
-      WBHelper.notify(data.name, data.content);
-    });
-  }
-
-  /**
-   * Sent the current location as session registration
-   */
-  sentLocation() {
-    let session = this.authProvider.user();
-    session.lat = WBConfig.lat;
-    session.lng = WBConfig.lng;
-    WBSocket.emit('register_session', session);
   }
 }

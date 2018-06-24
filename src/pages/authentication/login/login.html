@@ -1,0 +1,47 @@
+<!--
+ * @author          Archie, Disono (webmonsph@gmail.com)
+ * @link            https://webmons.com
+ * @copyright       Webmons Development Studio. (webmons.com), 2018
+ * @license         Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
+-->
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <form [formGroup]="inputs" (ngSubmit)="doLogin()" style="width: 100% !important;">
+        <ion-list padding>
+          <ion-item>
+            <ion-label color="primary">
+              <ion-icon name="ios-person"></ion-icon>
+            </ion-label>
+            <ion-input formControlName="username" type="text"
+                       placeholder="Username"
+                       [class.invalid]="!inputs.controls.username.valid && submitAttempt"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="!inputs.controls.username.valid && submitAttempt" no-lines>
+            <p class="invalid-text">Please enter a valid username.</p>
+          </ion-item>
+
+          <ion-item>
+            <ion-label color="primary">
+              <ion-icon name="ios-lock"></ion-icon>
+            </ion-label>
+            <ion-input formControlName="password" placeholder="Password" type="password"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="!inputs.controls.password.valid && submitAttempt" no-lines>
+            <p class="invalid-text">Password is required.</p>
+          </ion-item>
+        </ion-list>
+
+        <div padding>
+          <button ion-button block mode="ios" type="submit">Sign In</button>
+
+          <button ion-button block clear mode="ios" (click)="openRegister()" type="button">
+            <span>Don't have an account?</span>&nbsp;<span><strong>Sign up</strong></span></button>
+
+          <button ion-button block clear mode="ios" type="button" (click)="openForgot()">Forgot Password?</button>
+        </div>
+      </form>
+    </ion-row>
+  </ion-grid>
+</ion-content>

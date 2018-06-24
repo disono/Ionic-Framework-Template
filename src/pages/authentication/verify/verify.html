@@ -1,0 +1,30 @@
+<!--
+ * @author          Archie, Disono (webmonsph@gmail.com)
+ * @link            https://webmons.com
+ * @copyright       Webmons Development Studio. (webmons.com), 2018
+ * @license         Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
+-->
+
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>Verify</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="auth.is_email_verified !== 1">
+    <p class="text-center">
+      Please verify your email address, we already sent a verification url to your {{ auth.email }}.
+    </p>
+
+    <button ion-button block clear mode="ios" (click)="resend('email', auth.email)"
+            *ngIf="showResendEmailButton">Resend Verification
+    </button>
+
+    <button ion-button block color="danger" mode="ios" (click)="logout()">Logout</button>
+  </div>
+</ion-content>
