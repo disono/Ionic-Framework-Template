@@ -14,6 +14,8 @@ import {MyApp} from "../../../app/app.component";
 import {WBHelper} from "../../../libraries/helper";
 import {RegisterPage} from "../register/register";
 import {RecoverPage} from "../recovery/forgot";
+import {WBConfig} from "../../../config";
+import {AuthSocialProvider} from "../../../providers/authSocial";
 
 @Component({
   templateUrl: 'login.html'
@@ -21,9 +23,11 @@ import {RecoverPage} from "../recovery/forgot";
 export class LoginPage {
   private inputs: FormGroup;
   private submitAttempt: boolean = false;
+  private config = WBConfig;
 
   constructor(public navCtrl: NavController, private formBuilder: FormBuilder,
-              private loadingCtrl: LoadingController, private authProvider: AuthProvider) {
+              private loadingCtrl: LoadingController, private authProvider: AuthProvider,
+              private authSocialProvider: AuthSocialProvider) {
     this.formInputs();
   }
 
@@ -48,6 +52,24 @@ export class LoginPage {
       .subscribe(function (response) {
         loader.dismiss();
         thisApp.navCtrl.setRoot(MyApp);
+      }, function (e) {
+        loader.dismiss();
+        WBHelper.alert({
+          title: 'Validation Errors',
+          desc: WBHelper.getErrors(e)
+        });
+      });
+  }
+
+  FacebookLogin() {
+    let thisApp = this;
+    let loader = WBViews.loading(this.loadingCtrl, 'Authenticating...');
+    thisApp.authSocialProvider
+      .facebookLogin(function (response) {
+        loader.dismiss();
+        thisApp.navCtrl.setRoot(MyApp);
+      }, function () {
+        loader.dismiss();
       }, function (e) {
         loader.dismiss();
         WBHelper.alert({

@@ -1,169 +1,135 @@
 webpackJsonp([0],{
 
-/***/ 155:
+/***/ 157:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WBConfig; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthSocialProvider; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__libraries_helper__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__libraries_security__ = __webpack_require__(91);
 /**
  * @author          Archie, Disono (webmonsph@gmail.com)
  * @link            https://webmons.com
  * @copyright       Webmons Development Studio. (webmons.com), 2018
  * @license         Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
-var _WBConfig = (function () {
-    return {
-        development: true,
-        isBrowser: false,
-        productionURI: 'https://domain/',
-        developmentURI: 'http://192.168.1.58:40101/',
-        url: function () {
-            return ((_WBConfig.development) ? _WBConfig.developmentURI : _WBConfig.productionURI) + 'api/v1/';
-        },
-    };
-}());
-var WBConfig = _WBConfig;
-//# sourceMappingURL=config.js.map
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 
-/***/ }),
 
-/***/ 156:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WBSecurity; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(23);
-/**
- * @author          Archie, Disono (webmonsph@gmail.com)
- * @link            https://webmons.com
- * @copyright       Webmons Development Studio. (webmons.com), 2018
- * @license         Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
- */
 
-var _WBSecurity = (function () {
-    return {
-        /**
-         * Create JWT
-         *
-         * @param secret
-         * @param id
-         * @param current_time
-         *
-         * @returns {any}
-         */
-        jwt: function (secret, id, current_time) {
-            var token = null;
-            var current = moment(new Date(current_time)).toDate();
-            if (!secret) {
-                return null;
-            }
-            try {
-                var header = {
-                    "alg": "HS256",
-                    "typ": "JWT"
-                };
-                var wordArrayHeader = CryptoJS.enc.Utf8.parse(JSON.stringify(header));
-                var base64Header = CryptoJS.enc.Base64.stringify(wordArrayHeader);
-                var dataIat = current;
-                var dateNbf = current;
-                var dataExp = current;
-                var sub = id;
-                var iat = Math.floor(dataIat.getTime() / 1000);
-                var nbf = Math.floor(dateNbf.minusHours(1).getTime() / 1000);
-                var exp = Math.floor(dataExp.addHours(2).getTime() / 1000);
-                var jti = CryptoJS.MD5("jti." + sub + "." + iat);
-                var payload = {
-                    // This holds the identifier for the token (defaults to user id)
-                    "sub": sub,
-                    // When the token was issued (unix timestamp)
-                    "iat": iat,
-                    // The token expiry date (unix timestamp)
-                    "exp": exp,
-                    // The earliest point in time that the token can be used (unix timestamp)
-                    "nbf": nbf,
-                    // A unique identifier for the token (md5 of the sub and iat claims)
-                    "jti": jti
-                };
-                var wordArrayPayload = CryptoJS.enc.Utf8.parse(JSON.stringify(payload));
-                var base64Payload = CryptoJS.enc.Base64.stringify(wordArrayPayload);
-                var signature = CryptoJS.HmacSHA256(base64Header + "." + base64Payload, secret);
-                var base64Sign = CryptoJS.enc.Base64.stringify(signature);
-                token = base64Header + "." + base64Payload + "." + base64Sign;
-            }
-            catch (e) {
-                __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* WBHelper */].error(e);
-            }
-            return token;
-        },
-        /**
-         * JWT auth
-         *
-         * @returns {any}
-         */
-        jwtAuth: function () {
-            var auth = __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* WBHelper */].getItem('user', true);
-            return (auth) ? _WBSecurity.jwt(auth.token.secret, auth.id, _WBSecurity.getDateTimeDiff(auth.jwt_server_difference)) : null;
-        },
-        /**
-         * Server time difference on seconds
-         *
-         * @param sqlServerTime
-         *
-         * @returns {number}
-         */
-        getSecondsDiff: function (sqlServerTime) {
-            return WBDateTimeDiff(sqlServerTime);
-        },
-        /**
-         * Get the datetime difference
-         *
-         * @param seconds
-         *
-         * @returns {Date}
-         */
-        getDateTimeDiff: function (seconds) {
-            var current_time = new Date();
-            seconds = parseInt(seconds);
-            if (seconds > 0) {
-                // add seconds
-                current_time = new Date(current_time.setSeconds(current_time.getSeconds() - seconds));
-            }
-            else {
-                // subtract seconds
-                current_time = new Date(current_time.setSeconds(current_time.getSeconds() + Math.abs(seconds)));
-            }
-            return current_time;
-        },
-        /**
-         * Save auth
-         *
-         * @param newAuth
-         */
-        saveAuth: function (newAuth) {
-            // let's check if old data is present
-            // we must retain the tokens then save it
-            var currentAuth = __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* WBHelper */].getItem('user', true);
-            if (currentAuth) {
-                newAuth.token = currentAuth.token;
-                newAuth.server_timestamp = currentAuth.server_timestamp;
-                newAuth.jwt_server_difference = _WBSecurity.getSecondsDiff(newAuth.server_timestamp);
-            }
-            else {
-                // server time difference in seconds
-                // refresh data if old auth is not available
-                newAuth.jwt_server_difference = _WBSecurity.getSecondsDiff(newAuth.server_timestamp);
-            }
-            // save
-            __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* WBHelper */].setItem('user', newAuth, true);
+
+var AuthSocialProvider = /** @class */ (function () {
+    function AuthSocialProvider(baseProvider) {
+        this.baseProvider = baseProvider;
+        __WEBPACK_IMPORTED_MODULE_2__libraries_helper__["a" /* WBHelper */].log('AuthSocial Provider');
+    }
+    AuthSocialProvider.prototype.facebookLogin = function (onSuccess, onComplete, onFail) {
+        var thisApp = this;
+        // users birthday is required for approval
+        // user_birthday
+        var permissions = [
+            'email'
+        ];
+        if (__WEBPACK_IMPORTED_MODULE_3__config__["a" /* WBConfig */].isBrowser || !__WEBPACK_IMPORTED_MODULE_3__config__["a" /* WBConfig */].authentication.facebook || typeof facebookConnectPlugin === 'undefined') {
+            __WEBPACK_IMPORTED_MODULE_2__libraries_helper__["a" /* WBHelper */].alert({
+                title: 'Facebook Authentication Failed',
+                desc: 'Facebook login is not compatible with current platform mode, or the facebook authentication is disabled.'
+            });
+            onComplete();
+        }
+        else {
+            // remove any facebook auth
+            thisApp.facebookLogout(function (logoutResponse) {
+                // authenticate
+                thisApp._facebookAuth(thisApp, permissions, onSuccess, onFail);
+            }, function (e) {
+                // authenticate
+                thisApp._facebookAuth(thisApp, permissions, onSuccess, onFail);
+            });
         }
     };
+    AuthSocialProvider.prototype.registerFacebook = function (parameters) {
+        return this.baseProvider.post('auth/social/facebook', parameters, function (res) {
+            __WEBPACK_IMPORTED_MODULE_2__libraries_helper__["a" /* WBHelper */].log('AuthSocial-registerFacebook: ' + res);
+            __WEBPACK_IMPORTED_MODULE_4__libraries_security__["a" /* WBSecurity */].saveAuth(res.data);
+        });
+    };
+    AuthSocialProvider.prototype.facebookLogout = function (onSuccess, onFail) {
+        if (typeof facebookConnectPlugin === 'undefined' || !__WEBPACK_IMPORTED_MODULE_2__libraries_helper__["a" /* WBHelper */].getItem('FacebookAuth', false)) {
+            onFail('Facebook logout is not initialized.');
+            return;
+        }
+        if (!__WEBPACK_IMPORTED_MODULE_3__config__["a" /* WBConfig */].isBrowser && __WEBPACK_IMPORTED_MODULE_3__config__["a" /* WBConfig */].authentication.facebook) {
+            facebookConnectPlugin.logout(function (logoutResponse) {
+                onSuccess(logoutResponse);
+            }, function (error) {
+                onFail(error);
+            });
+        }
+    };
+    AuthSocialProvider.prototype._facebookAuth = function (thisApp, permissions, onSuccess, onFail) {
+        // start to login
+        facebookConnectPlugin.login(permissions, function (loginResponse) {
+            if (typeof loginResponse !== 'string') {
+                // get user
+                facebookConnectPlugin.api('/me?fields=first_name,last_name,email,gender', permissions, function (apiResponse) {
+                    if (typeof apiResponse.email === 'undefined') {
+                        onFail('Unable to register, email is required.');
+                        return;
+                    }
+                    if (!apiResponse.email || apiResponse.email === null) {
+                        onFail('Unable to register, email is required.');
+                        return;
+                    }
+                    // submit to server
+                    thisApp.registerFacebook({
+                        social_token: loginResponse.authResponse.accessToken,
+                        social_id: apiResponse.id,
+                        first_name: apiResponse.first_name,
+                        last_name: apiResponse.last_name,
+                        email: apiResponse.email,
+                    }).subscribe(function (registerResponse) {
+                        // Set Facebook Login
+                        __WEBPACK_IMPORTED_MODULE_2__libraries_helper__["a" /* WBHelper */].setItem('FacebookAuth', apiResponse.id, false);
+                        onSuccess(registerResponse);
+                    }, function (registerError) {
+                        onFail('Registration: ' + JSON.stringify(registerError));
+                    });
+                }, function (apiError) {
+                    onFail('Facebook User: ' + JSON.stringify(apiError));
+                });
+            }
+            else {
+                onFail('Facebook Response: ' + loginResponse);
+            }
+        }, function (loginError) {
+            onFail('Facebook Login: ' + JSON.stringify(loginError));
+        });
+    };
+    AuthSocialProvider = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__base__["a" /* BaseProvider */]])
+    ], AuthSocialProvider);
+    return AuthSocialProvider;
 }());
-var WBSecurity = _WBSecurity;
-//# sourceMappingURL=security.js.map
+
+//# sourceMappingURL=authSocial.js.map
 
 /***/ }),
 
-/***/ 157:
+/***/ 158:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -171,7 +137,7 @@ var WBSecurity = _WBSecurity;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__libraries_helper__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__base__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__libraries_security__ = __webpack_require__(156);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__libraries_security__ = __webpack_require__(91);
 /**
  * @author          Archie, Disono (webmonsph@gmail.com)
  * @link            https://webmons.com
@@ -224,7 +190,7 @@ var UserProvider = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 168:
+/***/ 169:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -237,11 +203,11 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 168;
+webpackEmptyAsyncContext.id = 169;
 
 /***/ }),
 
-/***/ 215:
+/***/ 216:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -254,7 +220,7 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 215;
+webpackEmptyAsyncContext.id = 216;
 
 /***/ }),
 
@@ -263,7 +229,7 @@ webpackEmptyAsyncContext.id = 215;
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WBHelper; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(67);
 /**
  * @author          Archie, Disono (webmonsph@gmail.com)
  * @link            https://webmons.com
@@ -497,20 +463,20 @@ var WBHelper = _WBHelper;
 
 /***/ }),
 
-/***/ 255:
+/***/ 256:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(256);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(261);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_auth__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_menu_drawer_drawer__ = __webpack_require__(352);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(257);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(262);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_auth__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_menu_drawer_drawer__ = __webpack_require__(353);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_authentication_login_login__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__libraries_views__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_authentication_verify_verify__ = __webpack_require__(362);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_authentication_verify_verify__ = __webpack_require__(363);
 /**
  * @author          Archie, Disono (webmonsph@gmail.com)
  * @link            https://webmons.com
@@ -598,7 +564,7 @@ var MyApp = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 28:
+/***/ 31:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -606,7 +572,8 @@ var MyApp = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(59);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__libraries_helper__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__libraries_security__ = __webpack_require__(156);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__libraries_security__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__authSocial__ = __webpack_require__(157);
 /**
  * @author          Archie, Disono (webmonsph@gmail.com)
  * @link            https://webmons.com
@@ -626,9 +593,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var AuthProvider = /** @class */ (function () {
-    function AuthProvider(base) {
+    function AuthProvider(base, authSocialProvider) {
         this.base = base;
+        this.authSocialProvider = authSocialProvider;
         __WEBPACK_IMPORTED_MODULE_2__libraries_helper__["a" /* WBHelper */].log('Auth Provider');
     }
     AuthProvider.prototype.register = function (parameters) {
@@ -648,9 +617,15 @@ var AuthProvider = /** @class */ (function () {
         if (auth) {
             tokenId = auth.token.id;
         }
+        var thisApp = this;
         return this.base.get('auth/logout/' + tokenId, null, function (res) {
             __WEBPACK_IMPORTED_MODULE_2__libraries_helper__["a" /* WBHelper */].log('Auth-logout: ' + res);
-            __WEBPACK_IMPORTED_MODULE_2__libraries_helper__["a" /* WBHelper */].clearItem();
+            // logout facebook
+            thisApp.authSocialProvider.facebookLogout(function (facebookLogoutResponse) {
+                __WEBPACK_IMPORTED_MODULE_2__libraries_helper__["a" /* WBHelper */].clearItem();
+            }, function (facebookLogoutError) {
+                __WEBPACK_IMPORTED_MODULE_2__libraries_helper__["a" /* WBHelper */].clearItem();
+            });
         });
     };
     AuthProvider.prototype.passwordForgot = function (email) {
@@ -679,7 +654,7 @@ var AuthProvider = /** @class */ (function () {
     };
     AuthProvider = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__base__["a" /* BaseProvider */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__base__["a" /* BaseProvider */], __WEBPACK_IMPORTED_MODULE_4__authSocial__["a" /* AuthSocialProvider */]])
     ], AuthProvider);
     return AuthProvider;
 }());
@@ -688,20 +663,20 @@ var AuthProvider = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 352:
+/***/ 353:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DrawerMenu; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(353);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(354);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__authentication_login_login__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__page_about_about__ = __webpack_require__(356);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__page_privacy_privacy__ = __webpack_require__(357);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__page_terms_terms__ = __webpack_require__(358);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__user_settings_settings_tab__ = __webpack_require__(359);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__page_about_about__ = __webpack_require__(357);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__page_privacy_privacy__ = __webpack_require__(358);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__page_terms_terms__ = __webpack_require__(359);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__user_settings_settings_tab__ = __webpack_require__(360);
 /**
  * @author          Archie, Disono (webmonsph@gmail.com)
  * @link            https://webmons.com
@@ -779,7 +754,7 @@ var DrawerMenu = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 353:
+/***/ 354:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -819,7 +794,7 @@ var HomePage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 354:
+/***/ 355:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -827,7 +802,7 @@ var HomePage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__libraries_views__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__libraries_helper__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__login_login__ = __webpack_require__(47);
@@ -896,7 +871,7 @@ var RegisterPage = /** @class */ (function () {
         this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_6__login_login__["a" /* LoginPage */]);
     };
     RegisterPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Cordova\Ionic-Framework-Template\src\pages\authentication\register\register.html"*/'<!--\n * @author          Archie, Disono (webmonsph@gmail.com)\n * @link            https://webmons.com\n * @copyright       Webmons Development Studio. (webmons.com), 2018\n * @license         Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-content>\n  <ion-grid>\n    <ion-row>\n      <form [formGroup]="inputs" (ngSubmit)="doRegister()" style="width: 100% !important;">\n        <ion-list padding>\n          <ion-item>\n            <ion-input formControlName="first_name" type="text"\n                       placeholder="First Name"\n                       [class.invalid]="!inputs.controls.first_name.valid && submitAttempt"></ion-input>\n          </ion-item>\n          <ion-item *ngIf="!inputs.controls.first_name.valid && submitAttempt" no-lines>\n            <p class="invalid-text">Please enter your real first name.</p>\n          </ion-item>\n\n          <ion-item>\n            <ion-input formControlName="last_name" type="text"\n                       placeholder="Last Name"\n                       [class.invalid]="!inputs.controls.last_name.valid && submitAttempt"></ion-input>\n          </ion-item>\n          <ion-item *ngIf="!inputs.controls.last_name.valid && submitAttempt" no-lines>\n            <p class="invalid-text">Please enter your real last name.</p>\n          </ion-item>\n\n          <ion-item>\n            <ion-input formControlName="email" type="email"\n                       placeholder="Email"\n                       [class.invalid]="!inputs.controls.email.valid && submitAttempt"></ion-input>\n          </ion-item>\n          <ion-item *ngIf="!inputs.controls.email.valid && submitAttempt" no-lines>\n            <p class="invalid-text">Please enter a valid email.</p>\n          </ion-item>\n\n          <ion-item>\n            <ion-input formControlName="username" type="text"\n                       placeholder="Username"\n                       [class.invalid]="!inputs.controls.username.valid && submitAttempt"></ion-input>\n          </ion-item>\n          <ion-item *ngIf="!inputs.controls.username.valid && submitAttempt" no-lines>\n            <p class="invalid-text">Please enter a valid username.</p>\n          </ion-item>\n\n          <ion-item>\n            <ion-input formControlName="password" placeholder="Password" type="password"></ion-input>\n          </ion-item>\n          <ion-item *ngIf="!inputs.controls.password.valid && submitAttempt" no-lines>\n            <p class="invalid-text">Password is required.</p>\n          </ion-item>\n\n          <ion-item>\n            <ion-input formControlName="password_confirmation" placeholder="Confirm Password" type="password"></ion-input>\n          </ion-item>\n          <ion-item *ngIf="!inputs.controls.password_confirmation.valid && submitAttempt" no-lines>\n            <p class="invalid-text">Confirm Password is required.</p>\n          </ion-item>\n        </ion-list>\n\n        <div padding>\n          <button ion-button block mode="ios" type="submit">Submit</button>\n\n          <button ion-button block clear mode="ios" (click)="openLogin()" type="button">\n            <span>Have an account?</span>&nbsp;<span><strong>Login now!</strong></span></button>\n        </div>\n      </form>\n    </ion-row>\n  </ion-grid>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Cordova\Ionic-Framework-Template\src\pages\authentication\register\register.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Cordova\Ionic-Framework-Template\src\pages\authentication\register\register.html"*/'<!--\n * @author          Archie, Disono (webmonsph@gmail.com)\n * @link            https://webmons.com\n * @copyright       Webmons Development Studio. (webmons.com), 2018\n * @license         Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-content>\n  <ion-grid>\n    <ion-row>\n      <form [formGroup]="inputs" (ngSubmit)="doRegister()" style="width: 100% !important;">\n        <ion-list padding>\n          <ion-item>\n            <ion-input formControlName="first_name" type="text"\n                       placeholder="First Name"\n                       [class.invalid]="!inputs.controls.first_name.valid && submitAttempt"></ion-input>\n          </ion-item>\n          <ion-item *ngIf="!inputs.controls.first_name.valid && submitAttempt" no-lines>\n            <p class="invalid-text">Please enter your real first name.</p>\n          </ion-item>\n\n          <ion-item>\n            <ion-input formControlName="last_name" type="text"\n                       placeholder="Last Name"\n                       [class.invalid]="!inputs.controls.last_name.valid && submitAttempt"></ion-input>\n          </ion-item>\n          <ion-item *ngIf="!inputs.controls.last_name.valid && submitAttempt" no-lines>\n            <p class="invalid-text">Please enter your real last name.</p>\n          </ion-item>\n\n          <ion-item>\n            <ion-input formControlName="email" type="email"\n                       placeholder="Email"\n                       [class.invalid]="!inputs.controls.email.valid && submitAttempt"></ion-input>\n          </ion-item>\n          <ion-item *ngIf="!inputs.controls.email.valid && submitAttempt" no-lines>\n            <p class="invalid-text">Please enter a valid email.</p>\n          </ion-item>\n\n          <ion-item>\n            <ion-input formControlName="username" type="text"\n                       placeholder="Username"\n                       [class.invalid]="!inputs.controls.username.valid && submitAttempt"></ion-input>\n          </ion-item>\n          <ion-item *ngIf="!inputs.controls.username.valid && submitAttempt" no-lines>\n            <p class="invalid-text">Please enter a valid username.</p>\n          </ion-item>\n\n          <ion-item>\n            <ion-input formControlName="password" placeholder="Password" type="password"></ion-input>\n          </ion-item>\n          <ion-item *ngIf="!inputs.controls.password.valid && submitAttempt" no-lines>\n            <p class="invalid-text">Password is required.</p>\n          </ion-item>\n\n          <ion-item>\n            <ion-input formControlName="password_confirmation" placeholder="Confirm Password"\n                       type="password"></ion-input>\n          </ion-item>\n          <ion-item *ngIf="!inputs.controls.password_confirmation.valid && submitAttempt" no-lines>\n            <p class="invalid-text">Confirm Password is required.</p>\n          </ion-item>\n        </ion-list>\n\n        <div padding>\n          <button ion-button block mode="ios" type="submit">Submit</button>\n\n          <button ion-button block clear mode="ios" (click)="openLogin()" type="button">\n            <span>Have an account?</span>&nbsp;<span><strong>Login now!</strong></span></button>\n        </div>\n      </form>\n    </ion-row>\n  </ion-grid>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Cordova\Ionic-Framework-Template\src\pages\authentication\register\register.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormBuilder */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_3__providers_auth__["a" /* AuthProvider */]])
@@ -908,7 +883,7 @@ var RegisterPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 355:
+/***/ 356:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -916,7 +891,7 @@ var RegisterPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__libraries_views__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__libraries_helper__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__login_login__ = __webpack_require__(47);
@@ -992,14 +967,14 @@ var RecoverPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 356:
+/***/ 357:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AboutPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_page__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_page__ = __webpack_require__(92);
 /**
  * @author          Archie, Disono (webmonsph@gmail.com)
  * @link            https://webmons.com
@@ -1047,14 +1022,14 @@ var AboutPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 357:
+/***/ 358:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PrivacyPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_page__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_page__ = __webpack_require__(92);
 /**
  * @author          Archie, Disono (webmonsph@gmail.com)
  * @link            https://webmons.com
@@ -1102,14 +1077,14 @@ var PrivacyPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 358:
+/***/ 359:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TermsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_page__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_page__ = __webpack_require__(92);
 /**
  * @author          Archie, Disono (webmonsph@gmail.com)
  * @link            https://webmons.com
@@ -1157,16 +1132,16 @@ var TermsPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 359:
+/***/ 360:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SettingsTabPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__general__ = __webpack_require__(360);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__security__ = __webpack_require__(361);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_auth__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__general__ = __webpack_require__(361);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__security__ = __webpack_require__(362);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_auth__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__libraries_views__ = __webpack_require__(40);
 /**
  * @author          Archie, Disono (webmonsph@gmail.com)
@@ -1223,18 +1198,18 @@ var SettingsTabPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 360:
+/***/ 361:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GeneralSettingsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_auth__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_auth__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__libraries_helper__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(67);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__libraries_views__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_user__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_user__ = __webpack_require__(158);
 /**
  * @author          Archie, Disono (webmonsph@gmail.com)
  * @link            https://webmons.com
@@ -1381,7 +1356,7 @@ var GeneralSettingsPage = /** @class */ (function () {
         image.src = img;
     };
     GeneralSettingsPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Cordova\Ionic-Framework-Template\src\pages\user\settings\general.html"*/'<!--\n * @author          Archie, Disono (webmonsph@gmail.com)\n * @link            https://webmons.com\n * @copyright       Webmons Development Studio. (webmons.com), 2018\n * @license         Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>\n      General Settings\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div style="text-align: center;">\n    <img src="{{ me.profile_picture }}" style="width: 92px; border-radius: 1000px;" id="profileImage" (click)="fileSelector()"/>\n  </div>\n\n  <form (submit)="doSave($event, inputs)">\n    <ion-list>\n      <ion-item>\n        <ion-label floating>First Name*</ion-label>\n        <ion-input type="text" [(ngModel)]="inputs.first_name" name="first_name"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Last Name*</ion-label>\n        <ion-input type="text" [(ngModel)]="inputs.last_name" name="last_name"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Phone</ion-label>\n        <ion-input type="tel" [(ngModel)]="inputs.phone" name="phone"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Gender</ion-label>\n        <ion-select [(ngModel)]="inputs.gender" name="gender">\n          <ion-option value="Male">Male</ion-option>\n          <ion-option value="Female">Female</ion-option>\n        </ion-select>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Birthday</ion-label>\n        <ion-datetime displayFormat="MMMM DD YYYY" [(ngModel)]="inputs.birthday" name="birthday"></ion-datetime>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Address</ion-label>\n        <ion-textarea rows="3" [(ngModel)]="inputs.address" name="address"></ion-textarea>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Email*</ion-label>\n        <ion-input type="email" [(ngModel)]="inputs.email" name="email"></ion-input>\n      </ion-item>\n    </ion-list>\n\n    <button ion-button block mode="ios" type="submit">Save Changes</button>\n  </form>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Cordova\Ionic-Framework-Template\src\pages\user\settings\general.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Cordova\Ionic-Framework-Template\src\pages\user\settings\general.html"*/'<!--\n * @author          Archie, Disono (webmonsph@gmail.com)\n * @link            https://webmons.com\n * @copyright       Webmons Development Studio. (webmons.com), 2018\n * @license         Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>\n      General Settings\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div style="text-align: center;">\n    <img src="{{ me.profile_picture }}" style="width: 92px; border-radius: 1000px;" id="profileImage"\n         (click)="fileSelector()"/>\n  </div>\n\n  <form (submit)="doSave($event, inputs)">\n    <ion-list>\n      <ion-item>\n        <ion-label floating>First Name*</ion-label>\n        <ion-input type="text" [(ngModel)]="inputs.first_name" name="first_name"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Last Name*</ion-label>\n        <ion-input type="text" [(ngModel)]="inputs.last_name" name="last_name"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Phone</ion-label>\n        <ion-input type="tel" [(ngModel)]="inputs.phone" name="phone"></ion-input>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Gender</ion-label>\n        <ion-select [(ngModel)]="inputs.gender" name="gender">\n          <ion-option value="Male">Male</ion-option>\n          <ion-option value="Female">Female</ion-option>\n        </ion-select>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>Birthday</ion-label>\n        <ion-datetime displayFormat="MMMM DD YYYY" [(ngModel)]="inputs.birthday" name="birthday"></ion-datetime>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Address</ion-label>\n        <ion-textarea rows="3" [(ngModel)]="inputs.address" name="address"></ion-textarea>\n      </ion-item>\n\n      <ion-item>\n        <ion-label floating>Email*</ion-label>\n        <ion-input type="email" [(ngModel)]="inputs.email" name="email"></ion-input>\n      </ion-item>\n    </ion-list>\n\n    <button ion-button block mode="ios" type="submit">Save Changes</button>\n  </form>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Cordova\Ionic-Framework-Template\src\pages\user\settings\general.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_auth__["a" /* AuthProvider */], __WEBPACK_IMPORTED_MODULE_6__providers_user__["a" /* UserProvider */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* LoadingController */]])
@@ -1393,17 +1368,17 @@ var GeneralSettingsPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 361:
+/***/ 362:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SecuritySettingsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_auth__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_auth__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__libraries_helper__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__libraries_views__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_user__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_user__ = __webpack_require__(158);
 /**
  * @author          Archie, Disono (webmonsph@gmail.com)
  * @link            https://webmons.com
@@ -1486,14 +1461,14 @@ var SecuritySettingsPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 362:
+/***/ 363:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return VerifyPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_auth__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_auth__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_login__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__libraries_helper__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__libraries_views__ = __webpack_require__(40);
@@ -1561,7 +1536,7 @@ var VerifyPage = /** @class */ (function () {
         });
     };
     VerifyPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Cordova\Ionic-Framework-Template\src\pages\authentication\verify\verify.html"*/'<!--\n * @author          Archie, Disono (webmonsph@gmail.com)\n * @link            https://webmons.com\n * @copyright       Webmons Development Studio. (webmons.com), 2018\n * @license         Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>Verify</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div *ngIf="auth.is_email_verified !== 1">\n    <p class="text-center">\n      Please verify your email address, we already sent a verification url to your {{ auth.email }}.\n    </p>\n\n    <button ion-button block clear  mode="ios" (click)="resend(\'email\', auth.email)"\n            *ngIf="showResendEmailButton">Resend Verification</button>\n\n    <button ion-button block color="danger" mode="ios" (click)="logout()">Logout</button>\n  </div>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Cordova\Ionic-Framework-Template\src\pages\authentication\verify\verify.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Cordova\Ionic-Framework-Template\src\pages\authentication\verify\verify.html"*/'<!--\n * @author          Archie, Disono (webmonsph@gmail.com)\n * @link            https://webmons.com\n * @copyright       Webmons Development Studio. (webmons.com), 2018\n * @license         Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n\n    <ion-title>Verify</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <div *ngIf="auth.is_email_verified !== 1">\n    <p class="text-center">\n      Please verify your email address, we already sent a verification url to your {{ auth.email }}.\n    </p>\n\n    <button ion-button block clear mode="ios" (click)="resend(\'email\', auth.email)"\n            *ngIf="showResendEmailButton">Resend Verification\n    </button>\n\n    <button ion-button block color="danger" mode="ios" (click)="logout()">Logout</button>\n  </div>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Cordova\Ionic-Framework-Template\src\pages\authentication\verify\verify.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_auth__["a" /* AuthProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* LoadingController */]])
     ], VerifyPage);
@@ -1572,13 +1547,13 @@ var VerifyPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 363:
+/***/ 364:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(364);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(368);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(365);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(369);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -1586,37 +1561,37 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 368:
+/***/ 369:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__(169);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__(170);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(255);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_home_home__ = __webpack_require__(353);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_status_bar__ = __webpack_require__(256);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_splash_screen__ = __webpack_require__(261);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_user__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__providers_auth__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_authSocial__ = __webpack_require__(691);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(256);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_home_home__ = __webpack_require__(354);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_status_bar__ = __webpack_require__(257);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_splash_screen__ = __webpack_require__(262);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_user__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__providers_auth__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_authSocial__ = __webpack_require__(157);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_application__ = __webpack_require__(692);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__providers_base__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_menu_drawer_drawer__ = __webpack_require__(352);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_menu_drawer_drawer__ = __webpack_require__(353);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_authentication_login_login__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_authentication_register_register__ = __webpack_require__(354);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_authentication_recovery_forgot__ = __webpack_require__(355);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_page_about_about__ = __webpack_require__(356);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_page_privacy_privacy__ = __webpack_require__(357);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_authentication_register_register__ = __webpack_require__(355);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_authentication_recovery_forgot__ = __webpack_require__(356);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_page_about_about__ = __webpack_require__(357);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_page_privacy_privacy__ = __webpack_require__(358);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_page_show_show__ = __webpack_require__(693);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_page_terms_terms__ = __webpack_require__(358);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pages_authentication_verify_verify__ = __webpack_require__(362);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_user_settings_general__ = __webpack_require__(360);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_user_settings_security__ = __webpack_require__(361);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_user_settings_settings_tab__ = __webpack_require__(359);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__providers_page__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_page_terms_terms__ = __webpack_require__(359);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pages_authentication_verify_verify__ = __webpack_require__(363);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_user_settings_general__ = __webpack_require__(361);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_user_settings_security__ = __webpack_require__(362);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_user_settings_settings_tab__ = __webpack_require__(360);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__providers_page__ = __webpack_require__(92);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1756,12 +1731,14 @@ var WBViews = _WBViews;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__libraries_views__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_app_component__ = __webpack_require__(255);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_app_component__ = __webpack_require__(256);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__libraries_helper__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__register_register__ = __webpack_require__(354);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__recovery_forgot__ = __webpack_require__(355);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__register_register__ = __webpack_require__(355);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__recovery_forgot__ = __webpack_require__(356);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__config__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_authSocial__ = __webpack_require__(157);
 /**
  * @author          Archie, Disono (webmonsph@gmail.com)
  * @link            https://webmons.com
@@ -1786,13 +1763,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var LoginPage = /** @class */ (function () {
-    function LoginPage(navCtrl, formBuilder, loadingCtrl, authProvider) {
+    function LoginPage(navCtrl, formBuilder, loadingCtrl, authProvider, authSocialProvider) {
         this.navCtrl = navCtrl;
         this.formBuilder = formBuilder;
         this.loadingCtrl = loadingCtrl;
         this.authProvider = authProvider;
+        this.authSocialProvider = authSocialProvider;
         this.submitAttempt = false;
+        this.config = __WEBPACK_IMPORTED_MODULE_9__config__["a" /* WBConfig */];
         this.formInputs();
     }
     LoginPage.prototype.formInputs = function () {
@@ -1821,6 +1802,23 @@ var LoginPage = /** @class */ (function () {
             });
         });
     };
+    LoginPage.prototype.FacebookLogin = function () {
+        var thisApp = this;
+        var loader = __WEBPACK_IMPORTED_MODULE_4__libraries_views__["a" /* WBViews */].loading(this.loadingCtrl, 'Authenticating...');
+        thisApp.authSocialProvider
+            .facebookLogin(function (response) {
+            loader.dismiss();
+            thisApp.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_5__app_app_component__["a" /* MyApp */]);
+        }, function () {
+            loader.dismiss();
+        }, function (e) {
+            loader.dismiss();
+            __WEBPACK_IMPORTED_MODULE_6__libraries_helper__["a" /* WBHelper */].alert({
+                title: 'Validation Errors',
+                desc: __WEBPACK_IMPORTED_MODULE_6__libraries_helper__["a" /* WBHelper */].getErrors(e)
+            });
+        });
+    };
     LoginPage.prototype.openRegister = function () {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_7__register_register__["a" /* RegisterPage */]);
     };
@@ -1828,10 +1826,11 @@ var LoginPage = /** @class */ (function () {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_8__recovery_forgot__["a" /* RecoverPage */]);
     };
     LoginPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Cordova\Ionic-Framework-Template\src\pages\authentication\login\login.html"*/'<!--\n * @author          Archie, Disono (webmonsph@gmail.com)\n * @link            https://webmons.com\n * @copyright       Webmons Development Studio. (webmons.com), 2018\n * @license         Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-content>\n  <ion-grid>\n    <ion-row>\n      <form [formGroup]="inputs" (ngSubmit)="doLogin()" style="width: 100% !important;">\n        <ion-list padding>\n          <ion-item>\n            <ion-label color="primary">\n              <ion-icon name="ios-person"></ion-icon>\n            </ion-label>\n            <ion-input formControlName="username" type="text"\n                       placeholder="Username"\n                       [class.invalid]="!inputs.controls.username.valid && submitAttempt"></ion-input>\n          </ion-item>\n          <ion-item *ngIf="!inputs.controls.username.valid && submitAttempt" no-lines>\n            <p class="invalid-text">Please enter a valid username.</p>\n          </ion-item>\n\n          <ion-item>\n            <ion-label color="primary">\n              <ion-icon name="ios-lock"></ion-icon>\n            </ion-label>\n            <ion-input formControlName="password" placeholder="Password" type="password"></ion-input>\n          </ion-item>\n          <ion-item *ngIf="!inputs.controls.password.valid && submitAttempt" no-lines>\n            <p class="invalid-text">Password is required.</p>\n          </ion-item>\n        </ion-list>\n\n        <div padding>\n          <button ion-button block mode="ios" type="submit">Sign In</button>\n\n          <button ion-button block clear mode="ios" (click)="openRegister()" type="button">\n            <span>Don\'t have an account?</span>&nbsp;<span><strong>Sign up</strong></span></button>\n\n          <button ion-button block clear mode="ios" type="button" (click)="openForgot()">Forgot Password?</button>\n        </div>\n      </form>\n    </ion-row>\n  </ion-grid>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Cordova\Ionic-Framework-Template\src\pages\authentication\login\login.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"E:\Projects\MobileCrossPlatform\Cordova\Ionic-Framework-Template\src\pages\authentication\login\login.html"*/'<!--\n * @author          Archie, Disono (webmonsph@gmail.com)\n * @link            https://webmons.com\n * @copyright       Webmons Development Studio. (webmons.com), 2018\n * @license         Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE\n-->\n\n<ion-content>\n  <ion-grid>\n    <ion-row>\n      <!-- Facebook login -->\n      <div style="width: 100%;" padding>\n        <button ion-button block color="primary"\n                (click)="FacebookLogin()" *ngIf="config.authentication.facebook" mode="ios">\n          Continue with Facebook\n        </button>\n      </div>\n\n      <!-- Email login -->\n      <form [formGroup]="inputs" (ngSubmit)="doLogin()" style="width: 100% !important;"\n            *ngIf="config.authentication.email">\n        <ion-list padding>\n          <ion-item>\n            <ion-label color="primary">\n              <ion-icon name="ios-person"></ion-icon>\n            </ion-label>\n            <ion-input formControlName="username" type="text"\n                       placeholder="Username"\n                       [class.invalid]="!inputs.controls.username.valid && submitAttempt"></ion-input>\n          </ion-item>\n          <ion-item *ngIf="!inputs.controls.username.valid && submitAttempt" no-lines>\n            <p class="invalid-text">Please enter a valid username.</p>\n          </ion-item>\n\n          <ion-item>\n            <ion-label color="primary">\n              <ion-icon name="ios-lock"></ion-icon>\n            </ion-label>\n            <ion-input formControlName="password" placeholder="Password" type="password"></ion-input>\n          </ion-item>\n          <ion-item *ngIf="!inputs.controls.password.valid && submitAttempt" no-lines>\n            <p class="invalid-text">Password is required.</p>\n          </ion-item>\n        </ion-list>\n\n        <div padding>\n          <button ion-button block mode="ios" type="submit">Sign In</button>\n\n          <button ion-button block clear mode="ios" (click)="openRegister()" type="button">\n            <span>Don\'t have an account?</span>&nbsp;<span><strong>Sign up</strong></span></button>\n\n          <button ion-button block clear mode="ios" type="button" (click)="openForgot()">Forgot Password?</button>\n        </div>\n      </form>\n    </ion-row>\n  </ion-grid>\n</ion-content>\n'/*ion-inline-end:"E:\Projects\MobileCrossPlatform\Cordova\Ionic-Framework-Template\src\pages\authentication\login\login.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormBuilder */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_3__providers_auth__["a" /* AuthProvider */]])
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_3__providers_auth__["a" /* AuthProvider */],
+            __WEBPACK_IMPORTED_MODULE_10__providers_authSocial__["a" /* AuthSocialProvider */]])
     ], LoginPage);
     return LoginPage;
 }());
@@ -1845,15 +1844,15 @@ var LoginPage = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(169);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(170);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Rx__ = __webpack_require__(411);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Rx__ = __webpack_require__(412);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Rx__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__libraries_helper__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__config__ = __webpack_require__(155);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__libraries_security__ = __webpack_require__(156);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__config__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__libraries_security__ = __webpack_require__(91);
 /**
  * @author          Archie, Disono (webmonsph@gmail.com)
  * @link            https://webmons.com
@@ -2086,50 +2085,34 @@ var BaseProvider = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 691:
+/***/ 67:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthSocialProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__auth__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__libraries_helper__ = __webpack_require__(23);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WBConfig; });
 /**
  * @author          Archie, Disono (webmonsph@gmail.com)
  * @link            https://webmons.com
  * @copyright       Webmons Development Studio. (webmons.com), 2018
  * @license         Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
  */
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-var AuthSocialProvider = /** @class */ (function () {
-    function AuthSocialProvider(base, auth) {
-        this.base = base;
-        this.auth = auth;
-        __WEBPACK_IMPORTED_MODULE_3__libraries_helper__["a" /* WBHelper */].log('AuthSocial Provider');
-    }
-    AuthSocialProvider.prototype.facebook = function () {
+var _WBConfig = (function () {
+    return {
+        development: true,
+        isBrowser: false,
+        productionURI: 'https://domain/',
+        developmentURI: 'http://192.168.1.58:40101/',
+        url: function () {
+            return ((_WBConfig.development) ? _WBConfig.developmentURI : _WBConfig.productionURI) + 'api/v1/';
+        },
+        authentication: {
+            facebook: true,
+            email: true
+        }
     };
-    AuthSocialProvider = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__base__["a" /* BaseProvider */], __WEBPACK_IMPORTED_MODULE_2__auth__["a" /* AuthProvider */]])
-    ], AuthSocialProvider);
-    return AuthSocialProvider;
 }());
-
-//# sourceMappingURL=authSocial.js.map
+var WBConfig = _WBConfig;
+//# sourceMappingURL=config.js.map
 
 /***/ }),
 
@@ -2214,7 +2197,143 @@ var ShowPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 90:
+/***/ 91:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WBSecurity; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(23);
+/**
+ * @author          Archie, Disono (webmonsph@gmail.com)
+ * @link            https://webmons.com
+ * @copyright       Webmons Development Studio. (webmons.com), 2018
+ * @license         Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
+ */
+
+var _WBSecurity = (function () {
+    return {
+        /**
+         * Create JWT
+         *
+         * @param secret
+         * @param id
+         * @param current_time
+         *
+         * @returns {any}
+         */
+        jwt: function (secret, id, current_time) {
+            var token = null;
+            var current = moment(new Date(current_time)).toDate();
+            if (!secret) {
+                return null;
+            }
+            try {
+                var header = {
+                    "alg": "HS256",
+                    "typ": "JWT"
+                };
+                var wordArrayHeader = CryptoJS.enc.Utf8.parse(JSON.stringify(header));
+                var base64Header = CryptoJS.enc.Base64.stringify(wordArrayHeader);
+                var dataIat = current;
+                var dateNbf = current;
+                var dataExp = current;
+                var sub = id;
+                var iat = Math.floor(dataIat.getTime() / 1000);
+                var nbf = Math.floor(dateNbf.minusHours(1).getTime() / 1000);
+                var exp = Math.floor(dataExp.addHours(2).getTime() / 1000);
+                var jti = CryptoJS.MD5("jti." + sub + "." + iat);
+                var payload = {
+                    // This holds the identifier for the token (defaults to user id)
+                    "sub": sub,
+                    // When the token was issued (unix timestamp)
+                    "iat": iat,
+                    // The token expiry date (unix timestamp)
+                    "exp": exp,
+                    // The earliest point in time that the token can be used (unix timestamp)
+                    "nbf": nbf,
+                    // A unique identifier for the token (md5 of the sub and iat claims)
+                    "jti": jti
+                };
+                var wordArrayPayload = CryptoJS.enc.Utf8.parse(JSON.stringify(payload));
+                var base64Payload = CryptoJS.enc.Base64.stringify(wordArrayPayload);
+                var signature = CryptoJS.HmacSHA256(base64Header + "." + base64Payload, secret);
+                var base64Sign = CryptoJS.enc.Base64.stringify(signature);
+                token = base64Header + "." + base64Payload + "." + base64Sign;
+            }
+            catch (e) {
+                __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* WBHelper */].error(e);
+            }
+            return token;
+        },
+        /**
+         * JWT auth
+         *
+         * @returns {any}
+         */
+        jwtAuth: function () {
+            var auth = __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* WBHelper */].getItem('user', true);
+            return (auth) ? _WBSecurity.jwt(auth.token.secret, auth.id, _WBSecurity.getDateTimeDiff(auth.jwt_server_difference)) : null;
+        },
+        /**
+         * Server time difference on seconds
+         *
+         * @param sqlServerTime
+         *
+         * @returns {number}
+         */
+        getSecondsDiff: function (sqlServerTime) {
+            return WBDateTimeDiff(sqlServerTime);
+        },
+        /**
+         * Get the datetime difference
+         *
+         * @param seconds
+         *
+         * @returns {Date}
+         */
+        getDateTimeDiff: function (seconds) {
+            var current_time = new Date();
+            seconds = parseInt(seconds);
+            if (seconds > 0) {
+                // add seconds
+                current_time = new Date(current_time.setSeconds(current_time.getSeconds() - seconds));
+            }
+            else {
+                // subtract seconds
+                current_time = new Date(current_time.setSeconds(current_time.getSeconds() + Math.abs(seconds)));
+            }
+            return current_time;
+        },
+        /**
+         * Save auth
+         *
+         * @param newAuth
+         */
+        saveAuth: function (newAuth) {
+            // let's check if old data is present
+            // we must retain the tokens then save it
+            var currentAuth = __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* WBHelper */].getItem('user', true);
+            if (currentAuth) {
+                newAuth.token = currentAuth.token;
+                newAuth.server_timestamp = currentAuth.server_timestamp;
+                newAuth.jwt_server_difference = _WBSecurity.getSecondsDiff(newAuth.server_timestamp);
+            }
+            else {
+                // server time difference in seconds
+                // refresh data if old auth is not available
+                newAuth.jwt_server_difference = _WBSecurity.getSecondsDiff(newAuth.server_timestamp);
+            }
+            // save
+            __WEBPACK_IMPORTED_MODULE_0__helper__["a" /* WBHelper */].setItem('user', newAuth, true);
+        }
+    };
+}());
+var WBSecurity = _WBSecurity;
+//# sourceMappingURL=security.js.map
+
+/***/ }),
+
+/***/ 92:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2261,5 +2380,5 @@ var PageProvider = /** @class */ (function () {
 
 /***/ })
 
-},[363]);
+},[364]);
 //# sourceMappingURL=main.js.map

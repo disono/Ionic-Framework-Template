@@ -25,7 +25,7 @@ is a starting blank template for Ionic Projects V4
 
 3. For facebook login (optional)
 - Update your sr/lib/config.ts to facebook_auth: true
-- cordova plugin add cordova-plugin-facebook4 --save --variable APP_ID="YOU_APP_ID" --variable APP_NAME="YOU_APPLICATION_NAME"
+- ionic cordova plugin add cordova-plugin-facebook4 --save --variable APP_ID="YOU_APP_ID" --variable APP_NAME="YOU_APPLICATION_NAME"
 - Create App on facebook SDK API @ https://developers.facebook.com/apps
 - Update the strings.xml on /platforms/android/app/src/main/res/values and the plugin details on /plugin
 <string name="fb_app_id">ID</string>

@@ -8,7 +8,17 @@
 <ion-content>
   <ion-grid>
     <ion-row>
-      <form [formGroup]="inputs" (ngSubmit)="doLogin()" style="width: 100% !important;">
+      <!-- Facebook login -->
+      <div style="width: 100%;" padding>
+        <button ion-button block color="primary"
+                (click)="FacebookLogin()" *ngIf="config.authentication.facebook" mode="ios">
+          Continue with Facebook
+        </button>
+      </div>
+
+      <!-- Email login -->
+      <form [formGroup]="inputs" (ngSubmit)="doLogin()" style="width: 100% !important;"
+            *ngIf="config.authentication.email">
         <ion-list padding>
           <ion-item>
             <ion-label color="primary">

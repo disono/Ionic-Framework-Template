@@ -9,11 +9,12 @@ import {Injectable} from '@angular/core';
 import {BaseProvider} from "./base";
 import {WBHelper} from "../libraries/helper";
 import {WBSecurity} from "../libraries/security";
+import {AuthSocialProvider} from "./authSocial";
 
 @Injectable()
 export class AuthProvider {
 
-  constructor(private base: BaseProvider) {
+  constructor(private base: BaseProvider, private authSocialProvider: AuthSocialProvider) {
     WBHelper.log('Auth Provider');
   }
 
@@ -38,9 +39,16 @@ export class AuthProvider {
       tokenId = auth.token.id;
     }
 
+    let thisApp = this;
     return this.base.get('auth/logout/' + tokenId, null, function (res) {
       WBHelper.log('Auth-logout: ' + res);
-      WBHelper.clearItem();
+
+      // logout facebook
+      thisApp.authSocialProvider.facebookLogout(function (facebookLogoutResponse) {
+        WBHelper.clearItem();
+      }, function (facebookLogoutError) {
+        WBHelper.clearItem();
+      });
     });
   }
 

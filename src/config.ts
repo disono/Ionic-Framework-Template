@@ -15,6 +15,11 @@ let _WBConfig = (function () {
     url: function () {
       return ((_WBConfig.development) ? _WBConfig.developmentURI : _WBConfig.productionURI) + 'api/v1/';
     },
+
+    authentication: {
+      facebook: true,
+      email: true
+    }
   };
 }());
 
