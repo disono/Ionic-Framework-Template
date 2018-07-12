@@ -70,8 +70,16 @@
     },
     "is_top_level": true,
     "variables": {
-      "APP_ID": "1913712325525496",
-      "APP_NAME": "Webmons Client Demo"
+      "APP_ID": "",
+      "APP_NAME": ""
     }
+  },
+  "cordova-plugin-fcm": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-fcm"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

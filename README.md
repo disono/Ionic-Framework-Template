@@ -41,6 +41,16 @@ $ ionic cordova platform add android
 $ ionic cordova run android
 ```
 
+### FCM Issue
+Reference [https://github.com/fechanique/cordova-plugin-fcm/issues/481](https://github.com/fechanique/cordova-plugin-fcm/issues/481)
+```sh
+It is a issue with fcm_config_files_process.js file placed in [your project]/plugins/scripts
+
+Change this code to
+	fs.writeFileSync("platforms/android/google-services.json", contents);
+    fs.writeFileSync("platforms/android/app/google-services.json", contents);
+```
+
 ### Crosswalk Plugin (optional)
 [https://github.com/crosswalk-project/cordova-plugin-crosswalk-webview](https://github.com/crosswalk-project/cordova-plugin-crosswalk-webview)
 

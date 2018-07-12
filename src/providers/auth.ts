@@ -77,6 +77,15 @@ export class AuthProvider {
     });
   }
 
+  token(token) {
+    let me = this.user();
+    let token_id = (me) ? me.token.id : '';
+
+    return this.base.post('user/fcm/store', {fcm_token: token, token_id: token_id}, function (res) {
+      WBHelper.log('Auth-token: ' + res);
+    });
+  }
+
   user() {
     return WBHelper.getItem('user', true);
   }

@@ -1,13 +1,13 @@
 webpackJsonp([0],{
 
-/***/ 157:
+/***/ 158:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthSocialProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__libraries_helper__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__libraries_helper__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config__ = __webpack_require__(67);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__libraries_security__ = __webpack_require__(91);
 /**
@@ -129,13 +129,13 @@ var AuthSocialProvider = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 158:
+/***/ 159:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__libraries_helper__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__libraries_helper__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__base__ = __webpack_require__(59);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__libraries_security__ = __webpack_require__(91);
 /**
@@ -190,7 +190,7 @@ var UserProvider = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 169:
+/***/ 170:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -203,11 +203,11 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 169;
+webpackEmptyAsyncContext.id = 170;
 
 /***/ }),
 
-/***/ 216:
+/***/ 217:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -220,11 +220,11 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 216;
+webpackEmptyAsyncContext.id = 217;
 
 /***/ }),
 
-/***/ 23:
+/***/ 22:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -463,20 +463,22 @@ var WBHelper = _WBHelper;
 
 /***/ }),
 
-/***/ 256:
+/***/ 261:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(257);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(262);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(262);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(263);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_auth__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_menu_drawer_drawer__ = __webpack_require__(353);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_menu_drawer_drawer__ = __webpack_require__(354);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_authentication_login_login__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__libraries_views__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_authentication_verify_verify__ = __webpack_require__(363);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_authentication_verify_verify__ = __webpack_require__(364);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_fcm__ = __webpack_require__(257);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__libraries_helper__ = __webpack_require__(22);
 /**
  * @author          Archie, Disono (webmonsph@gmail.com)
  * @link            https://webmons.com
@@ -501,13 +503,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var MyApp = /** @class */ (function () {
-    function MyApp(platform, statusBar, splashScreen, authProvider, loadingCtrl) {
+    function MyApp(platform, statusBar, splashScreen, authProvider, loadingCtrl, fcm) {
         this.platform = platform;
         this.statusBar = statusBar;
         this.splashScreen = splashScreen;
         this.authProvider = authProvider;
         this.loadingCtrl = loadingCtrl;
+        this.fcm = fcm;
         this.initializeApp();
     }
     MyApp.prototype.initializeApp = function () {
@@ -534,16 +539,56 @@ var MyApp = /** @class */ (function () {
         var loader = __WEBPACK_IMPORTED_MODULE_7__libraries_views__["a" /* WBViews */].loading(this.loadingCtrl, 'Syncing...');
         this.authProvider.sync()
             .subscribe(function (response) {
-            loader.dismiss();
             if (thisApp.authProvider.user().is_email_verified === 1) {
+                if (response.data.setting.fcm.value === 'enabled') {
+                    thisApp.FCM(response, function () {
+                        loader.dismiss();
+                        thisApp.rootPage = __WEBPACK_IMPORTED_MODULE_5__pages_menu_drawer_drawer__["a" /* DrawerMenu */];
+                    });
+                    return;
+                }
+                loader.dismiss();
                 thisApp.rootPage = __WEBPACK_IMPORTED_MODULE_5__pages_menu_drawer_drawer__["a" /* DrawerMenu */];
             }
             else {
+                loader.dismiss();
                 thisApp.rootPage = __WEBPACK_IMPORTED_MODULE_8__pages_authentication_verify_verify__["a" /* VerifyPage */];
             }
         }, function (e) {
             loader.dismiss();
             thisApp.rootPage = __WEBPACK_IMPORTED_MODULE_5__pages_menu_drawer_drawer__["a" /* DrawerMenu */];
+        });
+    };
+    MyApp.prototype.FCM = function (response, callback) {
+        var thisApp = this;
+        // subscribe to topic
+        if (response.data.setting) {
+            response.data.setting.fcm_topics.value.forEach(function (value, index) {
+                if (value) {
+                    thisApp.fcm.subscribeToTopic(value);
+                }
+            });
+        }
+        // send the token to server
+        thisApp.fcm.getToken().then(function (token) {
+            thisApp._sendToken(thisApp, token, callback);
+        }, function (e) {
+            __WEBPACK_IMPORTED_MODULE_10__libraries_helper__["a" /* WBHelper */].showToast('Get Error: ' + e);
+            callback();
+        });
+        // received a notification
+        thisApp.fcm.onNotification().subscribe(function (data) {
+        }, function (e) {
+            __WEBPACK_IMPORTED_MODULE_10__libraries_helper__["a" /* WBHelper */].showToast('Msg Error: ' + e);
+        });
+    };
+    MyApp.prototype._sendToken = function (thisApp, token, callback) {
+        thisApp.authProvider.token(token)
+            .subscribe(function () {
+            callback();
+        }, function (e) {
+            callback();
+            alert(e);
         });
     };
     __decorate([
@@ -555,7 +600,7 @@ var MyApp = /** @class */ (function () {
             template: "<ion-nav [root]=\"rootPage\"></ion-nav>"
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */],
-            __WEBPACK_IMPORTED_MODULE_4__providers_auth__["a" /* AuthProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* LoadingController */]])
+            __WEBPACK_IMPORTED_MODULE_4__providers_auth__["a" /* AuthProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_9__ionic_native_fcm__["a" /* FCM */]])
     ], MyApp);
     return MyApp;
 }());
@@ -571,9 +616,9 @@ var MyApp = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__libraries_helper__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__libraries_helper__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__libraries_security__ = __webpack_require__(91);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__authSocial__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__authSocial__ = __webpack_require__(158);
 /**
  * @author          Archie, Disono (webmonsph@gmail.com)
  * @link            https://webmons.com
@@ -649,6 +694,14 @@ var AuthProvider = /** @class */ (function () {
             __WEBPACK_IMPORTED_MODULE_3__libraries_security__["a" /* WBSecurity */].saveAuth(res.data.profile);
         });
     };
+    AuthProvider.prototype.token = function (token) {
+        var me = this.user();
+        var token_id = (me) ? me.token.id : '';
+        alert('ID: ' + token_id);
+        return this.base.post('user/fcm/store', { fcm_token: token, token_id: token_id }, function (res) {
+            __WEBPACK_IMPORTED_MODULE_2__libraries_helper__["a" /* WBHelper */].log('Auth-token: ' + res);
+        });
+    };
     AuthProvider.prototype.user = function () {
         return __WEBPACK_IMPORTED_MODULE_2__libraries_helper__["a" /* WBHelper */].getItem('user', true);
     };
@@ -663,20 +716,20 @@ var AuthProvider = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 353:
+/***/ 354:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DrawerMenu; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(354);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(355);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__authentication_login_login__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__page_about_about__ = __webpack_require__(357);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__page_privacy_privacy__ = __webpack_require__(358);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__page_terms_terms__ = __webpack_require__(359);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__user_settings_settings_tab__ = __webpack_require__(360);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__page_about_about__ = __webpack_require__(358);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__page_privacy_privacy__ = __webpack_require__(359);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__page_terms_terms__ = __webpack_require__(360);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__user_settings_settings_tab__ = __webpack_require__(361);
 /**
  * @author          Archie, Disono (webmonsph@gmail.com)
  * @link            https://webmons.com
@@ -754,7 +807,7 @@ var DrawerMenu = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 354:
+/***/ 355:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -794,17 +847,17 @@ var HomePage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 355:
+/***/ 356:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RegisterPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__libraries_views__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__libraries_helper__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__libraries_helper__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__login_login__ = __webpack_require__(47);
 /**
  * @author          Archie, Disono (webmonsph@gmail.com)
@@ -883,17 +936,17 @@ var RegisterPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 356:
+/***/ 357:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RecoverPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__libraries_views__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__libraries_helper__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__libraries_helper__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__login_login__ = __webpack_require__(47);
 /**
  * @author          Archie, Disono (webmonsph@gmail.com)
@@ -967,7 +1020,7 @@ var RecoverPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 357:
+/***/ 358:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1022,7 +1075,7 @@ var AboutPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 358:
+/***/ 359:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1077,7 +1130,7 @@ var PrivacyPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 359:
+/***/ 360:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1132,15 +1185,15 @@ var TermsPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 360:
+/***/ 361:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SettingsTabPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__general__ = __webpack_require__(361);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__security__ = __webpack_require__(362);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__general__ = __webpack_require__(362);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__security__ = __webpack_require__(363);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_auth__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__libraries_views__ = __webpack_require__(40);
 /**
@@ -1198,7 +1251,7 @@ var SettingsTabPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 361:
+/***/ 362:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1206,10 +1259,10 @@ var SettingsTabPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_auth__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__libraries_helper__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__libraries_helper__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__(67);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__libraries_views__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_user__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_user__ = __webpack_require__(159);
 /**
  * @author          Archie, Disono (webmonsph@gmail.com)
  * @link            https://webmons.com
@@ -1368,7 +1421,7 @@ var GeneralSettingsPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 362:
+/***/ 363:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1376,9 +1429,9 @@ var GeneralSettingsPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_auth__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__libraries_helper__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__libraries_helper__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__libraries_views__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_user__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_user__ = __webpack_require__(159);
 /**
  * @author          Archie, Disono (webmonsph@gmail.com)
  * @link            https://webmons.com
@@ -1461,7 +1514,7 @@ var SecuritySettingsPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 363:
+/***/ 364:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1470,7 +1523,7 @@ var SecuritySettingsPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_auth__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_login__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__libraries_helper__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__libraries_helper__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__libraries_views__ = __webpack_require__(40);
 /**
  * @author          Archie, Disono (webmonsph@gmail.com)
@@ -1547,13 +1600,13 @@ var VerifyPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 364:
+/***/ 365:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(365);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(369);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(366);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(370);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -1561,37 +1614,38 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 369:
+/***/ 370:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__(170);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__(171);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(256);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_home_home__ = __webpack_require__(354);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_status_bar__ = __webpack_require__(257);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_splash_screen__ = __webpack_require__(262);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_user__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__providers_auth__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_authSocial__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_application__ = __webpack_require__(692);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__providers_base__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_menu_drawer_drawer__ = __webpack_require__(353);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_authentication_login_login__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_authentication_register_register__ = __webpack_require__(355);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_authentication_recovery_forgot__ = __webpack_require__(356);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_page_about_about__ = __webpack_require__(357);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_page_privacy_privacy__ = __webpack_require__(358);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_page_show_show__ = __webpack_require__(693);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_page_terms_terms__ = __webpack_require__(359);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pages_authentication_verify_verify__ = __webpack_require__(363);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_user_settings_general__ = __webpack_require__(361);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_user_settings_security__ = __webpack_require__(362);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_user_settings_settings_tab__ = __webpack_require__(360);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__providers_page__ = __webpack_require__(92);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_fcm__ = __webpack_require__(257);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(261);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_home_home__ = __webpack_require__(355);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_status_bar__ = __webpack_require__(262);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_splash_screen__ = __webpack_require__(263);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_menu_drawer_drawer__ = __webpack_require__(354);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_authentication_login_login__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_authentication_register_register__ = __webpack_require__(356);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_authentication_recovery_forgot__ = __webpack_require__(357);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_page_about_about__ = __webpack_require__(358);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_page_privacy_privacy__ = __webpack_require__(359);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_page_show_show__ = __webpack_require__(693);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_page_terms_terms__ = __webpack_require__(360);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_authentication_verify_verify__ = __webpack_require__(364);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_user_settings_general__ = __webpack_require__(362);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_user_settings_security__ = __webpack_require__(363);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_user_settings_settings_tab__ = __webpack_require__(361);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__providers_user__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__providers_auth__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__providers_authSocial__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__providers_application__ = __webpack_require__(694);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__providers_base__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__providers_page__ = __webpack_require__(92);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1624,60 +1678,62 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* MyApp */],
-                __WEBPACK_IMPORTED_MODULE_5__pages_home_home__["a" /* HomePage */],
-                __WEBPACK_IMPORTED_MODULE_13__pages_menu_drawer_drawer__["a" /* DrawerMenu */],
-                __WEBPACK_IMPORTED_MODULE_14__pages_authentication_login_login__["a" /* LoginPage */],
-                __WEBPACK_IMPORTED_MODULE_15__pages_authentication_register_register__["a" /* RegisterPage */],
-                __WEBPACK_IMPORTED_MODULE_16__pages_authentication_recovery_forgot__["a" /* RecoverPage */],
-                __WEBPACK_IMPORTED_MODULE_21__pages_authentication_verify_verify__["a" /* VerifyPage */],
-                __WEBPACK_IMPORTED_MODULE_17__pages_page_about_about__["a" /* AboutPage */],
-                __WEBPACK_IMPORTED_MODULE_18__pages_page_privacy_privacy__["a" /* PrivacyPage */],
-                __WEBPACK_IMPORTED_MODULE_19__pages_page_show_show__["a" /* ShowPage */],
-                __WEBPACK_IMPORTED_MODULE_20__pages_page_terms_terms__["a" /* TermsPage */],
-                __WEBPACK_IMPORTED_MODULE_24__pages_user_settings_settings_tab__["a" /* SettingsTabPage */],
-                __WEBPACK_IMPORTED_MODULE_22__pages_user_settings_general__["a" /* GeneralSettingsPage */],
-                __WEBPACK_IMPORTED_MODULE_23__pages_user_settings_security__["a" /* SecuritySettingsPage */],
+                __WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* MyApp */],
+                __WEBPACK_IMPORTED_MODULE_6__pages_home_home__["a" /* HomePage */],
+                __WEBPACK_IMPORTED_MODULE_9__pages_menu_drawer_drawer__["a" /* DrawerMenu */],
+                __WEBPACK_IMPORTED_MODULE_10__pages_authentication_login_login__["a" /* LoginPage */],
+                __WEBPACK_IMPORTED_MODULE_11__pages_authentication_register_register__["a" /* RegisterPage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_authentication_recovery_forgot__["a" /* RecoverPage */],
+                __WEBPACK_IMPORTED_MODULE_17__pages_authentication_verify_verify__["a" /* VerifyPage */],
+                __WEBPACK_IMPORTED_MODULE_13__pages_page_about_about__["a" /* AboutPage */],
+                __WEBPACK_IMPORTED_MODULE_14__pages_page_privacy_privacy__["a" /* PrivacyPage */],
+                __WEBPACK_IMPORTED_MODULE_15__pages_page_show_show__["a" /* ShowPage */],
+                __WEBPACK_IMPORTED_MODULE_16__pages_page_terms_terms__["a" /* TermsPage */],
+                __WEBPACK_IMPORTED_MODULE_20__pages_user_settings_settings_tab__["a" /* SettingsTabPage */],
+                __WEBPACK_IMPORTED_MODULE_18__pages_user_settings_general__["a" /* GeneralSettingsPage */],
+                __WEBPACK_IMPORTED_MODULE_19__pages_user_settings_security__["a" /* SecuritySettingsPage */],
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["b" /* HttpClientModule */],
-                __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["c" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* MyApp */], {}, {
+                __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["c" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* MyApp */], {}, {
                     links: []
                 }),
             ],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_3_ionic_angular__["a" /* IonicApp */]],
             entryComponents: [
-                __WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* MyApp */],
-                __WEBPACK_IMPORTED_MODULE_5__pages_home_home__["a" /* HomePage */],
-                __WEBPACK_IMPORTED_MODULE_13__pages_menu_drawer_drawer__["a" /* DrawerMenu */],
-                __WEBPACK_IMPORTED_MODULE_14__pages_authentication_login_login__["a" /* LoginPage */],
-                __WEBPACK_IMPORTED_MODULE_15__pages_authentication_register_register__["a" /* RegisterPage */],
-                __WEBPACK_IMPORTED_MODULE_16__pages_authentication_recovery_forgot__["a" /* RecoverPage */],
-                __WEBPACK_IMPORTED_MODULE_21__pages_authentication_verify_verify__["a" /* VerifyPage */],
-                __WEBPACK_IMPORTED_MODULE_17__pages_page_about_about__["a" /* AboutPage */],
-                __WEBPACK_IMPORTED_MODULE_18__pages_page_privacy_privacy__["a" /* PrivacyPage */],
-                __WEBPACK_IMPORTED_MODULE_19__pages_page_show_show__["a" /* ShowPage */],
-                __WEBPACK_IMPORTED_MODULE_20__pages_page_terms_terms__["a" /* TermsPage */],
-                __WEBPACK_IMPORTED_MODULE_24__pages_user_settings_settings_tab__["a" /* SettingsTabPage */],
-                __WEBPACK_IMPORTED_MODULE_22__pages_user_settings_general__["a" /* GeneralSettingsPage */],
-                __WEBPACK_IMPORTED_MODULE_23__pages_user_settings_security__["a" /* SecuritySettingsPage */],
+                __WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* MyApp */],
+                __WEBPACK_IMPORTED_MODULE_6__pages_home_home__["a" /* HomePage */],
+                __WEBPACK_IMPORTED_MODULE_9__pages_menu_drawer_drawer__["a" /* DrawerMenu */],
+                __WEBPACK_IMPORTED_MODULE_10__pages_authentication_login_login__["a" /* LoginPage */],
+                __WEBPACK_IMPORTED_MODULE_11__pages_authentication_register_register__["a" /* RegisterPage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_authentication_recovery_forgot__["a" /* RecoverPage */],
+                __WEBPACK_IMPORTED_MODULE_17__pages_authentication_verify_verify__["a" /* VerifyPage */],
+                __WEBPACK_IMPORTED_MODULE_13__pages_page_about_about__["a" /* AboutPage */],
+                __WEBPACK_IMPORTED_MODULE_14__pages_page_privacy_privacy__["a" /* PrivacyPage */],
+                __WEBPACK_IMPORTED_MODULE_15__pages_page_show_show__["a" /* ShowPage */],
+                __WEBPACK_IMPORTED_MODULE_16__pages_page_terms_terms__["a" /* TermsPage */],
+                __WEBPACK_IMPORTED_MODULE_20__pages_user_settings_settings_tab__["a" /* SettingsTabPage */],
+                __WEBPACK_IMPORTED_MODULE_18__pages_user_settings_general__["a" /* GeneralSettingsPage */],
+                __WEBPACK_IMPORTED_MODULE_19__pages_user_settings_security__["a" /* SecuritySettingsPage */],
             ],
             providers: [
-                __WEBPACK_IMPORTED_MODULE_6__ionic_native_status_bar__["a" /* StatusBar */],
-                __WEBPACK_IMPORTED_MODULE_7__ionic_native_splash_screen__["a" /* SplashScreen */],
-                __WEBPACK_IMPORTED_MODULE_12__providers_base__["a" /* BaseProvider */],
-                __WEBPACK_IMPORTED_MODULE_9__providers_auth__["a" /* AuthProvider */],
-                __WEBPACK_IMPORTED_MODULE_10__providers_authSocial__["a" /* AuthSocialProvider */],
-                __WEBPACK_IMPORTED_MODULE_11__providers_application__["a" /* ApplicationProvider */],
-                __WEBPACK_IMPORTED_MODULE_8__providers_user__["a" /* UserProvider */],
-                __WEBPACK_IMPORTED_MODULE_25__providers_page__["a" /* PageProvider */],
+                __WEBPACK_IMPORTED_MODULE_7__ionic_native_status_bar__["a" /* StatusBar */],
+                __WEBPACK_IMPORTED_MODULE_8__ionic_native_splash_screen__["a" /* SplashScreen */],
+                __WEBPACK_IMPORTED_MODULE_4__ionic_native_fcm__["a" /* FCM */],
+                __WEBPACK_IMPORTED_MODULE_25__providers_base__["a" /* BaseProvider */],
+                __WEBPACK_IMPORTED_MODULE_22__providers_auth__["a" /* AuthProvider */],
+                __WEBPACK_IMPORTED_MODULE_23__providers_authSocial__["a" /* AuthSocialProvider */],
+                __WEBPACK_IMPORTED_MODULE_24__providers_application__["a" /* ApplicationProvider */],
+                __WEBPACK_IMPORTED_MODULE_21__providers_user__["a" /* UserProvider */],
+                __WEBPACK_IMPORTED_MODULE_26__providers_page__["a" /* PageProvider */],
                 { provide: __WEBPACK_IMPORTED_MODULE_2__angular_core__["u" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["b" /* IonicErrorHandler */] }
             ]
         })
@@ -1730,15 +1786,15 @@ var WBViews = _WBViews;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__libraries_views__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_app_component__ = __webpack_require__(256);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__libraries_helper__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__register_register__ = __webpack_require__(355);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__recovery_forgot__ = __webpack_require__(356);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_app_component__ = __webpack_require__(261);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__libraries_helper__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__register_register__ = __webpack_require__(356);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__recovery_forgot__ = __webpack_require__(357);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__config__ = __webpack_require__(67);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_authSocial__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_authSocial__ = __webpack_require__(158);
 /**
  * @author          Archie, Disono (webmonsph@gmail.com)
  * @link            https://webmons.com
@@ -1844,13 +1900,13 @@ var LoginPage = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(170);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(171);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Rx__ = __webpack_require__(412);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Rx__ = __webpack_require__(413);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Rx__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__libraries_helper__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__libraries_helper__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__config__ = __webpack_require__(67);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__libraries_security__ = __webpack_require__(91);
 /**
@@ -2116,47 +2172,6 @@ var WBConfig = _WBConfig;
 
 /***/ }),
 
-/***/ 692:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ApplicationProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__libraries_helper__ = __webpack_require__(23);
-/**
- * @author          Archie, Disono (webmonsph@gmail.com)
- * @link            https://webmons.com
- * @copyright       Webmons Development Studio. (webmons.com), 2018
- * @license         Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
- */
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var ApplicationProvider = /** @class */ (function () {
-    function ApplicationProvider() {
-        __WEBPACK_IMPORTED_MODULE_1__libraries_helper__["a" /* WBHelper */].log('Application Provider');
-    }
-    ApplicationProvider.prototype.settings = function () {
-    };
-    ApplicationProvider = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [])
-    ], ApplicationProvider);
-    return ApplicationProvider;
-}());
-
-//# sourceMappingURL=application.js.map
-
-/***/ }),
-
 /***/ 693:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2197,12 +2212,53 @@ var ShowPage = /** @class */ (function () {
 
 /***/ }),
 
+/***/ 694:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ApplicationProvider; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__libraries_helper__ = __webpack_require__(22);
+/**
+ * @author          Archie, Disono (webmonsph@gmail.com)
+ * @link            https://webmons.com
+ * @copyright       Webmons Development Studio. (webmons.com), 2018
+ * @license         Apache, 2.0 https://github.com/disono/Ionic-Framework-Template/blob/master/LICENSE
+ */
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var ApplicationProvider = /** @class */ (function () {
+    function ApplicationProvider() {
+        __WEBPACK_IMPORTED_MODULE_1__libraries_helper__["a" /* WBHelper */].log('Application Provider');
+    }
+    ApplicationProvider.prototype.settings = function () {
+    };
+    ApplicationProvider = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [])
+    ], ApplicationProvider);
+    return ApplicationProvider;
+}());
+
+//# sourceMappingURL=application.js.map
+
+/***/ }),
+
 /***/ 91:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WBSecurity; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper__ = __webpack_require__(22);
 /**
  * @author          Archie, Disono (webmonsph@gmail.com)
  * @link            https://webmons.com
@@ -2339,7 +2395,7 @@ var WBSecurity = _WBSecurity;
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PageProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__libraries_helper__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__libraries_helper__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__base__ = __webpack_require__(59);
 /**
  * @author          Archie, Disono (webmonsph@gmail.com)
@@ -2380,5 +2436,5 @@ var PageProvider = /** @class */ (function () {
 
 /***/ })
 
-},[364]);
+},[365]);
 //# sourceMappingURL=main.js.map
