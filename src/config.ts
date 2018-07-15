@@ -11,7 +11,7 @@ let _WBConfig = (function () {
     isBrowser: false,
 
     productionURI: 'https://domain/',
-    developmentURI: 'http://dev/',
+    developmentURI: '/',
     url: function () {
       return ((_WBConfig.development) ? _WBConfig.developmentURI : _WBConfig.productionURI) + 'api/v1/';
     },

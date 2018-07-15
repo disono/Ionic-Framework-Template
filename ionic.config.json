@@ -8,7 +8,7 @@
   "proxies": [
     {
       "path":"/",
-      "proxyUrl": "http://dev"
+      "proxyUrl": "http://domain"
     }
   ]
 }
