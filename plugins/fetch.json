@@ -74,10 +74,10 @@
       "APP_NAME": ""
     }
   },
-  "cordova-plugin-fcm": {
+  "cordova-plugin-fcm-with-dependecy-updated": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-fcm"
+      "id": "cordova-plugin-fcm-with-dependecy-updated@^2.2.4"
     },
     "is_top_level": true,
     "variables": {}

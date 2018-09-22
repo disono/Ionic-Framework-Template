@@ -516,13 +516,13 @@ var MyApp = /** @class */ (function () {
         this.initializeApp();
     }
     MyApp.prototype.initializeApp = function () {
-        var _this = this;
+        var thisApp = this;
         this.platform.ready().then(function () {
             // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.
-            _this.statusBar.styleDefault();
-            _this.splashScreen.hide();
-            _this.defaultPage();
+            thisApp.statusBar.styleDefault();
+            thisApp.splashScreen.hide();
+            thisApp.defaultPage();
         });
     };
     MyApp.prototype.defaultPage = function () {
@@ -571,7 +571,7 @@ var MyApp = /** @class */ (function () {
         }
         // send the token to server
         thisApp.fcm.getToken().then(function (token) {
-            thisApp._sendToken(thisApp, token, callback);
+            thisApp.sendToken(thisApp, token, callback);
         }, function (e) {
             __WEBPACK_IMPORTED_MODULE_10__libraries_helper__["a" /* WBHelper */].showToast('Get Error: ' + e);
             callback();
@@ -582,13 +582,12 @@ var MyApp = /** @class */ (function () {
             __WEBPACK_IMPORTED_MODULE_10__libraries_helper__["a" /* WBHelper */].showToast('Msg Error: ' + e);
         });
     };
-    MyApp.prototype._sendToken = function (thisApp, token, callback) {
+    MyApp.prototype.sendToken = function (thisApp, token, callback) {
         thisApp.authProvider.token(token)
             .subscribe(function () {
             callback();
         }, function (e) {
             callback();
-            alert(e);
         });
     };
     __decorate([
@@ -697,7 +696,6 @@ var AuthProvider = /** @class */ (function () {
     AuthProvider.prototype.token = function (token) {
         var me = this.user();
         var token_id = (me) ? me.token.id : '';
-        alert('ID: ' + token_id);
         return this.base.post('user/fcm/store', { fcm_token: token, token_id: token_id }, function (res) {
             __WEBPACK_IMPORTED_MODULE_2__libraries_helper__["a" /* WBHelper */].log('Auth-token: ' + res);
         });
@@ -2157,7 +2155,7 @@ var _WBConfig = (function () {
         development: true,
         isBrowser: false,
         productionURI: 'https://domain/',
-        developmentURI: 'http://192.168.1.58:40101/',
+        developmentURI: '/',
         url: function () {
             return ((_WBConfig.development) ? _WBConfig.developmentURI : _WBConfig.productionURI) + 'api/v1/';
         },
