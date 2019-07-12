@@ -1,0 +1,121 @@
+<ion-content>
+    <!-- Email login -->
+    <form (ngSubmit)="doRegister()" *ngIf="settings" [formGroup]="inputs">
+        <ion-grid>
+            <ion-row justify-content-center>
+                <ion-col align-self-center size-lg="5" size-md="6" size-xs="12">
+                    <div text-center>
+                        <h3>Register</h3>
+                    </div>
+
+                    <div *ngIf="settings.authSocialFacebook.value === 'enabled'" padding>
+                        <ion-button (click)="doFacebookLogin()" class="btn-radius-sm" color="primary" expand="block"
+                                    mode="ios"
+                                    type="button">
+                            <ion-icon name="logo-facebook" slot="start"></ion-icon>
+                            Continue with Facebook
+                        </ion-button>
+                    </div>
+
+                    <div padding>
+                        <ion-item>
+                            <ion-label color="primary" position="floating">First Name</ion-label>
+                            <ion-input
+                                    [class.invalid]="(!inputs.controls.first_name.valid && submitAttempt) || !inputErrorMsg.first_name.valid"
+                                    formControlName="first_name"
+                                    placeholder=""
+                                    type="text"></ion-input>
+                        </ion-item>
+                        <ion-item
+                                *ngIf="(!inputs.controls.first_name.valid && submitAttempt) || !inputErrorMsg.first_name.valid"
+                                lines="none">
+                            <ion-text class="font-size-sm" color="danger">{{ inputErrorMsg.first_name.msg }}</ion-text>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label color="primary" position="floating">Last Name</ion-label>
+                            <ion-input
+                                    [class.invalid]="(!inputs.controls.last_name.valid && submitAttempt) || !inputErrorMsg.last_name.valid"
+                                    formControlName="last_name"
+                                    placeholder=""
+                                    type="text"></ion-input>
+                        </ion-item>
+                        <ion-item
+                                *ngIf="(!inputs.controls.last_name.valid && submitAttempt) || !inputErrorMsg.last_name.valid"
+                                lines="none">
+                            <ion-text class="font-size-sm" color="danger">{{ inputErrorMsg.last_name.msg }}</ion-text>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label color="primary" position="floating">Email</ion-label>
+                            <ion-input
+                                    [class.invalid]="(!inputs.controls.email.valid && submitAttempt) || !inputErrorMsg.email.valid"
+                                    formControlName="email"
+                                    placeholder=""
+                                    type="email"></ion-input>
+                        </ion-item>
+                        <ion-item *ngIf="(!inputs.controls.email.valid && submitAttempt) || !inputErrorMsg.email.valid"
+                                  lines="none">
+                            <ion-text class="font-size-sm" color="danger">{{ inputErrorMsg.email.msg }}</ion-text>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label color="primary" position="floating">Username</ion-label>
+                            <ion-input
+                                    [class.invalid]="(!inputs.controls.username.valid && submitAttempt) || !inputErrorMsg.username.valid"
+                                    formControlName="username"
+                                    placeholder=""
+                                    type="text"></ion-input>
+                        </ion-item>
+                        <ion-item
+                                *ngIf="(!inputs.controls.username.valid && submitAttempt) || !inputErrorMsg.username.valid"
+                                lines="none">
+                            <ion-text class="font-size-sm" color="danger">{{ inputErrorMsg.username.msg }}</ion-text>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label color="primary" position="floating">Password</ion-label>
+                            <ion-input
+                                    [class.invalid]="(!inputs.controls.password.valid && submitAttempt) || !inputErrorMsg.password.valid"
+                                    formControlName="password"
+                                    placeholder=""
+                                    type="password"></ion-input>
+                        </ion-item>
+                        <ion-item
+                                *ngIf="(!inputs.controls.password.valid && submitAttempt) || !inputErrorMsg.password.valid"
+                                lines="none">
+                            <ion-text class="font-size-sm" color="danger">{{ inputErrorMsg.password.msg }}</ion-text>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label color="primary" position="floating">Confirm Password</ion-label>
+                            <ion-input
+                                    [class.invalid]="(!inputs.controls.password_confirmation.valid && submitAttempt) || !inputErrorMsg.password_confirmation.valid"
+                                    formControlName="password_confirmation"
+                                    placeholder=""
+                                    type="password"></ion-input>
+                        </ion-item>
+                        <ion-item
+                                *ngIf="(!inputs.controls.password_confirmation.valid && submitAttempt) || !inputErrorMsg.password_confirmation.valid"
+                                lines="none">
+                            <ion-text class="font-size-sm" color="danger">{{ inputErrorMsg.password_confirmation.msg
+                                }}
+                            </ion-text>
+                        </ion-item>
+                    </div>
+
+                    <div padding>
+                        <ion-button class="btn-radius-sm" color="primary" expand="block" mode="ios"
+                                    type="submit">Create Account
+                        </ion-button>
+
+                        <ion-button (click)="routeLogin()" class="btn-radius-sm" color="primary"
+                                    expand="block" fill="clear" type="button">
+                            Already have account? Login
+                        </ion-button>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+</ion-content>

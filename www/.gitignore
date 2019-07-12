@@ -1,8 +1,0 @@
-# Specifies intentionally untracked files to ignore when using Git
-# http://git-scm.com/docs/gitignore
-
-assets/
-build/
-index.html
-manigest.json
-service-worker.js

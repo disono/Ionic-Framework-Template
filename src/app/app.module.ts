@@ -1,95 +1,73 @@
+import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
+import {RouteReuseStrategy} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
-import {ErrorHandler, NgModule} from '@angular/core';
-import {IonicApp, IonicErrorHandler, IonicModule} from 'ionic-angular';
-import {FCM} from '@ionic-native/fcm';
+import {IonicModule, IonicRouteStrategy} from '@ionic/angular';
+import {SplashScreen} from '@ionic-native/splash-screen/ngx';
+import {StatusBar} from '@ionic-native/status-bar/ngx';
+import {FCM} from '@ionic-native/fcm/ngx';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common'
 
-import {MyApp} from './app.component';
-import {HomePage} from '../pages/home/home';
+import {AppComponent} from './app.component';
+import {AppRoutingModule} from './app-routing.module';
 
-import {StatusBar} from '@ionic-native/status-bar';
-import {SplashScreen} from '@ionic-native/splash-screen';
-import {DrawerMenu} from "../pages/menu/drawer/drawer";
-import {LoginPage} from "../pages/authentication/login/login";
-import {RegisterPage} from "../pages/authentication/register/register";
-import {RecoverPage} from "../pages/authentication/recovery/forgot";
-import {AboutPage} from "../pages/page/about/about";
-import {PrivacyPage} from "../pages/page/privacy/privacy";
-import {ShowPage} from "../pages/page/show/show";
-import {TermsPage} from "../pages/page/terms/terms";
-import {VerifyPage} from "../pages/authentication/verify/verify";
-import {GeneralSettingsPage} from "../pages/user/settings/general";
-import {SecuritySettingsPage} from "../pages/user/settings/security";
-import {SettingsTabPage} from "../pages/user/settings/settings.tab";
+import {BaseService} from "./services/base/base.service";
+import {AuthGuardService} from "./services/auth/auth.guard.service";
+import {AuthSocialService} from "./services/auth/auth.social.service";
 
-import {UserProvider} from "../providers/user";
-import {AuthProvider} from "../providers/auth";
-import {AuthSocialProvider} from "../providers/authSocial";
-import {ApplicationProvider} from "../providers/application";
-import {BaseProvider} from "../providers/base";
-import {PageProvider} from "../providers/page";
+import {Configurations} from "../environments/config";
+import {StorageHelper} from "./disono/storage";
+import {FileHelper} from "./disono/file";
+import {NavigatorHelper} from "./disono/navigator";
+import {SecurityHelper} from "./disono/security";
+import {DateHelper} from "./disono/date";
+import {FormHelper} from "./disono/form";
+import {ViewHelper} from "./disono/view";
+import {ListenerHelper} from "./disono/listener";
+
+import {LoginPage} from "./pages/auth/login/login.page";
+import {ForgotPage} from "./pages/auth/forgot/forgot.page";
+import {RegisterPage} from "./pages/auth/register/register.page";
+import {TabPage} from "./pages/user/settings/tab/tab.page";
+import {SettingsService} from "./services/app/settings.service";
+import {PageService} from "./services/page/page.service";
 
 @NgModule({
-  declarations: [
-    MyApp,
-    HomePage,
+    declarations: [
+        AppComponent,
+        LoginPage, ForgotPage, RegisterPage,
+        TabPage,
+    ],
+    imports: [
+        BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
+        CommonModule,
+        FormsModule, ReactiveFormsModule
+    ],
+    providers: [
+        StatusBar,
+        SplashScreen,
+        FCM,
+        {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
 
-    DrawerMenu,
+        Configurations,
+        StorageHelper,
+        FileHelper,
+        NavigatorHelper,
+        SecurityHelper,
+        DateHelper,
+        FormHelper,
+        ViewHelper,
+        ListenerHelper,
 
-    LoginPage,
-    RegisterPage,
-    RecoverPage,
-    VerifyPage,
-
-    AboutPage,
-    PrivacyPage,
-    ShowPage,
-    TermsPage,
-
-    SettingsTabPage,
-    GeneralSettingsPage,
-    SecuritySettingsPage,
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    IonicModule.forRoot(MyApp),
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    HomePage,
-
-    DrawerMenu,
-
-    LoginPage,
-    RegisterPage,
-    RecoverPage,
-    VerifyPage,
-
-    AboutPage,
-    PrivacyPage,
-    ShowPage,
-    TermsPage,
-
-    SettingsTabPage,
-    GeneralSettingsPage,
-    SecuritySettingsPage,
-  ],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    FCM,
-
-    BaseProvider,
-    AuthProvider,
-    AuthSocialProvider,
-    ApplicationProvider,
-    UserProvider,
-
-    PageProvider,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
-  ]
+        BaseService,
+        SettingsService,
+        AuthGuardService,
+        AuthSocialService,
+        PageService,
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
+
 }

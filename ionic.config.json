@@ -1,13 +1,7 @@
 {
-  "name": "templateApp",
+  "name": "webmons",
   "integrations": {
     "cordova": {}
   },
-  "type": "ionic-angular",
-  "proxies": [
-    {
-      "path": "/",
-      "proxyUrl": "/"
-    }
-  ]
+  "type": "angular"
 }

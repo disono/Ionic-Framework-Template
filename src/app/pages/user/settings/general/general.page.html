@@ -1,0 +1,143 @@
+<ion-header no-border no-shadow>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+
+        <ion-title>General Settings</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form (ngSubmit)="doSave()" [formGroup]="inputs">
+        <ion-grid>
+            <ion-row justify-content-center>
+                <ion-col align-self-center size-lg="5" size-md="6" size-xs="12">
+                    <div padding>
+                        <div class="w-100 content-center mb-3">
+                            <img (click)="selectPhotoAction()" alt="{{ me.full_name }}"
+                                 class="img-circular-md" id="profilePhoto" src="{{ me.profile_picture }}">
+                        </div>
+
+                        <ion-item>
+                            <ion-label color="primary" position="floating">
+                                First Name
+                            </ion-label>
+                            <ion-input
+                                    [class.invalid]="(!inputs.controls.first_name.valid && submitAttempt) || !inputErrorMsg.first_name.valid"
+                                    formControlName="first_name"
+                                    type="text"></ion-input>
+                        </ion-item>
+                        <ion-item
+                                *ngIf="(!inputs.controls.first_name.valid && submitAttempt) || !inputErrorMsg.first_name.valid"
+                                lines="none">
+                            <ion-text class="font-size-sm" color="danger">{{ inputErrorMsg.first_name.msg }}</ion-text>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label color="primary" position="floating">
+                                Last Name
+                            </ion-label>
+                            <ion-input
+                                    [class.invalid]="(!inputs.controls.last_name.valid && submitAttempt) || !inputErrorMsg.last_name.valid"
+                                    formControlName="last_name"
+                                    type="text"></ion-input>
+                        </ion-item>
+                        <ion-item
+                                *ngIf="(!inputs.controls.last_name.valid && submitAttempt) || !inputErrorMsg.last_name.valid"
+                                lines="none">
+                            <ion-text class="font-size-sm" color="danger">{{ inputErrorMsg.last_name.msg }}</ion-text>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label color="primary" position="floating">
+                                Mobile Phone Number
+                            </ion-label>
+                            <ion-input
+                                    [class.invalid]="(!inputs.controls.phone.valid && submitAttempt) || !inputErrorMsg.phone.valid"
+                                    formControlName="phone"
+                                    type="tel"></ion-input>
+                        </ion-item>
+                        <ion-item
+                                *ngIf="(!inputs.controls.phone.valid && submitAttempt) || !inputErrorMsg.phone.valid"
+                                lines="none">
+                            <ion-text class="font-size-sm" color="danger">{{ inputErrorMsg.phone.msg }}</ion-text>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label color="primary" position="floating">
+                                Birthday
+                            </ion-label>
+
+                            <ion-datetime
+                                    [class.invalid]="(!inputs.controls.birthday.valid && submitAttempt) || !inputErrorMsg.birthday.valid"
+                                    displayFormat="MMMM DD, YYYY"
+                                    formControlName="birthday"></ion-datetime>
+                        </ion-item>
+                        <ion-item
+                                *ngIf="(!inputs.controls.birthday.valid && submitAttempt) || !inputErrorMsg.birthday.valid"
+                                lines="none">
+                            <ion-text class="font-size-sm" color="danger">{{ inputErrorMsg.birthday.msg }}</ion-text>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label color="primary" position="floating">
+                                Home Address
+                            </ion-label>
+                            <ion-textarea
+                                    [class.invalid]="(!inputs.controls.address.valid && submitAttempt) || !inputErrorMsg.address.valid"
+                                    formControlName="address"></ion-textarea>
+                        </ion-item>
+                        <ion-item
+                                *ngIf="(!inputs.controls.address.valid && submitAttempt) || !inputErrorMsg.address.valid"
+                                lines="none">
+                            <ion-text class="font-size-sm" color="danger">{{ inputErrorMsg.address.msg }}</ion-text>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label color="primary" position="floating">
+                                Country
+                            </ion-label>
+                            <ion-select
+                                    [class.invalid]="(!inputs.controls.country_id.valid && submitAttempt) || !inputErrorMsg.country_id.valid"
+                                    formControlName="country_id">
+                                <ion-select-option *ngFor="let country of countries" [value]="country.id">
+                                    {{ country.name }}
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <ion-item
+                                *ngIf="(!inputs.controls.country_id.valid && submitAttempt) || !inputErrorMsg.country_id.valid"
+                                lines="none">
+                            <ion-text class="font-size-sm" color="danger">{{ inputErrorMsg.country_id.msg }}</ion-text>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label color="primary" position="floating">
+                                City
+                            </ion-label>
+                            <ion-select
+                                    [class.invalid]="(!inputs.controls.city_id.valid && submitAttempt) || !inputErrorMsg.city_id.valid"
+                                    formControlName="city_id">
+                                <ion-select-option *ngFor="let city of cities" [value]="city.id">
+                                    {{ city.name }}
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <ion-item
+                                *ngIf="(!inputs.controls.city_id.valid && submitAttempt) || !inputErrorMsg.city_id.valid"
+                                lines="none">
+                            <ion-text class="font-size-sm" color="danger">{{ inputErrorMsg.city_id.msg }}</ion-text>
+                        </ion-item>
+                    </div>
+
+                    <div padding>
+                        <ion-button class="btn-radius-sm" color="primary" expand="block" mode="ios" type="submit">
+                            Save Changes
+                        </ion-button>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+</ion-content>

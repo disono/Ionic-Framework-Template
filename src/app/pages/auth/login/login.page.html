@@ -1,0 +1,73 @@
+<ion-content>
+    <form (ngSubmit)="doLogin()" *ngIf="settings" [formGroup]="inputs">
+        <ion-grid>
+            <ion-row justify-content-center>
+                <ion-col align-self-center size-lg="5" size-md="6" size-xs="12">
+                    <div text-center>
+                        <h3>Login</h3>
+                    </div>
+
+                    <div *ngIf="settings.authSocialFacebook.value === 'enabled'" padding>
+                        <ion-button (click)="doFacebookLogin()" class="btn-radius-sm" color="primary" expand="block"
+                                    mode="ios"
+                                    type="button">
+                            <ion-icon name="logo-facebook" slot="start"></ion-icon>
+                            Continue with Facebook
+                        </ion-button>
+                    </div>
+
+                    <div padding>
+                        <ion-item>
+                            <ion-label color="primary">
+                                <ion-icon name="ios-person"></ion-icon>
+                            </ion-label>
+                            <ion-input
+                                    [class.invalid]="(!inputs.controls.username.valid && submitAttempt) || !inputErrorMsg.username.valid"
+                                    formControlName="username"
+                                    placeholder="Username"
+                                    type="text"></ion-input>
+                        </ion-item>
+                        <ion-item
+                                *ngIf="(!inputs.controls.username.valid && submitAttempt) || !inputErrorMsg.username.valid"
+                                lines="none">
+                            <ion-text class="font-size-sm" color="danger">{{ inputErrorMsg.username.msg }}</ion-text>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-label color="primary">
+                                <ion-icon name="ios-lock"></ion-icon>
+                            </ion-label>
+                            <ion-input
+                                    [class.invalid]="(!inputs.controls.password.valid && submitAttempt) || !inputErrorMsg.password.valid"
+                                    formControlName="password"
+                                    placeholder="Password"
+                                    type="password"></ion-input>
+                        </ion-item>
+                        <ion-item
+                                *ngIf="(!inputs.controls.password.valid && submitAttempt) || !inputErrorMsg.password.valid"
+                                lines="none">
+                            <ion-text class="font-size-sm" color="danger">{{ inputErrorMsg.password.msg }}</ion-text>
+                        </ion-item>
+                    </div>
+
+                    <div padding>
+                        <ion-button class="btn-radius-sm" color="primary" expand="block" mode="ios" type="submit">
+                            Login
+                        </ion-button>
+
+                        <ion-button (click)="routeRegister()" *ngIf="settings.authUserRegistration.value === 'enabled'"
+                                    class="btn-radius-sm"
+                                    color="primary" expand="block" fill="clear">
+                            <span>Don't have an account?</span>&nbsp;<span><strong>Sign up</strong></span>
+                        </ion-button>
+
+                        <ion-button (click)="routeForgotPassword()" class="btn-radius-sm" color="primary" expand="block"
+                                    fill="clear">
+                            Forgot Password?
+                        </ion-button>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+</ion-content>

@@ -1,0 +1,29 @@
+.img-circular-md {
+  border-radius: 100% !important;
+  width: 6rem !important;
+  height: 6rem !important;
+}
+
+.btn-radius-sm {
+  --ion-button-round-border-radius: 3px !important;
+  --ion-button-border-radius: 3px !important;
+  --ion-border-radius: 3px !important;
+  --border-radius: 3px !important;
+}
+
+.font-size-sm {
+  font-size: .74rem;
+}
+
+.w-100 {
+  width: 100% !important;
+}
+
+.content-center {
+  text-align: center !important;
+  justify-content: center !important;
+}
+
+.mb-3 {
+  margin-bottom: 3px !important;
+}

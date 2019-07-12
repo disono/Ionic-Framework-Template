@@ -1,0 +1,34 @@
+<ion-app>
+    <ion-split-pane contentId="MenuDrawerMainContent" when="md">
+        <ion-menu *ngIf="showMenu" contentId="MenuDrawerMainContent" menuId="MenuDrawerMain" side="start"
+                  type="overlay">
+            <ion-header no-border no-shadow>
+                <ion-toolbar color="primary">
+                    <ion-title>Menu</ion-title>
+                </ion-toolbar>
+            </ion-header>
+
+            <ion-content>
+                <ion-list>
+                    <ion-menu-toggle *ngFor="let p of pageRoutes" auto-hide="false">
+                        <ion-item *ngIf="!p.click" [routerDirection]="'root'" [routerLink]="[p.url]">
+                            <ion-icon [name]="p.icon" slot="start"></ion-icon>
+                            <ion-label>
+                                {{ p.title }}
+                            </ion-label>
+                        </ion-item>
+
+                        <ion-item (click)="clickAction(p.click)" *ngIf="p.click">
+                            <ion-icon [name]="p.icon" slot="start"></ion-icon>
+                            <ion-label>
+                                {{ p.title }}
+                            </ion-label>
+                        </ion-item>
+                    </ion-menu-toggle>
+                </ion-list>
+            </ion-content>
+        </ion-menu>
+
+        <ion-router-outlet id="MenuDrawerMainContent" main></ion-router-outlet>
+    </ion-split-pane>
+</ion-app>
