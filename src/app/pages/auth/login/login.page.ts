@@ -67,11 +67,17 @@ export class LoginPage implements OnInit {
             return;
         }
 
-        self.settingService.settings().subscribe((response) => {
-            self.settings = response.data;
-            self.storageHelper.set('settings', self.settings, true);
-        }, (e) => {
-            self.settings = null;
+        self.viewHelper.loadingPresent('Syncing...').then(() => {
+            self.settingService.settings().subscribe((response) => {
+                self.viewHelper.loadingDismiss().then(() => {
+                    self.settings = response.data;
+                    self.storageHelper.set('settings', self.settings, true);
+                });
+            }, (e) => {
+                self.viewHelper.loadingDismiss().then(() => {
+                    self.settings = null;
+                });
+            });
         });
     }
 

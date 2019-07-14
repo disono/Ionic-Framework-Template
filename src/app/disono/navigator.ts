@@ -29,7 +29,11 @@ export class NavigatorHelper {
             return;
         }
 
-        console.log('WB Log: ' + new Date() + ': ' + message);
+        let bgColor = this.generateColor();
+        console.info('%c < START ======================================= START >', 'background: ' + bgColor + '; color: #ffffff');
+        console.info('%c WB Log: ' + new Date(), 'background: #03A9F4; color: #ffffff');
+        console.log(message);
+        console.info('%c < END   ======================================= END   >', 'background: ' + bgColor + '; color: #ffffff');
     }
 
     /**
@@ -42,7 +46,22 @@ export class NavigatorHelper {
             return;
         }
 
-        console.log('WB Error: ' + new Date() + ': ' + message);
+        let bgColor = this.generateColor();
+        console.info('%c < START ======================================= START >', 'background: ' + bgColor + '; color: #ffffff');
+        console.info('%c WB Error: ' + new Date(), 'background: #E91E63; color: #ffffff');
+        console.error(message);
+        console.info('%c < END   ======================================= END   >', 'background: ' + bgColor + '; color: #ffffff');
+    }
+
+    generateColor() {
+        let letters = '0123456789ABCDEF';
+        let color = '#';
+
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+
+        return color;
     }
 
     /**

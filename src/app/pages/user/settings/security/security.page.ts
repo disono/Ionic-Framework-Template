@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NavController} from '@ionic/angular';
+import {Events, NavController} from '@ionic/angular';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ViewHelper} from "../../../../disono/view";
 import {AuthService} from "../../../../services/auth/auth.service";
@@ -31,7 +31,8 @@ export class SecurityPage implements OnInit {
         private authSocialService: AuthSocialService,
         private settingService: SettingsService,
         private navigatorHelper: NavigatorHelper,
-        private storageHelper: StorageHelper
+        private storageHelper: StorageHelper,
+        private events: Events
     ) {
 
     }
@@ -46,6 +47,7 @@ export class SecurityPage implements OnInit {
         this.me = this.authService.user();
         this.inputErrorMsg = this.setInputErrorMsg();
         this.fetchSettings();
+        this.listenToEvents();
     }
 
     private formInputs() {
@@ -109,6 +111,13 @@ export class SecurityPage implements OnInit {
             password: {msg: 'Please enter a valid password.', valid: true},
             password_confirmation: {msg: 'Please enter a valid confirmation password.', valid: true}
         };
+    }
+
+    private listenToEvents() {
+        let self = this;
+        self.events.subscribe('tabSettingLeave', () => {
+            self.events.unsubscribe('tabSettingLeave', null);
+        });
     }
 
 }

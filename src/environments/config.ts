@@ -4,8 +4,9 @@ export class Configurations {
     public browser = true;
     public production = false;
 
-    public developmentURI = 'http://localhost:port';
     public productionURI = '';
+    public developmentURI = 'http://yout-domain:40101';
+    public socketURI = 'http://yout-domain:4000';
 
     public apiPath = '/api/v1/';
 

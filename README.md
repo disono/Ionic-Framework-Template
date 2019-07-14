@@ -13,6 +13,7 @@ is a starting blank template for Ionic Projects V4
 * **Cordova Local-Notification Plugin:** [https://github.com/katzer/cordova-plugin-local-notifications](https://github.com/katzer/cordova-plugin-local-notifications)
 * **Google Firebase Cloud Messaging Cordova Push Plugin**[https://github.com/fechanique/cordova-plugin-fcm](https://github.com/fechanique/cordova-plugin-fcm)
 * **cordova-plugin-facebook4:** [https://github.com/jeduan/cordova-plugin-facebook4](https://github.com/jeduan/cordova-plugin-facebook4)
+* **cordova-plugin-background-mode** [https://github.com/katzer/cordova-plugin-background-mode](https://github.com/katzer/cordova-plugin-background-mode)
 
 ### How to install
 ```sh

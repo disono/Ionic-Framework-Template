@@ -22,6 +22,9 @@ import {NavigatorHelper} from "./disono/navigator";
 import {Configurations} from "../environments/config";
 import {ViewHelper} from "./disono/view";
 import {StorageHelper} from "./disono/storage";
+import {SocketHelper} from "./socket/socket";
+
+declare let cordova;
 
 @Component({
     selector: 'app-root',
@@ -32,6 +35,7 @@ export class AppComponent {
     @ViewChildren(IonRouterOutlet) routerOutlets: QueryList<IonRouterOutlet>;
     private pageRoutes = [];
     private listenerHelper = new ListenerHelper();
+    private isPause = false;
 
     constructor(
         private router: Router,
@@ -53,7 +57,8 @@ export class AppComponent {
         private fcm: FCM,
         private navigatorHelper: NavigatorHelper,
         private config: Configurations,
-        private storageHelper: StorageHelper
+        private storageHelper: StorageHelper,
+        private socketHelper: SocketHelper
     ) {
 
     }
@@ -118,9 +123,14 @@ export class AppComponent {
     private setDefaultPage(response) {
         let self = this;
 
-        if (response.data.setting) {
-            self.storageHelper.set('settings', response.data.setting, true);
+        if (!response.data.setting) {
             return;
+        }
+
+        self.storageHelper.set('settings', response.data.setting, true);
+
+        if (response.data.setting.socketIO.value === 'enabled') {
+            self.initSocket(response);
         }
 
         if (response.data.setting.fcm.value === 'enabled') {
@@ -142,9 +152,10 @@ export class AppComponent {
             // send token to server
             self.authService.storeFCMToken(token).subscribe(() => {
                 // subscribe to topic
-                response.data.setting.fcm_topics.value.forEach(value => {
+                response.data.setting.fcmTopics.value.forEach(value => {
                     if (value) {
                         self.fcm.subscribeToTopic(value).then(() => {
+
                         });
                     }
                 });
@@ -163,6 +174,29 @@ export class AppComponent {
         }, e => {
             self.navigatorHelper.toast('FCM Error(Token): ' + e);
             callback();
+        });
+    }
+
+    private initSocket(response) {
+        let self = this;
+        let me = self.authService.user();
+        response.data.setting.socketIOTopics.value.push(me.token.token);
+        let sck = self.socketHelper.init(response.data.setting.socketIOTopics.value);
+
+        sck.fetchEvents().forEach((name) => {
+            self.events.subscribe('sckSubscriber_' + name, data => {
+                if (self.config.browser) {
+                    self.navigatorHelper.log('sckSubscriber_' + name + ':' + data);
+                    return;
+                }
+
+                if (self.isInBackground()) {
+                    cordova.plugins.notification.local.schedule({
+                        title: data.title,
+                        text: data.content
+                    });
+                }
+            });
         });
     }
 
@@ -194,6 +228,24 @@ export class AppComponent {
             self.init();
             self.initMenuRoutes();
         });
+
+        if (!self.config.browser) {
+            document.addEventListener("resume", self.onResume, false);
+            document.addEventListener("pause", self.onPause, false);
+            cordova.plugins.backgroundMode.enable();
+        }
+    }
+
+    private onResume() {
+        this.isPause = false;
+    }
+
+    private onPause() {
+        this.isPause = true;
+    }
+
+    private isInBackground() {
+        return this.isPause && cordova.plugins.backgroundMode.isActive();
     }
 
     private clickAction(action) {
@@ -212,6 +264,12 @@ export class AppComponent {
     private logout() {
         let self = this;
 
+        // disable background service
+        if (!self.config.browser) {
+            cordova.plugins.backgroundMode.disable();
+        }
+
+        // sent logout to server
         self.authService.logout().subscribe(response => {
             self.navigateRoute('/auth/login');
         }, e => {

@@ -15,6 +15,8 @@ import {AppRoutingModule} from './app-routing.module';
 import {BaseService} from "./services/base/base.service";
 import {AuthGuardService} from "./services/auth/auth.guard.service";
 import {AuthSocialService} from "./services/auth/auth.social.service";
+import {SettingsService} from "./services/app/settings.service";
+import {PageService} from "./services/page/page.service";
 
 import {Configurations} from "../environments/config";
 import {StorageHelper} from "./disono/storage";
@@ -25,13 +27,12 @@ import {DateHelper} from "./disono/date";
 import {FormHelper} from "./disono/form";
 import {ViewHelper} from "./disono/view";
 import {ListenerHelper} from "./disono/listener";
+import {SocketHelper} from "./socket/socket";
 
 import {LoginPage} from "./pages/auth/login/login.page";
 import {ForgotPage} from "./pages/auth/forgot/forgot.page";
 import {RegisterPage} from "./pages/auth/register/register.page";
 import {TabPage} from "./pages/user/settings/tab/tab.page";
-import {SettingsService} from "./services/app/settings.service";
-import {PageService} from "./services/page/page.service";
 
 @NgModule({
     declarations: [
@@ -59,6 +60,7 @@ import {PageService} from "./services/page/page.service";
         FormHelper,
         ViewHelper,
         ListenerHelper,
+        SocketHelper,
 
         BaseService,
         SettingsService,

@@ -26,8 +26,9 @@ export class SecurityHelper {
      *
      * @param tokenLog
      * @param id
+     * @param validity
      */
-    public encodeJWT(tokenLog, id) {
+    public encodeJWT(tokenLog, id, validity = 5) {
         if (!tokenLog) {
             return null;
         }
@@ -52,8 +53,8 @@ export class SecurityHelper {
             const iss = id;
             const sub = 'uid';
             const iat = dataIat.unix();
-            const nbf = dateNbf.subtract(5, 'minutes').unix();
-            const exp = dataExp.add(5, 'minutes').unix();
+            const nbf = dateNbf.subtract(validity, 'minutes').unix();
+            const exp = dataExp.add(validity, 'minutes').unix();
             const jti = MD5("jti." + iss + "." + sub + "." + iat + "." + tokenLog.token).toString();
 
             const payload = {
@@ -84,9 +85,9 @@ export class SecurityHelper {
         return token;
     }
 
-    public token() {
+    public token(validity = 5) {
         let auth = this.storageHelper.fetch('user', true);
-        return (auth) ? this.encodeJWT(auth.token, auth.id) : null;
+        return (auth) ? this.encodeJWT(auth.token, auth.id, validity) : null;
     }
 
     public saveAuth(newAuth) {

@@ -6,7 +6,7 @@
  */
 
 import {Component, OnInit} from '@angular/core';
-import {ActionSheetController, NavController} from '@ionic/angular';
+import {ActionSheetController, NavController, Events} from '@ionic/angular';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ViewHelper} from "../../../../disono/view";
 import {AuthService} from "../../../../services/auth/auth.service";
@@ -46,7 +46,8 @@ export class GeneralPage implements OnInit {
         private settingService: SettingsService,
         private navigatorHelper: NavigatorHelper,
         private formHelper: FormHelper,
-        private actionSheetController: ActionSheetController
+        private actionSheetController: ActionSheetController,
+        private events: Events
     ) {
 
     }
@@ -63,6 +64,7 @@ export class GeneralPage implements OnInit {
         this.me = this.authService.user();
         this.inputErrorMsg = this.setInputErrorMsg();
         this.sync();
+        this.listenToEvents();
     }
 
     private formInputs() {
@@ -214,6 +216,13 @@ export class GeneralPage implements OnInit {
             country_id: {msg: 'Please enter a valid country.', valid: true},
             city_id: {msg: 'Please enter a valid city.', valid: true},
         };
+    }
+
+    private listenToEvents() {
+        let self = this;
+        self.events.subscribe('tabSettingLeave', () => {
+            self.events.unsubscribe('tabSettingLeave', null);
+        });
     }
 
 }

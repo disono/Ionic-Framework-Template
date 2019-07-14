@@ -40,11 +40,6 @@ const routes: Routes = [
         component: TabPage,
         children: [
             {
-                path: '',
-                redirectTo: '/user/settings/general',
-                pathMatch: 'full'
-            },
-            {
                 path: 'general',
                 children: [
                     {
