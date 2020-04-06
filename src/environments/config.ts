@@ -5,8 +5,8 @@ export class Configurations {
     public production = false;
 
     public productionURI = '';
-    public developmentURI = 'http://yout-domain:40101';
-    public socketURI = 'http://yout-domain:4000';
+    public developmentURI = 'http://domain:40101';
+    public socketURI = 'http://domain:4000';
 
     public apiPath = '/api/v1/';
 

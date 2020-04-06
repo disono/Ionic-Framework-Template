@@ -8,7 +8,8 @@
 import {LoadingController} from '@ionic/angular';
 
 export class ViewHelper {
-    private loadingController = new LoadingController(document);
+    // @ts-ignore
+    private loadingController = new LoadingController();
 
     async loadingPresent(message) {
         const loadingElement = await this.loadingController.create({

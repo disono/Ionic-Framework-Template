@@ -1,8 +1,8 @@
 {
   "_from": "cordova-plugin-dialogs",
-  "_id": "cordova-plugin-dialogs@2.0.1",
+  "_id": "cordova-plugin-dialogs@2.0.2",
   "_inBundle": false,
-  "_integrity": "sha1-N/7xUSWWyNXflUP7eHJFkPdn3PM=",
+  "_integrity": "sha512-FUHI6eEVeoz2VkxbF0P56QlUQLGzXcvw3i4xuXyM9gEct6Y+FA3Xzgl2pJTZcTg5wRqLWzN08kgNoHPkom15pw==",
   "_location": "/cordova-plugin-dialogs",
   "_phantomChildren": {},
   "_requested": {
@@ -19,15 +19,15 @@
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/cordova-plugin-dialogs/-/cordova-plugin-dialogs-2.0.1.tgz",
-  "_shasum": "37fef1512596c8d5df9543fb78724590f767dcf3",
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-dialogs/-/cordova-plugin-dialogs-2.0.2.tgz",
+  "_shasum": "ac3ce8b73bc885ff847078d5b533e7a4ed418a2f",
   "_spec": "cordova-plugin-dialogs",
   "_where": "D:\\github.com\\cordova\\Ionic-Framework-Template",
   "author": {
     "name": "Apache Software Foundation"
   },
   "bugs": {
-    "url": "https://issues.apache.org/jira/browse/CB"
+    "url": "https://github.com/apache/cordova-plugin-dialogs/issues"
   },
   "bundleDependencies": false,
   "cordova": {
@@ -78,5 +78,5 @@
     "test": "npm run eslint"
   },
   "types": "./types/index.d.ts",
-  "version": "2.0.1"
+  "version": "2.0.2"
 }

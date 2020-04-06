@@ -70,7 +70,7 @@ export class BaseService {
      * @private
      */
     private static extractErrors(e) {
-        if (typeof e.error !== 'undefined') {
+        if (typeof e.error !== 'undefined' && typeof e.error.errors !== 'undefined') {
             return e.error.errors;
         }
 

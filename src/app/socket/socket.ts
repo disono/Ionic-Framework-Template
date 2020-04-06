@@ -13,9 +13,9 @@ export class SocketHelper {
     private storageHelper = new StorageHelper();
     private securityHelper = new SecurityHelper();
     private navigatorHelper = new NavigatorHelper();
-
     private config = new Configurations();
-    private me = this.storageHelper.fetch('user', true);
+
+    private me = null;
     private token = null;
     private socket = null;
     private options = null;
@@ -23,12 +23,16 @@ export class SocketHelper {
     private isConnected = null;
     private publishEvents = [];
 
+    private maxReconnect = 10;
+    private reconnectionThreshold = 0;
+
     constructor(public events: Events) {
 
     }
 
     init(events = []) {
-        let self = this;
+        this.me = this.storageHelper.fetch('user', true);
+
         if (!this.isConnected) {
             let soc = this.connect();
             soc.onConnect();
@@ -150,8 +154,11 @@ export class SocketHelper {
     }
 
     private clearReconnection() {
-        if (this.isConnected) {
+        this.reconnectionThreshold++;
+
+        if (!this.me || this.isConnected || (this.maxReconnect > 0 && this.reconnectionThreshold >= this.maxReconnect)) {
             if (this.intervalTimer) {
+                this.reconnectionThreshold = 0;
                 clearInterval(this.intervalTimer);
             }
 
@@ -169,8 +176,8 @@ export class SocketHelper {
                         'authorization': 'Bearer ' + this.token,
                         'source': 'mobile',
                         'app-name': this.appName(),
-                        'tkey': String(this.me.token.key),
-                        'uid': String(this.me.id)
+                        'tkey': this.me ? String(this.me.token.key) : null,
+                        'uid': this.me ? String(this.me.id) : null
                     }
                 }
             }

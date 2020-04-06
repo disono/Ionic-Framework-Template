@@ -37,6 +37,8 @@ export class AppComponent {
     private listenerHelper = new ListenerHelper();
     private isPause = false;
 
+    private sck = null;
+
     constructor(
         private router: Router,
         private platform: Platform,
@@ -180,10 +182,11 @@ export class AppComponent {
     private initSocket(response) {
         let self = this;
         let me = self.authService.user();
-        response.data.setting.socketIOTopics.value.push(me.token.token);
-        let sck = self.socketHelper.init(response.data.setting.socketIOTopics.value);
 
-        sck.fetchEvents().forEach((name) => {
+        response.data.setting.socketIOTopics.value.push(me.token.token);
+        self.sck = self.socketHelper.init(response.data.setting.socketIOTopics.value);
+
+        self.sck.fetchEvents().forEach((name) => {
             self.events.subscribe('sckSubscriber_' + name, data => {
                 if (self.config.browser) {
                     self.navigatorHelper.log('sckSubscriber_' + name + ':' + data);
@@ -267,6 +270,11 @@ export class AppComponent {
         // disable background service
         if (!self.config.browser) {
             cordova.plugins.backgroundMode.disable();
+        }
+
+        // disconnect to socket
+        if (self.sck) {
+            self.sck.destroyConnection();
         }
 
         // sent logout to server

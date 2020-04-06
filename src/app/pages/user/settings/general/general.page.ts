@@ -16,6 +16,7 @@ import {NavigatorHelper} from "../../../../disono/navigator";
 import {UserService} from "../../../../services/auth/user.service";
 import * as moment from "moment";
 import {FormHelper} from "../../../../disono/form";
+import {SecurityHelper} from "../../../../disono/security";
 
 declare let Camera;
 
@@ -47,7 +48,8 @@ export class GeneralPage implements OnInit {
         private navigatorHelper: NavigatorHelper,
         private formHelper: FormHelper,
         private actionSheetController: ActionSheetController,
-        private events: Events
+        private events: Events,
+        private securityHelper: SecurityHelper
     ) {
 
     }
@@ -195,6 +197,7 @@ export class GeneralPage implements OnInit {
                 .subscribe(function (response) {
                     self.viewHelper.loadingDismiss().then(() => {
                         self.submitAttempt = false;
+                        self.securityHelper.saveAuth(response.data);
                     });
                 }, function (e) {
                     self.viewHelper.loadingDismiss().then(() => {

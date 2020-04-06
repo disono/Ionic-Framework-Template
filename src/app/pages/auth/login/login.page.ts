@@ -23,9 +23,8 @@ import {StorageHelper} from "../../../disono/storage";
 export class LoginPage implements OnInit {
     private inputs: FormGroup;
     private submitAttempt: boolean = false;
-    private settings = null;
-
     private inputErrorMsg = this.setInputErrorMsg();
+    private settings = null;
 
     constructor(
         private navCtrl: NavController,
